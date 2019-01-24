@@ -43,7 +43,7 @@
             this.label1.Location = new System.Drawing.Point(113, 77);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(148, 32);
+            this.label1.Size = new System.Drawing.Size(115, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "Đăng nhập";
             // 
@@ -54,7 +54,7 @@
             this.lblUsernam.Location = new System.Drawing.Point(121, 176);
             this.lblUsernam.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUsernam.Name = "lblUsernam";
-            this.lblUsernam.Size = new System.Drawing.Size(88, 22);
+            this.lblUsernam.Size = new System.Drawing.Size(70, 19);
             this.lblUsernam.TabIndex = 1;
             this.lblUsernam.Text = "Username";
             // 
@@ -65,7 +65,7 @@
             this.lblPassword.Location = new System.Drawing.Point(121, 236);
             this.lblPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(88, 22);
+            this.lblPassword.Size = new System.Drawing.Size(69, 19);
             this.lblPassword.TabIndex = 2;
             this.lblPassword.Text = "Password";
             // 
@@ -73,34 +73,36 @@
             // 
             this.txtUsername.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsername.Location = new System.Drawing.Point(268, 172);
-            this.txtUsername.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtUsername.Margin = new System.Windows.Forms.Padding(4);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(368, 30);
+            this.txtUsername.Size = new System.Drawing.Size(368, 26);
             this.txtUsername.TabIndex = 3;
             // 
             // txtPassword
             // 
             this.txtPassword.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.Location = new System.Drawing.Point(268, 232);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(4);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(368, 30);
+            this.txtPassword.PasswordChar = '*';
+            this.txtPassword.Size = new System.Drawing.Size(368, 26);
             this.txtPassword.TabIndex = 4;
             // 
             // btnLogin
             // 
             this.btnLogin.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.Location = new System.Drawing.Point(268, 329);
-            this.btnLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(4);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(162, 43);
             this.btnLogin.TabIndex = 5;
             this.btnLogin.Text = "Đăng nhập";
             this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // LoginForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(781, 513);
             this.Controls.Add(this.btnLogin);
@@ -110,7 +112,7 @@
             this.Controls.Add(this.lblUsernam);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "LoginForm";
             this.Text = "ATV - chương trình soạn lịch";
             this.ResumeLayout(false);

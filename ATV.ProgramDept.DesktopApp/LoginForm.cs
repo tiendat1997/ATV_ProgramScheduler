@@ -16,5 +16,13 @@ namespace ATV.ProgramDept.DesktopApp
         {
             InitializeComponent();
         }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            EditorHomeForm editorHome = new EditorHomeForm();
+            editorHome.ShowDialog();
+            this.Close();
+        }
     }
 }
