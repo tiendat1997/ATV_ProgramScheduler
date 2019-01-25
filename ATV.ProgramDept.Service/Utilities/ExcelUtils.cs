@@ -37,7 +37,7 @@ namespace ATV.ProgramDept.Service.Utilities
             return null;
         }
 
-        public static byte[] exportSchedult(List<Schedule> schedules)
+        public static byte[] exportSchedule(List<Schedule> schedules)
         {
             using (ExcelPackage ex = new ExcelPackage())
             {
