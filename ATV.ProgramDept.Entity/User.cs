@@ -37,7 +37,7 @@ namespace ATV.ProgramDept.Entity
         public string Username { get; set; }
 
         [Required]
-        [StringLength(10)]
+        [StringLength(200)]
         public string PasswordHash { get; set; }
 
         public bool IsPasswordChanged { get; set; }

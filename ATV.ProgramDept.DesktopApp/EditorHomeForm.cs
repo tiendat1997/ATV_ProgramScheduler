@@ -17,7 +17,11 @@ namespace ATV.ProgramDept.DesktopApp
       
         public EditorHomeForm()
         {      
-            InitializeComponent();                     
+            InitializeComponent();  
+            if (!Program.User.Rolename.Equals("Admin"))
+            {
+                this.btnToAdmin.Hide();
+            }
         }
 
         private void btnToAdmin_Click(object sender, EventArgs e)

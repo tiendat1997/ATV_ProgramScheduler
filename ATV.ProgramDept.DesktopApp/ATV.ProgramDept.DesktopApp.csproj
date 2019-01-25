@@ -59,11 +59,23 @@
     <Compile Include="AdminHomeForm.Designer.cs">
       <DependentUpon>AdminHomeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChangePasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangePasswordForm.Designer.cs">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditorHomeForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EditorHomeForm.Designer.cs">
       <DependentUpon>EditorHomeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InsertInsertedProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InsertInsertedProgramForm.Designer.cs">
+      <DependentUpon>InsertInsertedProgramForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -76,8 +88,14 @@
     <EmbeddedResource Include="AdminHomeForm.resx">
       <DependentUpon>AdminHomeForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ChangePasswordForm.resx">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditorHomeForm.resx">
       <DependentUpon>EditorHomeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InsertInsertedProgramForm.resx">
+      <DependentUpon>InsertInsertedProgramForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -92,6 +110,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Entity.Program.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

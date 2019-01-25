@@ -22,6 +22,8 @@ namespace ATV.ProgramDept.Entity
 
         public double? Duration { get; set; }
 
+        public string PerformBy { get; set; }
+
         public int ProgramTypeID { get; set; }
 
         public bool? IsActive { get; set; }

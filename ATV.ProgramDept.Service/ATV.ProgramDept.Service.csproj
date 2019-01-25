@@ -56,16 +56,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enum\ProgramTypeEnum.cs" />
+    <Compile Include="Implement\EditingHistoryRepository.cs" />
     <Compile Include="Implement\ProgramRepository.cs" />
     <Compile Include="Implement\Repository.cs" />
+    <Compile Include="Implement\UserRepository.cs" />
+    <Compile Include="Interface\IEditingHistoryRepository.cs" />
     <Compile Include="Interface\IProgramRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
+    <Compile Include="Interface\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ExcelUtils.cs" />
+    <Compile Include="Utilities\MD5Utils.cs" />
+    <Compile Include="ViewModel\LoggedInUserInfomation.cs" />
+    <Compile Include="ViewModel\ProgramViewModel.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ATV.ProgramDept.Entity\ATV.ProgramDept.Entity.csproj">
       <Project>{E419669D-4467-4B31-A8D8-6ACA28118C60}</Project>
