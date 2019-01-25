@@ -27,5 +27,11 @@ namespace ATV.ProgramDept.DesktopApp
             adminHome.ShowDialog();
             this.Close();
         }
+
+        private void tsmiEditorExport_Click(object sender, EventArgs e)
+        {
+            ExportForm adminHome = new ExportForm();
+            adminHome.ShowDialog();
+        }
     }
 }
