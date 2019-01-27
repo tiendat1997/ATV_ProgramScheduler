@@ -49,8 +49,8 @@ namespace ATV.ProgramDept.DesktopApp
                 this.Close();
                 return;
             }
-            EditingHistory MostRecentEditingHistory = EditingHistoryRepository.GetAll()
-                .OrderByDescending(p => p.Time).First();
+            //EditingHistory MostRecentEditingHistory = EditingHistoryRepository.GetAll()
+            //    .OrderByDescending(p => p.Time).First();
             //MessageBox.Show("")
             ////Thông báo người sửa gần nhất
             //

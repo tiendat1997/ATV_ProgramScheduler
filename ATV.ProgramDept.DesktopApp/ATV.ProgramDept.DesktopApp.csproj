@@ -83,6 +83,24 @@
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManageAccountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageAccountForm.Designer.cs">
+      <DependentUpon>ManageAccountForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageEmailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageEmailForm.Designer.cs">
+      <DependentUpon>ManageEmailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageProgramForm.Designer.cs">
+      <DependentUpon>ManageProgramForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AdminHomeForm.resx">
@@ -100,6 +118,15 @@
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ManageAccountForm.resx">
+      <DependentUpon>ManageAccountForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageEmailForm.resx">
+      <DependentUpon>ManageEmailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageProgramForm.resx">
+      <DependentUpon>ManageProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -111,6 +138,7 @@
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\ATV.ProgramDept.Entity.Program.datasource" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Entity.User.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
