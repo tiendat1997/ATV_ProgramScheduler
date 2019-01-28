@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.btnNewAccount = new System.Windows.Forms.Button();
             this.dgvUnvalidateUser = new System.Windows.Forms.DataGridView();
-            this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dgvValidateUser = new System.Windows.Forms.DataGridView();
             this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.identityCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,6 +44,8 @@
             this.roleIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isActiveDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Approve = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dgvValidateUser = new System.Windows.Forms.DataGridView();
             this.iDDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.identityCodeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usernameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -75,6 +75,7 @@
             this.btnNewAccount.TabIndex = 0;
             this.btnNewAccount.Text = "Thêm tài khoản";
             this.btnNewAccount.UseVisualStyleBackColor = true;
+            this.btnNewAccount.Click += new System.EventHandler(this.btnNewAccount_Click);
             // 
             // dgvUnvalidateUser
             // 
@@ -100,38 +101,6 @@
             this.dgvUnvalidateUser.Size = new System.Drawing.Size(644, 169);
             this.dgvUnvalidateUser.TabIndex = 1;
             this.dgvUnvalidateUser.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUnvalidateUser_CellContentClick);
-            // 
-            // userBindingSource
-            // 
-            this.userBindingSource.DataSource = typeof(ATV.ProgramDept.Entity.User);
-            // 
-            // dgvValidateUser
-            // 
-            this.dgvValidateUser.AutoGenerateColumns = false;
-            this.dgvValidateUser.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvValidateUser.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.iDDataGridViewTextBoxColumn1,
-            this.identityCodeDataGridViewTextBoxColumn1,
-            this.usernameDataGridViewTextBoxColumn1,
-            this.passwordHashDataGridViewTextBoxColumn1,
-            this.nameDataGridViewTextBoxColumn1,
-            this.phone1DataGridViewTextBoxColumn1,
-            this.phone2DataGridViewTextBoxColumn1,
-            this.emailDataGridViewTextBoxColumn1,
-            this.isPasswordChangedDataGridViewCheckBoxColumn1,
-            this.defaultPasswordDataGridViewTextBoxColumn1,
-            this.roleIDDataGridViewTextBoxColumn1,
-            this.isActiveDataGridViewCheckBoxColumn1,
-            this.editingHistoriesDataGridViewTextBoxColumn,
-            this.mailingHistoriesDataGridViewTextBoxColumn,
-            this.roleDataGridViewTextBoxColumn,
-            this.Remove});
-            this.dgvValidateUser.DataSource = this.userBindingSource;
-            this.dgvValidateUser.Location = new System.Drawing.Point(13, 247);
-            this.dgvValidateUser.Name = "dgvValidateUser";
-            this.dgvValidateUser.Size = new System.Drawing.Size(445, 150);
-            this.dgvValidateUser.TabIndex = 2;
-            this.dgvValidateUser.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvValidateUser_CellContentClick);
             // 
             // iDDataGridViewTextBoxColumn
             // 
@@ -220,6 +189,38 @@
             this.Approve.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Approve.Text = "Xác nhận";
             this.Approve.UseColumnTextForButtonValue = true;
+            // 
+            // userBindingSource
+            // 
+            this.userBindingSource.DataSource = typeof(ATV.ProgramDept.Entity.User);
+            // 
+            // dgvValidateUser
+            // 
+            this.dgvValidateUser.AutoGenerateColumns = false;
+            this.dgvValidateUser.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvValidateUser.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.iDDataGridViewTextBoxColumn1,
+            this.identityCodeDataGridViewTextBoxColumn1,
+            this.usernameDataGridViewTextBoxColumn1,
+            this.passwordHashDataGridViewTextBoxColumn1,
+            this.nameDataGridViewTextBoxColumn1,
+            this.phone1DataGridViewTextBoxColumn1,
+            this.phone2DataGridViewTextBoxColumn1,
+            this.emailDataGridViewTextBoxColumn1,
+            this.isPasswordChangedDataGridViewCheckBoxColumn1,
+            this.defaultPasswordDataGridViewTextBoxColumn1,
+            this.roleIDDataGridViewTextBoxColumn1,
+            this.isActiveDataGridViewCheckBoxColumn1,
+            this.editingHistoriesDataGridViewTextBoxColumn,
+            this.mailingHistoriesDataGridViewTextBoxColumn,
+            this.roleDataGridViewTextBoxColumn,
+            this.Remove});
+            this.dgvValidateUser.DataSource = this.userBindingSource;
+            this.dgvValidateUser.Location = new System.Drawing.Point(13, 247);
+            this.dgvValidateUser.Name = "dgvValidateUser";
+            this.dgvValidateUser.Size = new System.Drawing.Size(445, 150);
+            this.dgvValidateUser.TabIndex = 2;
+            this.dgvValidateUser.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvValidateUser_CellContentClick);
             // 
             // iDDataGridViewTextBoxColumn1
             // 

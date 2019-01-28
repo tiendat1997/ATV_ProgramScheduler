@@ -29,9 +29,9 @@ namespace ATV.ProgramDept.Service.Implement
             return true;
         }
 
-        public IEnumerable<User> GetUsers(bool isActive)
+        public IEnumerable<User> GetUsers(bool isPassChanged)
         {
-            var users = Find(u => u.IsActive == isActive).ToList();
+            var users = Find(u => u.IsPasswordChanged == isPassChanged).ToList();
             return users; 
         }
 

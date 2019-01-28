@@ -12,6 +12,6 @@ namespace ATV.ProgramDept.Service.Interface
     {
         LoggedInUserInfomation Login(string Username, string Password);
         bool ChangePassword(string Username, string Password);
-        IEnumerable<User> GetUsers(bool isActive);        
+        IEnumerable<User> GetUsers(bool isPassChanged);        
     }
 }

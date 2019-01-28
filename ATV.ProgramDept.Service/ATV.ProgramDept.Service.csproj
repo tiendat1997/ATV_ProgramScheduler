@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enum\RoleEnum.cs" />
     <Compile Include="Enum\ProgramTypeEnum.cs" />
     <Compile Include="Implement\EditingHistoryRepository.cs" />
     <Compile Include="Implement\ProgramRepository.cs" />
@@ -67,6 +68,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ExcelUtils.cs" />
     <Compile Include="Utilities\MD5Utils.cs" />
+    <Compile Include="Utilities\RegexPattern.cs" />
+    <Compile Include="Utilities\ValidationProvider.cs" />
     <Compile Include="ViewModel\LoggedInUserInfomation.cs" />
     <Compile Include="ViewModel\ProgramViewModel.cs" />
   </ItemGroup>

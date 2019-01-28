@@ -48,5 +48,22 @@ namespace ATV.ProgramDept.DesktopApp
                 }
             }
         }
+
+        private void btnNewAccount_Click(object sender, EventArgs e)
+        {
+            NewAccountForm newAccForm = new NewAccountForm(this);
+            newAccForm.Show(); 
+        }
+
+        public void ReloadUnvalidatedDataGridView()
+        {
+            dgvUnvalidateUser.DataSource = _userRepository.GetUsers(false);
+            dgvUnvalidateUser.Refresh();
+        }
+        public void ReloadValidatedDataGridView()
+        {
+            dgvValidateUser.DataSource = _userRepository.GetUsers(true);
+            dgvValidateUser.Refresh();
+        }
     }
 }
