@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ATV.ProgramDept.Service.Utilities
 {
-    class ExcelUtils
+    public class ExcelUtils
     {
         public static byte[] getSample()
         {
@@ -37,7 +37,7 @@ namespace ATV.ProgramDept.Service.Utilities
             return null;
         }
 
-        public static byte[] exportSchedult(List<Schedule> schedules)
+        public static byte[] exportSchedule(List<Schedule> schedules)
         {
             using (ExcelPackage ex = new ExcelPackage())
             {
@@ -59,6 +59,7 @@ namespace ATV.ProgramDept.Service.Utilities
                     #region first row
                     sheet.Cells[1, 1, 1, 6].Merge = true;
                     sheet.Cells[1, 1].Value = "CHƯƠNG TRÌNH TRUYỀN HÌNH SÁNG                       Thứ Bảy: 20/10/2018";
+                    sheet.Cells[1, 1].Style.Font.Size = 18;
                     #endregion
                     #region table head
                     //content
@@ -78,9 +79,33 @@ namespace ATV.ProgramDept.Service.Utilities
                         sheet.Cells[2, i].Style.Fill.BackgroundColor.SetColor(Color.LightGreen);
                     }
                     #endregion
+                    #region body
+                    int currentRow = 3;
+                    foreach (var schedule in schedules)
+                    {
+                        sheet.Cells[currentRow, 1].Value = "";
+                        sheet.Cells[currentRow, 2].Value = schedule.Program.Name;
+                        sheet.Cells[currentRow, 3].Value = schedule.Contents;
+                        sheet.Cells[currentRow, 4].Value = "";
+                        sheet.Cells[currentRow, 5].Value = schedule.Duration + "";
+                        sheet.Cells[currentRow, 6].Value = schedule.Note;
 
+                        //style cell
+                        for (int i = 1; i <= 6; i++)
+                        {
+                            sheet.Cells[currentRow, i].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            sheet.Cells[currentRow, i].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                        }
+                        currentRow++;
+                    }
 
+                    #endregion
+
+                    //auto fit collumns, put after fill all of data for sheet
+                    sheet.Cells.AutoFitColumns();
                 }
+
+
 
                 return ex.GetAsByteArray();
             }

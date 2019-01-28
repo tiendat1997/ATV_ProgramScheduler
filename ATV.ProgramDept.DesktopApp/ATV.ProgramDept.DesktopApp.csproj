@@ -77,6 +77,12 @@
     <Compile Include="InsertInsertedProgramForm.Designer.cs">
       <DependentUpon>InsertInsertedProgramForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportForm.Designer.cs">
+      <DependentUpon>ExportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditorHomeForm.resx">
       <DependentUpon>EditorHomeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportForm.resx">
+      <DependentUpon>ExportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InsertInsertedProgramForm.resx">
       <DependentUpon>InsertInsertedProgramForm.cs</DependentUpon>

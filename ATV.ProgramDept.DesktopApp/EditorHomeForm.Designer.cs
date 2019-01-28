@@ -88,6 +88,7 @@
             this.tsmiEditorExport.Name = "tsmiEditorExport";
             this.tsmiEditorExport.Size = new System.Drawing.Size(68, 20);
             this.tsmiEditorExport.Text = "Xuất Lịch";
+            this.tsmiEditorExport.Click += new System.EventHandler(this.tsmiEditorExport_Click);
             // 
             // tsmiEditorEmail
             // 
