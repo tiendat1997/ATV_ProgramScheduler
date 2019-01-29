@@ -71,11 +71,11 @@
     <Compile Include="EditorHomeForm.Designer.cs">
       <DependentUpon>EditorHomeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="InsertInsertedProgramForm.cs">
+    <Compile Include="InsertedProgramForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InsertInsertedProgramForm.Designer.cs">
-      <DependentUpon>InsertInsertedProgramForm.cs</DependentUpon>
+    <Compile Include="InsertedProgramForm.Designer.cs">
+      <DependentUpon>InsertedProgramForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -85,6 +85,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StaticProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StaticProgramForm.Designer.cs">
+      <DependentUpon>StaticProgramForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AdminHomeForm.resx">
       <DependentUpon>AdminHomeForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -94,8 +100,8 @@
     <EmbeddedResource Include="EditorHomeForm.resx">
       <DependentUpon>EditorHomeForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InsertInsertedProgramForm.resx">
-      <DependentUpon>InsertInsertedProgramForm.cs</DependentUpon>
+    <EmbeddedResource Include="InsertedProgramForm.resx">
+      <DependentUpon>InsertedProgramForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -109,8 +115,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="StaticProgramForm.resx">
+      <DependentUpon>StaticProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\ATV.ProgramDept.Entity.Program.datasource" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Service.ViewModel.ProgramModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

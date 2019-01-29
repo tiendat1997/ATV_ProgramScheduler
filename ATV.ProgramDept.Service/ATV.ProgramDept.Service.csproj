@@ -68,7 +68,7 @@
     <Compile Include="Utilities\ExcelUtils.cs" />
     <Compile Include="Utilities\MD5Utils.cs" />
     <Compile Include="ViewModel\LoggedInUserInfomation.cs" />
-    <Compile Include="ViewModel\ProgramViewModel.cs" />
+    <Compile Include="ViewModel\ProgramModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -80,6 +80,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Service.ViewModel.LoggedInUserInfomation.datasource" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
