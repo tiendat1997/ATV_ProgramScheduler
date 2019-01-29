@@ -68,19 +68,19 @@
             // tsmiInsertNewProgram
             // 
             this.tsmiInsertNewProgram.Name = "tsmiInsertNewProgram";
-            this.tsmiInsertNewProgram.Size = new System.Drawing.Size(169, 22);
+            this.tsmiInsertNewProgram.Size = new System.Drawing.Size(180, 22);
             this.tsmiInsertNewProgram.Text = "Chèn CT mới";
             // 
             // tsmiInsertFlexProgram
             // 
             this.tsmiInsertFlexProgram.Name = "tsmiInsertFlexProgram";
-            this.tsmiInsertFlexProgram.Size = new System.Drawing.Size(169, 22);
+            this.tsmiInsertFlexProgram.Size = new System.Drawing.Size(180, 22);
             this.tsmiInsertFlexProgram.Text = "Chèn CT chen giờ";
             // 
             // tsmiInsertFixProgram
             // 
             this.tsmiInsertFixProgram.Name = "tsmiInsertFixProgram";
-            this.tsmiInsertFixProgram.Size = new System.Drawing.Size(169, 22);
+            this.tsmiInsertFixProgram.Size = new System.Drawing.Size(180, 22);
             this.tsmiInsertFixProgram.Text = "Chèn CT cố định";
             // 
             // tsmiEditorExport
@@ -88,6 +88,7 @@
             this.tsmiEditorExport.Name = "tsmiEditorExport";
             this.tsmiEditorExport.Size = new System.Drawing.Size(68, 20);
             this.tsmiEditorExport.Text = "Xuất Lịch";
+            this.tsmiEditorExport.Click += new System.EventHandler(this.tsmiEditorExport_Click);
             // 
             // tsmiEditorEmail
             // 
@@ -118,7 +119,7 @@
             this.btnToAdmin.UseVisualStyleBackColor = true;
             this.btnToAdmin.Click += new System.EventHandler(this.btnToAdmin_Click);
             // 
-            // UserHomeForm
+            // EditorHomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -126,7 +127,7 @@
             this.Controls.Add(this.btnToAdmin);
             this.Controls.Add(this.mnsEditor);
             this.MainMenuStrip = this.mnsEditor;
-            this.Name = "UserHomeForm";
+            this.Name = "EditorHomeForm";
             this.Text = "ATV Program Department - Home";
             this.mnsEditor.ResumeLayout(false);
             this.mnsEditor.PerformLayout();

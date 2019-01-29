@@ -24,5 +24,32 @@ namespace ATV.ProgramDept.DesktopApp
             editorHome.ShowDialog();
             this.Close();
         }
+
+        private void tsmiAdminEmail_Click(object sender, EventArgs e)
+        {
+            ManageEmailForm emailForm = new ManageEmailForm();
+            Navigate(emailForm, pnlContent);
+        }
+
+        private void tsmiAdminAccount_Click(object sender, EventArgs e)
+        {
+            ManageAccountForm accountForm = new ManageAccountForm();
+            Navigate(accountForm, pnlContent);
+        }
+
+        private void tsmiAdminFlexProgram_Click(object sender, EventArgs e)
+        {
+            ManageProgramForm programForm = new ManageProgramForm();
+            Navigate(programForm, pnlContent);
+        }
+        // Navigate the menu bar 
+        private void Navigate(Form form, Panel panel)
+        {
+            form.TopLevel = false;
+            form.Size = panel.Size;
+            panel.Controls.Clear();
+            panel.Controls.Add(form);
+            form.Show();
+        }
     }
 }

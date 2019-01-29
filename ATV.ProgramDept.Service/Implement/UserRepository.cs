@@ -29,6 +29,12 @@ namespace ATV.ProgramDept.Service.Implement
             return true;
         }
 
+        public IEnumerable<User> GetUsers(bool isPassChanged)
+        {
+            var users = Find(u => u.IsPasswordChanged == isPassChanged).ToList();
+            return users; 
+        }
+
         public LoggedInUserInfomation Login(string Username, string Password)
         {
             string PasswordHash = MD5Utils.CreateMD5FromASCII(Password);

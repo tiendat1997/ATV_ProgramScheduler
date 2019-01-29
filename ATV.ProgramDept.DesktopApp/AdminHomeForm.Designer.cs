@@ -44,6 +44,7 @@
             this.tsmiAdminFixProgram = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdminHistory = new System.Windows.Forms.ToolStripMenuItem();
             this.btnToEditor = new System.Windows.Forms.Button();
+            this.pnlContent = new System.Windows.Forms.Panel();
             this.mnsAdmin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -122,12 +123,14 @@
             this.tsmiAdminAccount.Name = "tsmiAdminAccount";
             this.tsmiAdminAccount.Size = new System.Drawing.Size(73, 20);
             this.tsmiAdminAccount.Text = "Tài khoản ";
+            this.tsmiAdminAccount.Click += new System.EventHandler(this.tsmiAdminAccount_Click);
             // 
             // tsmiAdminEmail
             // 
             this.tsmiAdminEmail.Name = "tsmiAdminEmail";
             this.tsmiAdminEmail.Size = new System.Drawing.Size(48, 20);
             this.tsmiAdminEmail.Text = "Email";
+            this.tsmiAdminEmail.Click += new System.EventHandler(this.tsmiAdminEmail_Click);
             // 
             // tsmiAdminProgram
             // 
@@ -143,6 +146,7 @@
             this.tsmiAdminFlexProgram.Name = "tsmiAdminFlexProgram";
             this.tsmiAdminFlexProgram.Size = new System.Drawing.Size(197, 22);
             this.tsmiAdminFlexProgram.Text = "Chương trình cố định";
+            this.tsmiAdminFlexProgram.Click += new System.EventHandler(this.tsmiAdminFlexProgram_Click);
             // 
             // tsmiAdminFixProgram
             // 
@@ -167,11 +171,21 @@
             this.btnToEditor.UseVisualStyleBackColor = true;
             this.btnToEditor.Click += new System.EventHandler(this.btnToEditor_Click);
             // 
+            // pnlContent
+            // 
+            this.pnlContent.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlContent.Location = new System.Drawing.Point(0, 24);
+            this.pnlContent.Name = "pnlContent";
+            this.pnlContent.Size = new System.Drawing.Size(800, 426);
+            this.pnlContent.TabIndex = 2;
+            // 
             // AdminHomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.pnlContent);
             this.Controls.Add(this.btnToEditor);
             this.Controls.Add(this.mnsAdmin);
             this.MainMenuStrip = this.mnsAdmin;
@@ -202,5 +216,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiAdminFixProgram;
         private System.Windows.Forms.ToolStripMenuItem tsmiAdminHistory;
         private System.Windows.Forms.Button btnToEditor;
+        private System.Windows.Forms.Panel pnlContent;
     }
 }
