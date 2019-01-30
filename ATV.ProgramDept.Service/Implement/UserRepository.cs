@@ -33,10 +33,12 @@ namespace ATV.ProgramDept.Service.Implement
             return true;
         }
 
-        public IEnumerable<User> GetUsers(bool isPassChanged)
+        public IEnumerable<User> GetUsers(bool isPassChanged, int roleId)
         {
-            var users = Find(u => u.IsPasswordChanged == isPassChanged).ToList();
-            return users; 
+            var users =
+                Find(u => u.IsActive == true && u.RoleID == roleId && u.IsPasswordChanged == isPassChanged)
+                .ToList();
+            return users;
         }
 
         public LoggedInUserInfomation Login(string Username, string Password)

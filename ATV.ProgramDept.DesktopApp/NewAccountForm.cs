@@ -41,7 +41,7 @@ namespace ATV.ProgramDept.DesktopApp
                 errName.SetError(txtName, "Tên không được rỗng");
             }
             else
-            {
+            {                                
                 this.errName.SetError(txtName, "");
             }
             
@@ -58,7 +58,17 @@ namespace ATV.ProgramDept.DesktopApp
             }
             else
             {
-                errEmail.SetError(txtEmail,"");
+                // check existed username 
+                var existed = _userRepository.Find(u => u.Email.Equals(email)).Count() > 0;
+                if (existed)
+                {
+                    isValidate = false; 
+                    errEmail.SetError(txtEmail, "Email đã được sử dụng. Vui lòng chọn email khác!");
+                }
+                else
+                {
+                    errEmail.SetError(txtEmail, "");
+                }                
             }
 
             // validate phone1
@@ -93,6 +103,8 @@ namespace ATV.ProgramDept.DesktopApp
                         DefaultPassword = "123456", // GET DEFAULT PASS
                         Email = email,
                         Name = name,
+                        Phone1 = phone1,
+                        Phone2 = phone2,
                         RoleID = (int)RoleEnum.Editor,
                         IsPasswordChanged = false,
                         PasswordHash = "E10ADC3949BA59ABBE56E057F20F883E",
@@ -118,7 +130,8 @@ namespace ATV.ProgramDept.DesktopApp
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
-        {            
+        {
+            _userRepository.Dispose();
             this.Close();
         }
     }
