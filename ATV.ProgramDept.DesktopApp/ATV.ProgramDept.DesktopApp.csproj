@@ -71,6 +71,12 @@
     <Compile Include="EditorHomeForm.Designer.cs">
       <DependentUpon>EditorHomeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportForm.Designer.cs">
+      <DependentUpon>ExportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InsertedProgramForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,6 +88,30 @@
     </Compile>
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageAccountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageAccountForm.Designer.cs">
+      <DependentUpon>ManageAccountForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageEmailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageEmailForm.Designer.cs">
+      <DependentUpon>ManageEmailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageProgramForm.Designer.cs">
+      <DependentUpon>ManageProgramForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewAccountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewAccountForm.Designer.cs">
+      <DependentUpon>NewAccountForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -100,11 +130,26 @@
     <EmbeddedResource Include="EditorHomeForm.resx">
       <DependentUpon>EditorHomeForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ExportForm.resx">
+      <DependentUpon>ExportForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InsertedProgramForm.resx">
       <DependentUpon>InsertedProgramForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageAccountForm.resx">
+      <DependentUpon>ManageAccountForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageEmailForm.resx">
+      <DependentUpon>ManageEmailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageProgramForm.resx">
+      <DependentUpon>ManageProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewAccountForm.resx">
+      <DependentUpon>NewAccountForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

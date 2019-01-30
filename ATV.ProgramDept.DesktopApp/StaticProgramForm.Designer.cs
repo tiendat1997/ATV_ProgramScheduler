@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgvProgram = new System.Windows.Forms.DataGridView();
-            this.programModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.durationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.performByDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.programModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lblSearch = new System.Windows.Forms.Label();
             this.txtSearchBox = new System.Windows.Forms.TextBox();
             this.btnInsert = new System.Windows.Forms.Button();
@@ -52,15 +52,11 @@
             this.performByDataGridViewTextBoxColumn});
             this.dgvProgram.DataSource = this.programModelBindingSource;
             this.dgvProgram.Location = new System.Drawing.Point(38, 84);
-            this.dgvProgram.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvProgram.Margin = new System.Windows.Forms.Padding(4);
             this.dgvProgram.Name = "dgvProgram";
             this.dgvProgram.RowTemplate.Height = 24;
             this.dgvProgram.Size = new System.Drawing.Size(560, 206);
             this.dgvProgram.TabIndex = 0;
-            // 
-            // programModelBindingSource
-            // 
-            this.programModelBindingSource.DataSource = typeof(ATV.ProgramDept.Service.ViewModel.ProgramModel);
             // 
             // nameDataGridViewTextBoxColumn
             // 
@@ -80,6 +76,10 @@
             this.performByDataGridViewTextBoxColumn.HeaderText = "Thực hiện bởi";
             this.performByDataGridViewTextBoxColumn.Name = "performByDataGridViewTextBoxColumn";
             // 
+            // programModelBindingSource
+            // 
+            this.programModelBindingSource.DataSource = typeof(ATV.ProgramDept.Service.ViewModel.ProgramModel);
+            // 
             // lblSearch
             // 
             this.lblSearch.AutoSize = true;
@@ -95,6 +95,7 @@
             this.txtSearchBox.Name = "txtSearchBox";
             this.txtSearchBox.Size = new System.Drawing.Size(246, 30);
             this.txtSearchBox.TabIndex = 2;
+            this.txtSearchBox.TextChanged += new System.EventHandler(this.txtSearchBox_TextChanged);
             // 
             // btnInsert
             // 
@@ -105,7 +106,7 @@
             this.btnInsert.Text = "Chèn";
             this.btnInsert.UseVisualStyleBackColor = true;
             // 
-            // InsertedProgramForm
+            // StaticProgramForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -115,10 +116,14 @@
             this.Controls.Add(this.lblSearch);
             this.Controls.Add(this.dgvProgram);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "StaticProgramForm";
             this.Text = "CT cố định";
+            this.Load += new System.EventHandler(this.StaticProgramForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProgram)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.programModelBindingSource)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

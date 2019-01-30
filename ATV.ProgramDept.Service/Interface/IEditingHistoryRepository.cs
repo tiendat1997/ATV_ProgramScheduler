@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ATV.ProgramDept.Service.Interface
 {
-    interface IEditingHistoryRepository: IRepository<EditingHistory>
+    public interface IEditingHistoryRepository: IRepository<EditingHistory>
     {
     }
 }

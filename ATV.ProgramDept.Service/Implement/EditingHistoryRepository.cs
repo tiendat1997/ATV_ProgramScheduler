@@ -10,6 +10,9 @@ namespace ATV.ProgramDept.Service.Implement
 {
     public class EditingHistoryRepository : Repository<EditingHistory>, IEditingHistoryRepository
     {
-       
+        public EditingHistoryRepository()
+        {
+
+        }
     }
 }

@@ -11,17 +11,18 @@ using ATV.ProgramDept.Service.Utilities;
 using ATV.ProgramDept.Service.Implement;
 using ATV.ProgramDept.Service.ViewModel;
 using ATV.ProgramDept.Entity;
+using ATV.ProgramDept.Service.Interface;
 
 namespace ATV.ProgramDept.DesktopApp
 {
     public partial class LoginForm : Form
     {
-        UserRepository UserRepository;
-        EditingHistoryRepository EditingHistoryRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IEditingHistoryRepository _editingHistoryRepository;
         public LoginForm()
         {
-            UserRepository = new UserRepository();
-            EditingHistoryRepository = new EditingHistoryRepository();
+            _userRepository = new UserRepository();
+            _editingHistoryRepository = new EditingHistoryRepository();
             InitializeComponent();
         }
         
@@ -32,7 +33,7 @@ namespace ATV.ProgramDept.DesktopApp
                 lblWarning.Text = "Vui lòng nhập Username và Password";
                 return;
             }
-            LoggedInUserInfomation user = UserRepository.Login(txtUsername.Text.Trim(), txtPassword.Text.Trim());
+            LoggedInUserInfomation user = _userRepository.Login(txtUsername.Text.Trim(), txtPassword.Text.Trim());
             
             if (user == null)
             {

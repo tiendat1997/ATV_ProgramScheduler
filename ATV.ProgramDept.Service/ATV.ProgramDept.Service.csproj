@@ -66,6 +66,7 @@
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\Converting.cs" />
     <Compile Include="Utilities\ExcelUtils.cs" />
     <Compile Include="Utilities\MD5Utils.cs" />
     <Compile Include="Utilities\RegexPattern.cs" />
