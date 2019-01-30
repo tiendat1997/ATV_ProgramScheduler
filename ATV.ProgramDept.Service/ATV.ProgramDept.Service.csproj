@@ -57,10 +57,12 @@
   <ItemGroup>
     <Compile Include="Enum\RoleEnum.cs" />
     <Compile Include="Enum\ProgramTypeEnum.cs" />
+    <Compile Include="Implement\DepartmentRepository.cs" />
     <Compile Include="Implement\EditingHistoryRepository.cs" />
     <Compile Include="Implement\ProgramRepository.cs" />
     <Compile Include="Implement\Repository.cs" />
     <Compile Include="Implement\UserRepository.cs" />
+    <Compile Include="Interface\IDepartmentRepository.cs" />
     <Compile Include="Interface\IEditingHistoryRepository.cs" />
     <Compile Include="Interface\IProgramRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
