@@ -1,4 +1,5 @@
-﻿using ATV.ProgramDept.Service.Implement;
+﻿using ATV.ProgramDept.Entity;
+using ATV.ProgramDept.Service.Implement;
 using ATV.ProgramDept.Service.Interface;
 using System;
 using System.Collections.Generic;
@@ -39,9 +40,15 @@ namespace ATV.ProgramDept.DesktopApp
             if (result)
             {
                 Program.User.isPasswordChanged = true;
-                ////Thông báo người sửa gần nhất
-                //
-                ////
+                //Thông báo người sửa gần nhất
+                EditingHistory MostRecentEditingHistory = _editingHistoryRepository.GetAll()
+                    .OrderByDescending(p => p.Time).First();
+                MessageBox.Show("Lần sửa gần nhất bởi "
+                    + MostRecentEditingHistory.User.Username
+                    + "("
+                    + MostRecentEditingHistory.User.Name
+                    + ") lúc "
+                    + MostRecentEditingHistory.Time.ToLongTimeString());
                 this.Hide();
                 EditorHomeForm editorHome = new EditorHomeForm();
                 editorHome.ShowDialog();

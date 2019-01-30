@@ -50,12 +50,17 @@ namespace ATV.ProgramDept.DesktopApp
                 this.Close();
                 return;
             }
-            //EditingHistory MostRecentEditingHistory = EditingHistoryRepository.GetAll()
-            //    .OrderByDescending(p => p.Time).First();
-            //MessageBox.Show("")
-            ////Thông báo người sửa gần nhất
-            //
-            ////
+
+            //Thông báo người sửa gần nhất
+            EditingHistory MostRecentEditingHistory = _editingHistoryRepository.GetAll()
+                .OrderByDescending(p => p.Time).First();
+            MessageBox.Show("Lần sửa gần nhất bởi " 
+                + MostRecentEditingHistory.User.Username 
+                + "(" 
+                + MostRecentEditingHistory.User.Name 
+                + ") lúc " 
+                + MostRecentEditingHistory.Time.ToLongTimeString());
+            
             this.Hide();
             EditorHomeForm editorHome = new EditorHomeForm();
             editorHome.ShowDialog();

@@ -22,7 +22,8 @@ namespace ATV.ProgramDept.DesktopApp
         public InsertedProgramForm()
         {
             _programRepository = new ProgramRepository();
-            InitializeComponent(); bindingList = new BindingList<ProgramModel>(_programRepository.
+            InitializeComponent();
+            bindingList = new BindingList<ProgramModel>(_programRepository.
                  Find(p => p.IsActive.Value && p.ProgramTypeID == (int)ProgramTypeEnum.Insert)
                  .Select(p => new ProgramModel()
                  {
@@ -31,6 +32,7 @@ namespace ATV.ProgramDept.DesktopApp
                      PerformBy = p.PerformBy,
                      Name = p.Name
                  }).ToList());
+
         }
 
         private void InsertedProgramForm_Load(object sender, EventArgs e)
@@ -43,6 +45,11 @@ namespace ATV.ProgramDept.DesktopApp
             BindingList<ProgramModel> filtered = new BindingList<ProgramModel>(bindingList.Where(p => p.Name.ToLower().Contains(txtSearchBox.Text.ToLower())).ToList());
             dgvProgram.DataSource = filtered;
             dgvProgram.Update();
+        }
+
+        private void btnAddProgram_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

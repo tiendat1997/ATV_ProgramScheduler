@@ -30,19 +30,23 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgvProgram = new System.Windows.Forms.DataGridView();
+            this.programModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lblSearch = new System.Windows.Forms.Label();
             this.txtSearchBox = new System.Windows.Forms.TextBox();
             this.btnInsert = new System.Windows.Forms.Button();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.durationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.performByDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.programModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btnAddProgram = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProgram)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.programModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvProgram
             // 
+            this.dgvProgram.AllowUserToAddRows = false;
+            this.dgvProgram.AllowUserToDeleteRows = false;
+            this.dgvProgram.AllowUserToOrderColumns = true;
             this.dgvProgram.AutoGenerateColumns = false;
             this.dgvProgram.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvProgram.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -51,12 +55,17 @@
             this.durationDataGridViewTextBoxColumn,
             this.performByDataGridViewTextBoxColumn});
             this.dgvProgram.DataSource = this.programModelBindingSource;
-            this.dgvProgram.Location = new System.Drawing.Point(38, 84);
+            this.dgvProgram.Location = new System.Drawing.Point(38, 88);
             this.dgvProgram.Margin = new System.Windows.Forms.Padding(4);
             this.dgvProgram.Name = "dgvProgram";
+            this.dgvProgram.ReadOnly = true;
             this.dgvProgram.RowTemplate.Height = 24;
             this.dgvProgram.Size = new System.Drawing.Size(560, 206);
             this.dgvProgram.TabIndex = 0;
+            // 
+            // programModelBindingSource
+            // 
+            this.programModelBindingSource.DataSource = typeof(ATV.ProgramDept.Service.ViewModel.ProgramModel);
             // 
             // lblSearch
             // 
@@ -89,28 +98,38 @@
             this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
             this.nameDataGridViewTextBoxColumn.HeaderText = "Tên chương trình";
             this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // durationDataGridViewTextBoxColumn
             // 
             this.durationDataGridViewTextBoxColumn.DataPropertyName = "Duration";
             this.durationDataGridViewTextBoxColumn.HeaderText = "Thời lượng";
             this.durationDataGridViewTextBoxColumn.Name = "durationDataGridViewTextBoxColumn";
+            this.durationDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // performByDataGridViewTextBoxColumn
             // 
             this.performByDataGridViewTextBoxColumn.DataPropertyName = "PerformBy";
             this.performByDataGridViewTextBoxColumn.HeaderText = "Thực hiện bởi";
             this.performByDataGridViewTextBoxColumn.Name = "performByDataGridViewTextBoxColumn";
+            this.performByDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // programModelBindingSource
+            // btnAddProgram
             // 
-            this.programModelBindingSource.DataSource = typeof(ATV.ProgramDept.Service.ViewModel.ProgramModel);
+            this.btnAddProgram.Location = new System.Drawing.Point(430, 23);
+            this.btnAddProgram.Name = "btnAddProgram";
+            this.btnAddProgram.Size = new System.Drawing.Size(168, 40);
+            this.btnAddProgram.TabIndex = 4;
+            this.btnAddProgram.Text = "Thêm chương trình";
+            this.btnAddProgram.UseVisualStyleBackColor = true;
+            this.btnAddProgram.Click += new System.EventHandler(this.btnAddProgram_Click);
             // 
             // InsertedProgramForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(636, 398);
+            this.Controls.Add(this.btnAddProgram);
             this.Controls.Add(this.btnInsert);
             this.Controls.Add(this.txtSearchBox);
             this.Controls.Add(this.lblSearch);
@@ -131,11 +150,12 @@
 
         private System.Windows.Forms.DataGridView dgvProgram;
         private System.Windows.Forms.BindingSource programModelBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn durationDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn performByDataGridViewTextBoxColumn;
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.TextBox txtSearchBox;
         private System.Windows.Forms.Button btnInsert;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn durationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn performByDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button btnAddProgram;
     }
 }

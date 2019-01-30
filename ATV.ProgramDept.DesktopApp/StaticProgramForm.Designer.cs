@@ -43,6 +43,9 @@
             // 
             // dgvProgram
             // 
+            this.dgvProgram.AllowUserToAddRows = false;
+            this.dgvProgram.AllowUserToDeleteRows = false;
+            this.dgvProgram.AllowUserToOrderColumns = true;
             this.dgvProgram.AutoGenerateColumns = false;
             this.dgvProgram.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvProgram.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -54,6 +57,7 @@
             this.dgvProgram.Location = new System.Drawing.Point(38, 84);
             this.dgvProgram.Margin = new System.Windows.Forms.Padding(4);
             this.dgvProgram.Name = "dgvProgram";
+            this.dgvProgram.ReadOnly = true;
             this.dgvProgram.RowTemplate.Height = 24;
             this.dgvProgram.Size = new System.Drawing.Size(560, 206);
             this.dgvProgram.TabIndex = 0;
@@ -63,18 +67,21 @@
             this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
             this.nameDataGridViewTextBoxColumn.HeaderText = "Tên chương trình";
             this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // durationDataGridViewTextBoxColumn
             // 
             this.durationDataGridViewTextBoxColumn.DataPropertyName = "Duration";
             this.durationDataGridViewTextBoxColumn.HeaderText = "Thời lượng";
             this.durationDataGridViewTextBoxColumn.Name = "durationDataGridViewTextBoxColumn";
+            this.durationDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // performByDataGridViewTextBoxColumn
             // 
             this.performByDataGridViewTextBoxColumn.DataPropertyName = "PerformBy";
             this.performByDataGridViewTextBoxColumn.HeaderText = "Thực hiện bởi";
             this.performByDataGridViewTextBoxColumn.Name = "performByDataGridViewTextBoxColumn";
+            this.performByDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // programModelBindingSource
             // 
