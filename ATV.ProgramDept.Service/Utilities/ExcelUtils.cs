@@ -1,4 +1,5 @@
 ﻿using ATV.ProgramDept.Entity;
+using ATV.ProgramDept.Service.ViewModel;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace ATV.ProgramDept.Service.Utilities
             return null;
         }
 
-        public static byte[] exportSchedule(List<Schedule> schedules)
+        public static byte[] exportSchedule(List<ScheduleViewModel> schedules)
         {
             using (ExcelPackage ex = new ExcelPackage())
             {
@@ -83,10 +84,10 @@ namespace ATV.ProgramDept.Service.Utilities
                     int currentRow = 3;
                     foreach (var schedule in schedules)
                     {
-                        sheet.Cells[currentRow, 1].Value = "";
-                        sheet.Cells[currentRow, 2].Value = schedule.Program.Name;
-                        sheet.Cells[currentRow, 3].Value = schedule.Contents;
-                        sheet.Cells[currentRow, 4].Value = "";
+                        sheet.Cells[currentRow, 1].Value = schedule.StartTime;
+                        sheet.Cells[currentRow, 2].Value = schedule.Name;
+                        sheet.Cells[currentRow, 3].Value = schedule.Content;
+                        sheet.Cells[currentRow, 4].Value = schedule.Code;
                         sheet.Cells[currentRow, 5].Value = schedule.Duration + "";
                         sheet.Cells[currentRow, 6].Value = schedule.Note;
 

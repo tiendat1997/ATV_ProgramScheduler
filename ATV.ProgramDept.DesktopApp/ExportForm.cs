@@ -1,5 +1,6 @@
 ﻿using ATV.ProgramDept.Entity;
 using ATV.ProgramDept.Service.Utilities;
+using ATV.ProgramDept.Service.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,9 +16,15 @@ namespace ATV.ProgramDept.DesktopApp
 {
     public partial class ExportForm : Form
     {
-        public ExportForm()
+        private List<ScheduleViewModel> _scheduleViewModels;
+        public ExportForm(List<ScheduleViewModel> scheduleViewModels)
         {
             InitializeComponent();
+            if (scheduleViewModels == null)
+            {
+                scheduleViewModels = new List<ScheduleViewModel>();
+            }
+            _scheduleViewModels = scheduleViewModels;
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -29,49 +36,7 @@ namespace ATV.ProgramDept.DesktopApp
             saveFileDialog.FileName = "Sample.xlsx";
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                List<Schedule> schedules = new List<Schedule>();
-                schedules.Add(new Schedule
-                {
-                    Program = new Entity.Program
-                    {
-                        Name = "Thể dục buổi sáng"
-                    },
-                    Contents = "",
-                    Duration = 5,
-                    Note = "Yoga 7: Khởi động khớp gối căng cơ liên sườn"
-                });
-                schedules.Add(new Schedule
-                {
-                    Program = new Entity.Program
-                    {
-                        Name = "Ca nhạc"
-                    },
-                    Contents = "",
-                    Duration = 25.28,
-                    Note = "CaNhan\\20-10 CaNhacSang"
-                });
-                schedules.Add(new Schedule
-                {
-                    Program = new Entity.Program
-                    {
-                        Name = "Thế giới tuần qua"
-                    },
-                    Contents = "",
-                    Duration = 10.36,
-                    Note = "(Vệ tinh)"
-                });
-                schedules.Add(new Schedule
-                {
-                    Program = new Entity.Program
-                    {
-                        Name = "An Giang địa danh và sự kiện"
-                    },
-                    Contents = "",
-                    Duration = 10.00,
-                    Note = "Phát lại của chủ nhật 7/10"
-                });
-
-                File.WriteAllBytes(saveFileDialog.FileName, ExcelUtils.exportSchedule(schedules));
+                File.WriteAllBytes(saveFileDialog.FileName, ExcelUtils.exportSchedule(_scheduleViewModels));
                 this.Close();
             }
 
