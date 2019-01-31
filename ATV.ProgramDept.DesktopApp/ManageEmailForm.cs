@@ -24,11 +24,8 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void ManageEmailForm_Load(object sender, EventArgs e)
         {
-            // Load departments from database 
-            var depts = _deptRepository.GetAll().ToList();
-            var bindingSource = new BindingSource();
-            bindingSource.DataSource = depts;
-            dgvDepartment.DataSource = bindingSource; 
+            // Load departments from database and Bind to DGV
+            LoadDepartments();
         }
 
         private void btnNewEmail_Click(object sender, EventArgs e)
@@ -48,7 +45,8 @@ namespace ATV.ProgramDept.DesktopApp
                 var row = dgvDepartment.Rows[e.RowIndex];
                 var editedDept = (Department)row.DataBoundItem;
                 var dept = _deptRepository.FindById(editedDept.ID);
-                if (dgvDepartment.Columns[e.ColumnIndex].Name.Equals("Edit"))
+                var action = dgvDepartment.Columns[e.ColumnIndex].Name;
+                if (action.Equals("Edit"))
                 {
                     // Save processing                                                           
                     dept.Name = editedDept.Name;
@@ -56,7 +54,7 @@ namespace ATV.ProgramDept.DesktopApp
                     _deptRepository.Save();
                     MessageBox.Show("Lưu thành công", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 } 
-                else if (dgvDepartment.Columns[e.ColumnIndex].Name.Equals("Remove"))
+                else if (action.Equals("Remove"))
                 {
                     // Remove processing
                     if (MessageBox.Show("Bạn có chắc muốn xóa email này không ?", "Message", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -81,15 +79,18 @@ namespace ATV.ProgramDept.DesktopApp
             }
         }
 
-        #region services
+        
         public void ReloadDepartments()
         {
-            var depts = _deptRepository.GetAll().ToList();
+            LoadDepartments();
+            dgvDepartment.Refresh(); 
+        }
+        private void LoadDepartments()
+        {
+            var depts = _deptRepository.GetProgramsWithActiveOrNot(true).ToList();
             var bindingSource = new BindingSource();
             bindingSource.DataSource = depts;
             dgvDepartment.DataSource = bindingSource;
-            dgvDepartment.Refresh(); 
         }
-        #endregion      
     }
 }

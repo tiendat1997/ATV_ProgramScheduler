@@ -31,34 +31,7 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 string name = txtName.Text.Trim();
                 string email = txtEmail.Text.Trim();
-                bool isValidate = true;
-
-                // validate name 
-                if (ValidationProvider.RequiredStringIsValid(name) == false)
-                {
-                    isValidate = false;
-                    errName.SetError(txtName, "Tên không được rỗng");
-                }
-                else
-                {
-                    this.errName.SetError(txtName, "");
-                }
-
-                // validate email 
-                if (ValidationProvider.RequiredStringIsValid(email) == false)
-                {
-                    isValidate = false;
-                    errEmail.SetError(txtEmail, "Email không được rỗng");
-                }
-                else if (ValidationProvider.RegExStringIsValid(email, RegexPattern.MATCH_EMAIL_PATTERN) == false)
-                {
-                    isValidate = false;
-                    errEmail.SetError(txtEmail, "Email phải theo định dạng [abc@abc.abc]");
-                }
-                else
-                {
-                    this.errEmail.SetError(txtEmail, "");
-                }
+                bool isValidate = CheckValidate(name, email);
 
                 if (isValidate)
                 {
@@ -73,7 +46,7 @@ namespace ATV.ProgramDept.DesktopApp
                     if (MessageBox.Show("Tạo email thành công!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
                     {
                         manageEmailForm.ReloadDepartments();
-                        this.Close();
+                        Close();
                     }
                 }
             }
@@ -88,13 +61,47 @@ namespace ATV.ProgramDept.DesktopApp
         }
 
         private void btnClose_Click(object sender, EventArgs e)
-        {            
+        {
             this.Close();
         }
 
         private void NewEmailForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             _deptRepository.Dispose();
+        }
+
+        private bool CheckValidate(string name, string email)
+        {
+            bool isValidate = true;
+            // validate name 
+            if (ValidationProvider.RequiredStringIsValid(name) == false)
+            {
+                isValidate = false;
+                errName.SetError(txtName, "Tên không được rỗng");
+            }
+            else
+            {
+                this.errName.SetError(txtName, "");
+            }
+
+            // validate email 
+            if (ValidationProvider.RequiredStringIsValid(email) == false)
+            {
+                isValidate = false;
+                errEmail.SetError(txtEmail, "Email không được rỗng");
+            }
+            else if (ValidationProvider.RegExStringIsValid(email, RegexPattern.MATCH_EMAIL_PATTERN) == false)
+            {
+                isValidate = false;
+                errEmail.SetError(txtEmail, "Email phải theo định dạng [abc@abc.abc]");
+            }
+            else
+            {
+                errEmail.SetError(txtEmail, "");
+            }
+
+
+            return isValidate;
         }
     }
 }

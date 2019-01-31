@@ -45,8 +45,9 @@ namespace ATV.ProgramDept.DesktopApp
                 var row = dgvValidateUser.Rows[e.RowIndex];
                 var editedUser = (Entity.User)row.DataBoundItem;
                 var user = _userRepository.FindById(editedUser.ID);
+                var action = dgvValidateUser.Columns[e.ColumnIndex].Name;
 
-                if (dgvValidateUser.Columns[e.ColumnIndex].Name.Equals("Edit"))
+                if (action.Equals("Edit"))
                 {
                     // Processing result;                                                                    
                     user.Phone1 = editedUser.Phone1;
@@ -55,7 +56,7 @@ namespace ATV.ProgramDept.DesktopApp
                     _userRepository.Save();
                     MessageBox.Show("Lưu thành công", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else if (dgvValidateUser.Columns[e.ColumnIndex].Name.Equals("Remove"))
+                else if (action.Equals("Remove"))
                 {
                     if (MessageBox.Show("Bạn có chắc muốn xóa tài khoản này không ?", "Message", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
@@ -100,6 +101,11 @@ namespace ATV.ProgramDept.DesktopApp
             validateBind.DataSource = validateUser;
             dgvValidateUser.DataSource = validateBind;
             dgvValidateUser.Refresh();
+        }
+
+        private void dgvUnvalidateUser_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

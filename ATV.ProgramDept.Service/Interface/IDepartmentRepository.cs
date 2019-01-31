@@ -9,5 +9,6 @@ namespace ATV.ProgramDept.Service.Interface
 {
     public interface IDepartmentRepository : IRepository<Department>
     {
+        IEnumerable<Department> GetProgramsWithActiveOrNot(bool isActive);
     }
 }

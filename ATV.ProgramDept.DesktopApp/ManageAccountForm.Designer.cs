@@ -100,6 +100,7 @@
             this.dgvUnvalidateUser.Name = "dgvUnvalidateUser";
             this.dgvUnvalidateUser.Size = new System.Drawing.Size(644, 169);
             this.dgvUnvalidateUser.TabIndex = 1;
+            this.dgvUnvalidateUser.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUnvalidateUser_CellContentClick);
             // 
             // iDDataGridViewTextBoxColumn
             // 
