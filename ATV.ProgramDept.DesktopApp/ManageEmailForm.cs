@@ -76,7 +76,8 @@ namespace ATV.ProgramDept.DesktopApp
             }
             finally
             {
-                dgvDepartment.CurrentCell.Selected = false; 
+                if (dgvDepartment.CurrentCell != null)
+                    dgvDepartment.CurrentCell.Selected = false; 
             }
         }
 

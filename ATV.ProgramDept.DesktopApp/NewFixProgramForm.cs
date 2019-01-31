@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ATV.ProgramDept.DesktopApp
 {
-    public partial class ManageProgramForm : Form
+    public partial class NewFixProgramForm : Form
     {
-        public ManageProgramForm()
+        public NewFixProgramForm()
         {
             InitializeComponent();
         }

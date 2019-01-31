@@ -74,7 +74,8 @@ namespace ATV.ProgramDept.DesktopApp
             }
             finally
             {
-                dgvValidateUser.CurrentCell.Selected = false; // remove focus on datagridview
+                if (dgvValidateUser.CurrentCell != null)
+                    dgvValidateUser.CurrentCell.Selected = false; // remove focus on datagridview
             }
         }
 

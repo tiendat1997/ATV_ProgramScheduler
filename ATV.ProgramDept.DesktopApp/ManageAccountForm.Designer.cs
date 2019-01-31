@@ -344,6 +344,7 @@
             this.Controls.Add(this.btnNewAccount);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ManageAccountForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Account Mangement";
             this.Load += new System.EventHandler(this.ManageAccountForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUnvalidateUser)).EndInit();
