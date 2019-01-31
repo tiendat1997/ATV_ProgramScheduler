@@ -74,7 +74,6 @@
     <Compile Include="Utilities\RegexPattern.cs" />
     <Compile Include="Utilities\ValidationProvider.cs" />
     <Compile Include="ViewModel\LoggedInUserInfomation.cs" />
-    <Compile Include="ViewModel\ProgramViewModel.cs" />
     <Compile Include="ViewModel\ScheduleViewModel.cs" />
     <Compile Include="ViewModel\ProgramModel.cs" />
   </ItemGroup>
