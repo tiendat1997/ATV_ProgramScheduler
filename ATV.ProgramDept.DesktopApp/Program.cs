@@ -18,6 +18,8 @@ namespace ATV.ProgramDept.DesktopApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            // Set up logging 
+
             Application.Run(new LoginForm());
             
         }
