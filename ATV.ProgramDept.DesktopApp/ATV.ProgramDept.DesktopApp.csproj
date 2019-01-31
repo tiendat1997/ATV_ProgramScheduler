@@ -101,17 +101,17 @@
     <Compile Include="ManageEmailForm.Designer.cs">
       <DependentUpon>ManageEmailForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ManageFixProgramForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ManageFixProgramForm.Designer.cs">
-      <DependentUpon>ManageFixProgramForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="ManageFlexProgramForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ManageFlexProgramForm.Designer.cs">
       <DependentUpon>ManageFlexProgramForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageFixProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageFixProgramForm.Designer.cs">
+      <DependentUpon>ManageFixProgramForm.cs</DependentUpon>
     </Compile>
     <Compile Include="NewAccountForm.cs">
       <SubType>Form</SubType>
@@ -124,6 +124,12 @@
     </Compile>
     <Compile Include="NewEmailForm.Designer.cs">
       <DependentUpon>NewEmailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewFlexProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewFlexProgramForm.Designer.cs">
+      <DependentUpon>NewFlexProgramForm.cs</DependentUpon>
     </Compile>
     <Compile Include="NewFixProgramForm.cs">
       <SubType>Form</SubType>
@@ -157,17 +163,20 @@
     <EmbeddedResource Include="ManageEmailForm.resx">
       <DependentUpon>ManageEmailForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ManageFixProgramForm.resx">
-      <DependentUpon>ManageFixProgramForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ManageFlexProgramForm.resx">
       <DependentUpon>ManageFlexProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageFixProgramForm.resx">
+      <DependentUpon>ManageFixProgramForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewAccountForm.resx">
       <DependentUpon>NewAccountForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewEmailForm.resx">
       <DependentUpon>NewEmailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewFlexProgramForm.resx">
+      <DependentUpon>NewFlexProgramForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewFixProgramForm.resx">
       <DependentUpon>NewFixProgramForm.cs</DependentUpon>

@@ -29,9 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.dgvFlexProgram = new System.Windows.Forms.DataGridView();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.programBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dgvFlexProgram = new System.Windows.Forms.DataGridView();
             this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.durationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,9 +42,20 @@
             this.scheduleTemplatesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Remove = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.programBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFlexProgram)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.programBindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(13, 13);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(114, 23);
+            this.btnAdd.TabIndex = 0;
+            this.btnAdd.Text = "Tạo CT chen giờ";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // dgvFlexProgram
             // 
@@ -65,25 +75,11 @@
             this.Edit,
             this.Remove});
             this.dgvFlexProgram.DataSource = this.programBindingSource;
-            this.dgvFlexProgram.Location = new System.Drawing.Point(12, 62);
+            this.dgvFlexProgram.Location = new System.Drawing.Point(13, 63);
             this.dgvFlexProgram.Name = "dgvFlexProgram";
             this.dgvFlexProgram.Size = new System.Drawing.Size(643, 150);
-            this.dgvFlexProgram.TabIndex = 3;
+            this.dgvFlexProgram.TabIndex = 1;
             this.dgvFlexProgram.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFlexProgram_CellContentClick);
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(12, 12);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(114, 23);
-            this.btnAdd.TabIndex = 2;
-            this.btnAdd.Text = "Tạo CT cố định";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // programBindingSource
-            // 
-            this.programBindingSource.DataSource = typeof(ATV.ProgramDept.Entity.Program);
             // 
             // iDDataGridViewTextBoxColumn
             // 
@@ -95,20 +91,20 @@
             // nameDataGridViewTextBoxColumn
             // 
             this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Tên CT";
             this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
             this.nameDataGridViewTextBoxColumn.Width = 200;
             // 
             // durationDataGridViewTextBoxColumn
             // 
             this.durationDataGridViewTextBoxColumn.DataPropertyName = "Duration";
-            this.durationDataGridViewTextBoxColumn.HeaderText = "Duration";
+            this.durationDataGridViewTextBoxColumn.HeaderText = "Thời lượng";
             this.durationDataGridViewTextBoxColumn.Name = "durationDataGridViewTextBoxColumn";
             // 
             // performByDataGridViewTextBoxColumn
             // 
             this.performByDataGridViewTextBoxColumn.DataPropertyName = "PerformBy";
-            this.performByDataGridViewTextBoxColumn.HeaderText = "PerformBy";
+            this.performByDataGridViewTextBoxColumn.HeaderText = "Thực hiện";
             this.performByDataGridViewTextBoxColumn.Name = "performByDataGridViewTextBoxColumn";
             // 
             // programTypeIDDataGridViewTextBoxColumn
@@ -164,15 +160,22 @@
             this.Remove.Text = "Xóa";
             this.Remove.UseColumnTextForButtonValue = true;
             // 
+            // programBindingSource
+            // 
+            this.programBindingSource.DataSource = typeof(ATV.ProgramDept.Entity.Program);
+            // 
             // ManageFlexProgramForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.dgvFlexProgram);
             this.Controls.Add(this.btnAdd);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ManageFlexProgramForm";
-            this.Text = "ManageFlexProgram";
+            this.Text = "ManageProgramForm";
+            this.Load += new System.EventHandler(this.ManageFlexProgramForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFlexProgram)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.programBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -181,8 +184,9 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dgvFlexProgram;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.DataGridView dgvFlexProgram;
+        private System.Windows.Forms.BindingSource programBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn durationDataGridViewTextBoxColumn;
@@ -194,6 +198,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn scheduleTemplatesDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewButtonColumn Edit;
         private System.Windows.Forms.DataGridViewButtonColumn Remove;
-        private System.Windows.Forms.BindingSource programBindingSource;
     }
 }
