@@ -14,5 +14,6 @@ namespace ATV.ProgramDept.Service.Utilities
      + @"([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
      + @"([a-zA-Z0-9]+[\w-]+\.)+[a-zA-Z]{1}[a-zA-Z0-9-]{1,23})$";
         public const string MATCH_NUMBER = @"^[0-9]+$";
+        public const string UNSIGNED_FLOATING_POINT_NUMBER = @"^\d*\.?\d*$";
     }
 }

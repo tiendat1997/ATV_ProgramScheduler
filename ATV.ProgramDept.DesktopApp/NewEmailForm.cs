@@ -88,8 +88,7 @@ namespace ATV.ProgramDept.DesktopApp
         }
 
         private void btnClose_Click(object sender, EventArgs e)
-        {
-            _deptRepository.Dispose(); 
+        {            
             this.Close();
         }
 
