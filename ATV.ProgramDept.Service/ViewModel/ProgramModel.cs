@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ATV.ProgramDept.Service.ViewModel
 {
-    public class ProgramViewModel
+    public class ProgramModel
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public double? Duration { get; set; }
+        public string Duration { get; set; }
         public string PerformBy { get; set; }
     }
 }

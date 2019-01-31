@@ -1,4 +1,6 @@
-﻿using ATV.ProgramDept.Service.Implement;
+﻿using ATV.ProgramDept.Entity;
+using ATV.ProgramDept.Service.Implement;
+using ATV.ProgramDept.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,12 +15,12 @@ namespace ATV.ProgramDept.DesktopApp
 {
     public partial class ChangePasswordForm : Form
     {
-        UserRepository UserRepository;
-        EditingHistoryRepository EditingHistoryRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IEditingHistoryRepository _editingHistoryRepository;
         public ChangePasswordForm()
         {
-            UserRepository = new UserRepository();
-            EditingHistoryRepository = new EditingHistoryRepository();
+            _userRepository = new UserRepository();
+            _editingHistoryRepository = new EditingHistoryRepository();
             InitializeComponent();
         }
 
@@ -34,13 +36,19 @@ namespace ATV.ProgramDept.DesktopApp
                 lblWarning.Text = "*Mật khẩu* và *Nhập lại mật khẩu* chưa khớp!";
                 return;
             }
-            bool result = UserRepository.ChangePassword(Program.User.Username, txtPassword.Text.Trim());
+            bool result = _userRepository.ChangePassword(Program.User.Username, txtPassword.Text.Trim());
             if (result)
             {
                 Program.User.isPasswordChanged = true;
-                ////Thông báo người sửa gần nhất
-                //
-                ////
+                //Thông báo người sửa gần nhất
+                EditingHistory MostRecentEditingHistory = _editingHistoryRepository.GetAll()
+                    .OrderByDescending(p => p.Time).First();
+                MessageBox.Show("Lần sửa gần nhất bởi "
+                    + MostRecentEditingHistory.User.Username
+                    + "("
+                    + MostRecentEditingHistory.User.Name
+                    + ") lúc "
+                    + MostRecentEditingHistory.Time.ToLongTimeString());
                 this.Hide();
                 EditorHomeForm editorHome = new EditorHomeForm();
                 editorHome.ShowDialog();

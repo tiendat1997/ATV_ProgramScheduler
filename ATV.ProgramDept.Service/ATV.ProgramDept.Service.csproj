@@ -68,6 +68,7 @@
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\Converting.cs" />
     <Compile Include="Utilities\ExcelUtils.cs" />
     <Compile Include="Utilities\MD5Utils.cs" />
     <Compile Include="Utilities\RegexPattern.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="ViewModel\LoggedInUserInfomation.cs" />
     <Compile Include="ViewModel\ProgramViewModel.cs" />
     <Compile Include="ViewModel\ScheduleViewModel.cs" />
+    <Compile Include="ViewModel\ProgramModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ATV.ProgramDept.Entity\ATV.ProgramDept.Entity.csproj">
@@ -85,6 +87,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Service.ViewModel.LoggedInUserInfomation.datasource" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

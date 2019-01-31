@@ -12,6 +12,10 @@ namespace ATV.ProgramDept.Service.Implement
 {
     public class UserRepository : Repository<User>, IUserRepository
     {
+        public UserRepository()
+        {
+
+        }
         public bool ChangePassword(string Username, string NewPassword)
         {
             string PasswordHash = MD5Utils.CreateMD5FromASCII(NewPassword);
