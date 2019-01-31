@@ -37,6 +37,7 @@
             this.lblSearch = new System.Windows.Forms.Label();
             this.txtSearchBox = new System.Windows.Forms.TextBox();
             this.btnInsert = new System.Windows.Forms.Button();
+            this.btnAddProgram = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProgram)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.programModelBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -113,11 +114,22 @@
             this.btnInsert.Text = "Chèn";
             this.btnInsert.UseVisualStyleBackColor = true;
             // 
+            // btnAddProgram
+            // 
+            this.btnAddProgram.Location = new System.Drawing.Point(422, 17);
+            this.btnAddProgram.Name = "btnAddProgram";
+            this.btnAddProgram.Size = new System.Drawing.Size(176, 44);
+            this.btnAddProgram.TabIndex = 4;
+            this.btnAddProgram.Text = "Thêm chương trình";
+            this.btnAddProgram.UseVisualStyleBackColor = true;
+            this.btnAddProgram.Click += new System.EventHandler(this.btnAddProgram_Click);
+            // 
             // StaticProgramForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(636, 398);
+            this.Controls.Add(this.btnAddProgram);
             this.Controls.Add(this.btnInsert);
             this.Controls.Add(this.txtSearchBox);
             this.Controls.Add(this.lblSearch);
@@ -143,5 +155,6 @@
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.TextBox txtSearchBox;
         private System.Windows.Forms.Button btnInsert;
+        private System.Windows.Forms.Button btnAddProgram;
     }
 }

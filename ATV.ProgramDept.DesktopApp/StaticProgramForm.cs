@@ -15,7 +15,7 @@ using ATV.ProgramDept.Service.ViewModel;
 
 namespace ATV.ProgramDept.DesktopApp
 {
-    public partial class StaticProgramForm : Form
+    public partial class StaticProgramForm : Form, IProgramForm
     {
         private readonly IProgramRepository _programRepository;
         BindingList<ProgramModel> bindingList;
@@ -45,6 +45,30 @@ namespace ATV.ProgramDept.DesktopApp
             BindingList<ProgramModel> filtered = new BindingList<ProgramModel>(bindingList.Where(p => p.Name.ToLower().Contains(txtSearchBox.Text.ToLower())).ToList());
             dgvProgram.DataSource = filtered;
             dgvProgram.Update();
+        }
+
+
+
+
+        public void ReloadDGV()
+        {
+            bindingList = new BindingList<ProgramModel>(_programRepository.
+                 Find(p => p.IsActive.Value && p.ProgramTypeID == (int)ProgramTypeEnum.Static)
+                 .Select(p => new ProgramModel()
+                 {
+                     Duration = Converting.ConvertDurationToString(p.Duration.Value),
+                     ID = p.ID,
+                     PerformBy = p.PerformBy,
+                     Name = p.Name
+                 }).ToList());
+            dgvProgram.DataSource = bindingList;
+            dgvProgram.Update();
+        }
+
+        private void btnAddProgram_Click(object sender, EventArgs e)
+        {
+            NewProgramForm newProgramForm = new NewProgramForm((int)ProgramTypeEnum.Static, this);
+            newProgramForm.Show();
         }
     }
 }

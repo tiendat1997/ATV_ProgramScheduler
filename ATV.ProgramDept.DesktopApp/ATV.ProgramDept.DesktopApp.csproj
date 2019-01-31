@@ -83,11 +83,11 @@
     <Compile Include="InsertedProgramForm.Designer.cs">
       <DependentUpon>InsertedProgramForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="InsertProgramForm.cs">
+    <Compile Include="NewProgramForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InsertProgramForm.Designer.cs">
-      <DependentUpon>InsertProgramForm.cs</DependentUpon>
+    <Compile Include="NewProgramForm.Designer.cs">
+      <DependentUpon>NewProgramForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -148,8 +148,8 @@
     <EmbeddedResource Include="InsertedProgramForm.resx">
       <DependentUpon>InsertedProgramForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InsertProgramForm.resx">
-      <DependentUpon>InsertProgramForm.cs</DependentUpon>
+    <EmbeddedResource Include="NewProgramForm.resx">
+      <DependentUpon>NewProgramForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
