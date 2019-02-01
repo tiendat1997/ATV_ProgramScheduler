@@ -67,8 +67,6 @@
     <Compile Include="AdminHomeForm.Designer.cs">
       <DependentUpon>AdminHomeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AppLogger.cs" />
-    <Compile Include="AppLoggerBase.cs" />
     <Compile Include="ChangePasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>

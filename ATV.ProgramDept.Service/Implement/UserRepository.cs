@@ -14,7 +14,7 @@ namespace ATV.ProgramDept.Service.Implement
     {
         public UserRepository()
         {
-
+            StaticLogger.LogInfo(this.GetType(), "UserRepository was Created");
         }
         public bool ChangePassword(string Username, string NewPassword)
         {
