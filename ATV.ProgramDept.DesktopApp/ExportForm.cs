@@ -32,7 +32,7 @@ namespace ATV.ProgramDept.DesktopApp
         private void btnExport_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Excel 2003 (*.xls)|*.xls|Excel 2010 (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+            saveFileDialog.Filter = "Excel 2003 (*.xls)|*.xls|Excel 2007 (*.xlsx)|*.xlsx";
             saveFileDialog.DefaultExt = "xls";
             saveFileDialog.AddExtension = true;
             saveFileDialog.RestoreDirectory = true;
