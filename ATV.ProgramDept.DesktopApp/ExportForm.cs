@@ -2,6 +2,7 @@
 using ATV.ProgramDept.Service.Utilities;
 using ATV.ProgramDept.Service.ViewModel;
 using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,8 +40,21 @@ namespace ATV.ProgramDept.DesktopApp
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create);
-                HSSFWorkbook workbook = ExcelUtils.ExportToXLS(_scheduleViewModels);
-                workbook.Write(fileStream );
+                IWorkbook workbook = null;
+                if (saveFileDialog.FilterIndex == 2)
+                {
+                    workbook = ExcelUtils.ExportToExcel(_scheduleViewModels, ExcelUtils.TYPE_XLSX);
+                }
+                else if (saveFileDialog.FilterIndex == 1)
+                {
+                    workbook = ExcelUtils.ExportToExcel(_scheduleViewModels, ExcelUtils.TYPE_XLS);
+                }
+
+                if (workbook != null)
+                {
+                    workbook.Write(fileStream);
+
+                }
                 fileStream.Close();
                 this.Close();
             }

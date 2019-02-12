@@ -4,6 +4,7 @@ using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
+using NPOI.XSSF.UserModel;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace ATV.ProgramDept.Service.Utilities
 {
     public class ExcelUtils
     {
+        public static readonly byte TYPE_XLS = 1;
+        public static readonly byte TYPE_XLSX = 2;
         public static byte[] GetSample()
         {
             using (ExcelPackage ex = new ExcelPackage())
@@ -117,9 +120,17 @@ namespace ATV.ProgramDept.Service.Utilities
             return null;
         }
 
-        public static HSSFWorkbook ExportToXLS(List<ScheduleViewModel> schedules)
+        public static IWorkbook ExportToExcel(List<ScheduleViewModel> schedules, int type)
         {
-            HSSFWorkbook workbook = InitWorkbook();
+            IWorkbook workbook;
+            if (type == TYPE_XLS)
+            {
+                workbook = InitWorkbook(TYPE_XLS);
+            }
+            else
+            {
+                workbook = InitWorkbook(TYPE_XLSX);
+            }
             CreateListSheet(workbook, new string[] { "Thứ 2", "Thứ 3", "Thứ 4","Thứ 5","Thứ 6","Thứ 7","CN"});
             int numberOfSheet = workbook.NumberOfSheets;
             for (int i = 0; i < numberOfSheet; i++)
@@ -127,13 +138,13 @@ namespace ATV.ProgramDept.Service.Utilities
 
                 ISheet currentSheet = workbook.GetSheetAt(i);
                 #region first row
-                MergeCell(currentSheet, 1, 1, 1, 6);
-                currentSheet.CreateRow(1).CreateCell(1).SetCellValue($"CHƯƠNG TRÌNH TRUYỀN HÌNH SÁNG                       {currentSheet.SheetName}: ");
+                MergeCell(currentSheet, 0, 0, 0, 5);
+                currentSheet.CreateRow(0).CreateCell(0).SetCellValue($"CHƯƠNG TRÌNH TRUYỀN HÌNH SÁNG                       {currentSheet.SheetName}: ");
                 #endregion
 
                 #region table head
                 //content
-                IRow titleRow = currentSheet.CreateRow(2);
+                IRow titleRow = currentSheet.CreateRow(1);
                 titleRow.CreateCell(0).SetCellValue("Giờ");
                 titleRow.CreateCell(1).SetCellValue("Tiết mục");
                 titleRow.CreateCell(2).SetCellValue("Nội dung");
@@ -172,7 +183,7 @@ namespace ATV.ProgramDept.Service.Utilities
             sheet.AddMergedRegion(new CellRangeAddress(startRow, endRow, startCol, endCol));
         }
 
-        private static void CreateListSheet(HSSFWorkbook workbook, string[] sheetNames)
+        private static void CreateListSheet(IWorkbook workbook, string[] sheetNames)
         {
             if (workbook == null || 
                 sheetNames == null ||
@@ -186,17 +197,25 @@ namespace ATV.ProgramDept.Service.Utilities
             }
         }
 
-        private static HSSFWorkbook InitWorkbook(string company = "", string subject = "")
+        private static IWorkbook InitWorkbook(int type, string company = "", string subject = "")
         {
-            HSSFWorkbook workbook = new HSSFWorkbook();
+            IWorkbook workbook;
 
-            DocumentSummaryInformation dsi = PropertySetFactory.CreateDocumentSummaryInformation();
-            dsi.Company = company;
-            workbook.DocumentSummaryInformation = dsi;
+            if (type == TYPE_XLS)
+            {
+                workbook = new HSSFWorkbook();
+                DocumentSummaryInformation dsi = PropertySetFactory.CreateDocumentSummaryInformation();
+                dsi.Company = company;
+                ((HSSFWorkbook) workbook).DocumentSummaryInformation = dsi;
 
-            SummaryInformation si = PropertySetFactory.CreateSummaryInformation();
-            si.Subject = subject;
-            workbook.SummaryInformation = si;
+                SummaryInformation si = PropertySetFactory.CreateSummaryInformation();
+                si.Subject = subject;
+                ((HSSFWorkbook)workbook).SummaryInformation = si;
+            }
+            else
+            {
+                workbook = new XSSFWorkbook();
+            }
 
             return workbook;
         }
