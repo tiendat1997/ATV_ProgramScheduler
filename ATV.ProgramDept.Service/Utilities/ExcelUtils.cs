@@ -120,7 +120,7 @@ namespace ATV.ProgramDept.Service.Utilities
             return null;
         }
 
-        public static IWorkbook ExportToExcel(List<ScheduleViewModel> schedules, int type)
+        public static IWorkbook ExportWeeklySchedule(List<ScheduleViewModel> schedules, int type)
         {
             IWorkbook workbook;
             if (type == TYPE_XLS)
