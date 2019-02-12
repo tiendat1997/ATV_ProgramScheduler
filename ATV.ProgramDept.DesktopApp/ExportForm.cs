@@ -43,11 +43,11 @@ namespace ATV.ProgramDept.DesktopApp
                 IWorkbook workbook = null;
                 if (saveFileDialog.FilterIndex == 2)
                 {
-                    workbook = ExcelUtils.ExportToExcel(_scheduleViewModels, ExcelUtils.TYPE_XLSX);
+                    workbook = ExcelUtils.ExportWeeklySchedule(_scheduleViewModels, ExcelUtils.TYPE_XLSX);
                 }
                 else if (saveFileDialog.FilterIndex == 1)
                 {
-                    workbook = ExcelUtils.ExportToExcel(_scheduleViewModels, ExcelUtils.TYPE_XLS);
+                    workbook = ExcelUtils.ExportWeeklySchedule(_scheduleViewModels, ExcelUtils.TYPE_XLS);
                 }
 
                 if (workbook != null)
