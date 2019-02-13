@@ -1,17 +1,9 @@
-﻿using ATV.ProgramDept.Entity;
-using ATV.ProgramDept.Service.Utilities;
+﻿using ATV.ProgramDept.Service.Utilities;
 using ATV.ProgramDept.Service.ViewModel;
-using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ATV.ProgramDept.DesktopApp
