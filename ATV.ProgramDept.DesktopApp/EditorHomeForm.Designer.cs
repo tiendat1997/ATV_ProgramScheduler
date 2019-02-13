@@ -43,9 +43,10 @@
             this.btnSaveSchedule = new System.Windows.Forms.Button();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.scheduleHomeContainer = new System.Windows.Forms.Panel();
+            this.lblScheduleSessionName = new System.Windows.Forms.Label();
             this.dgvSchedule = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblScheduleDate = new System.Windows.Forms.Label();
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.tabPage10 = new System.Windows.Forms.TabPage();
             this.tabPage11 = new System.Windows.Forms.TabPage();
@@ -55,12 +56,15 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.dayScheduleHomeContainer = new System.Windows.Forms.Panel();
             this.mnsEditor.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage8.SuspendLayout();
+            this.scheduleHomeContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSchedule)).BeginInit();
+            this.dayScheduleHomeContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // mnsEditor
@@ -90,19 +94,19 @@
             // tsmiInsertNewProgram
             // 
             this.tsmiInsertNewProgram.Name = "tsmiInsertNewProgram";
-            this.tsmiInsertNewProgram.Size = new System.Drawing.Size(180, 22);
+            this.tsmiInsertNewProgram.Size = new System.Drawing.Size(169, 22);
             this.tsmiInsertNewProgram.Text = "Chèn CT mới";
             // 
             // tsmiInsertFlexProgram
             // 
             this.tsmiInsertFlexProgram.Name = "tsmiInsertFlexProgram";
-            this.tsmiInsertFlexProgram.Size = new System.Drawing.Size(180, 22);
+            this.tsmiInsertFlexProgram.Size = new System.Drawing.Size(169, 22);
             this.tsmiInsertFlexProgram.Text = "Chèn CT chen giờ";
             // 
             // tsmiInsertFixProgram
             // 
             this.tsmiInsertFixProgram.Name = "tsmiInsertFixProgram";
-            this.tsmiInsertFixProgram.Size = new System.Drawing.Size(180, 22);
+            this.tsmiInsertFixProgram.Size = new System.Drawing.Size(169, 22);
             this.tsmiInsertFixProgram.Text = "Chèn CT cố định";
             // 
             // tsmiEditorExport
@@ -155,11 +159,11 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(800, 424);
             this.tabControl1.TabIndex = 2;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.btnSaveSchedule);
-            this.tabPage1.Controls.Add(this.tabControl2);
+            this.tabPage1.Controls.Add(this.dayScheduleHomeContainer);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -171,7 +175,7 @@
             // 
             // btnSaveSchedule
             // 
-            this.btnSaveSchedule.Location = new System.Drawing.Point(709, 7);
+            this.btnSaveSchedule.Location = new System.Drawing.Point(717, -1);
             this.btnSaveSchedule.Name = "btnSaveSchedule";
             this.btnSaveSchedule.Size = new System.Drawing.Size(75, 23);
             this.btnSaveSchedule.TabIndex = 1;
@@ -185,24 +189,43 @@
             this.tabControl2.Controls.Add(this.tabPage9);
             this.tabControl2.Controls.Add(this.tabPage10);
             this.tabControl2.Controls.Add(this.tabPage11);
-            this.tabControl2.Location = new System.Drawing.Point(0, 7);
+            this.tabControl2.Location = new System.Drawing.Point(0, 6);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(796, 391);
+            this.tabControl2.Size = new System.Drawing.Size(796, 392);
             this.tabControl2.TabIndex = 0;
+            this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.tabControl2_SelectedIndexChanged);
             // 
             // tabPage8
             // 
-            this.tabPage8.Controls.Add(this.dgvSchedule);
-            this.tabPage8.Controls.Add(this.label2);
-            this.tabPage8.Controls.Add(this.label1);
+            this.tabPage8.Controls.Add(this.scheduleHomeContainer);
             this.tabPage8.Location = new System.Drawing.Point(4, 22);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(788, 365);
+            this.tabPage8.Size = new System.Drawing.Size(788, 366);
             this.tabPage8.TabIndex = 0;
             this.tabPage8.Text = "Sáng";
             this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // scheduleHomeContainer
+            // 
+            this.scheduleHomeContainer.Controls.Add(this.lblScheduleSessionName);
+            this.scheduleHomeContainer.Controls.Add(this.dgvSchedule);
+            this.scheduleHomeContainer.Controls.Add(this.lblScheduleDate);
+            this.scheduleHomeContainer.Location = new System.Drawing.Point(2, 0);
+            this.scheduleHomeContainer.Name = "scheduleHomeContainer";
+            this.scheduleHomeContainer.Size = new System.Drawing.Size(786, 363);
+            this.scheduleHomeContainer.TabIndex = 3;
+            // 
+            // lblScheduleSessionName
+            // 
+            this.lblScheduleSessionName.AutoSize = true;
+            this.lblScheduleSessionName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblScheduleSessionName.Location = new System.Drawing.Point(4, 5);
+            this.lblScheduleSessionName.Name = "lblScheduleSessionName";
+            this.lblScheduleSessionName.Size = new System.Drawing.Size(288, 20);
+            this.lblScheduleSessionName.TabIndex = 0;
+            this.lblScheduleSessionName.Text = "CHƯƠNG HÌNH TRUYỀN HÌNH SÁNG";
             // 
             // dgvSchedule
             // 
@@ -212,34 +235,25 @@
             this.dgvSchedule.AllowUserToResizeRows = false;
             this.dgvSchedule.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSchedule.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
-            this.dgvSchedule.Location = new System.Drawing.Point(0, 37);
+            this.dgvSchedule.Location = new System.Drawing.Point(8, 28);
             this.dgvSchedule.MultiSelect = false;
             this.dgvSchedule.Name = "dgvSchedule";
             this.dgvSchedule.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvSchedule.Size = new System.Drawing.Size(788, 300);
+            this.dgvSchedule.Size = new System.Drawing.Size(770, 332);
             this.dgvSchedule.TabIndex = 2;
             this.dgvSchedule.TabStop = false;
             this.dgvSchedule.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSchedule_CellClick);
             this.dgvSchedule.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSchedule_CellEnter);
             // 
-            // label2
+            // lblScheduleDate
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(690, 21);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(90, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Thứ 2 : 1/1/2019";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(15, 14);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(288, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "CHƯƠNG HÌNH TRUYỀN HÌNH SÁNG";
+            this.lblScheduleDate.AutoSize = true;
+            this.lblScheduleDate.Location = new System.Drawing.Point(665, 5);
+            this.lblScheduleDate.Name = "lblScheduleDate";
+            this.lblScheduleDate.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblScheduleDate.Size = new System.Drawing.Size(90, 13);
+            this.lblScheduleDate.TabIndex = 1;
+            this.lblScheduleDate.Text = "Thứ 2 : 1/1/2019";
             // 
             // tabPage9
             // 
@@ -324,6 +338,15 @@
             this.tabPage7.Text = "Chủ nhật";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // dayScheduleHomeContainer
+            // 
+            this.dayScheduleHomeContainer.Controls.Add(this.btnSaveSchedule);
+            this.dayScheduleHomeContainer.Controls.Add(this.tabControl2);
+            this.dayScheduleHomeContainer.Location = new System.Drawing.Point(0, 0);
+            this.dayScheduleHomeContainer.Name = "dayScheduleHomeContainer";
+            this.dayScheduleHomeContainer.Size = new System.Drawing.Size(792, 398);
+            this.dayScheduleHomeContainer.TabIndex = 2;
+            // 
             // EditorHomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -341,8 +364,10 @@
             this.tabPage1.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tabPage8.ResumeLayout(false);
-            this.tabPage8.PerformLayout();
+            this.scheduleHomeContainer.ResumeLayout(false);
+            this.scheduleHomeContainer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSchedule)).EndInit();
+            this.dayScheduleHomeContainer.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -374,9 +399,11 @@
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.Button btnSaveSchedule;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblScheduleSessionName;
         private System.Windows.Forms.DataGridView dgvSchedule;
+        private System.Windows.Forms.Label lblScheduleDate;
+        private System.Windows.Forms.Panel scheduleHomeContainer;
+        private System.Windows.Forms.Panel dayScheduleHomeContainer;
     }
 }
 
