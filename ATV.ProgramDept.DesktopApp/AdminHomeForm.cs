@@ -39,7 +39,12 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void tsmiAdminFlexProgram_Click(object sender, EventArgs e)
         {
-            ManageProgramForm programForm = new ManageProgramForm();
+            ManageFlexProgramForm programForm = new ManageFlexProgramForm();
+            Navigate(programForm, pnlContent);
+        }
+        private void tsmiAdminFixProgram_Click(object sender, EventArgs e)
+        {
+            ManageFixProgramForm programForm = new ManageFixProgramForm();
             Navigate(programForm, pnlContent);
         }
         // Navigate the menu bar 
@@ -50,6 +55,6 @@ namespace ATV.ProgramDept.DesktopApp
             panel.Controls.Clear();
             panel.Controls.Add(form);
             form.Show();
-        }
+        }     
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ATV.ProgramDept.Entity;
+using ATV.ProgramDept.Service.Enum;
 using ATV.ProgramDept.Service.Interface;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,12 @@ namespace ATV.ProgramDept.Service.Implement
         {
             var activePrograms = this.Find(p => p.IsActive == true);
             return activePrograms;
+        }
+
+        public IEnumerable<Program> GetProgramWithType(int programTypeId)
+        {
+            var programs = Find(p => p.IsActive == true && p.ProgramTypeID == programTypeId);
+            return programs; 
         }
     }
 }

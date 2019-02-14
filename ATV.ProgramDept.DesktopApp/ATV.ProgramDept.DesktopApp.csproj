@@ -39,9 +39,17 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.5.11\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,6 +67,8 @@
     <Compile Include="AdminHomeForm.Designer.cs">
       <DependentUpon>AdminHomeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AppLogger.cs" />
+    <Compile Include="AppLoggerBase.cs" />
     <Compile Include="ChangePasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,11 +117,17 @@
     <Compile Include="ManageEmailForm.Designer.cs">
       <DependentUpon>ManageEmailForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ManageProgramForm.cs">
+    <Compile Include="ManageFlexProgramForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ManageProgramForm.Designer.cs">
-      <DependentUpon>ManageProgramForm.cs</DependentUpon>
+    <Compile Include="ManageFlexProgramForm.Designer.cs">
+      <DependentUpon>ManageFlexProgramForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageFixProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageFixProgramForm.Designer.cs">
+      <DependentUpon>ManageFixProgramForm.cs</DependentUpon>
     </Compile>
     <Compile Include="NewAccountForm.cs">
       <SubType>Form</SubType>
@@ -124,6 +140,18 @@
     </Compile>
     <Compile Include="NewEmailForm.Designer.cs">
       <DependentUpon>NewEmailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewFlexProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewFlexProgramForm.Designer.cs">
+      <DependentUpon>NewFlexProgramForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewFixProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewFixProgramForm.Designer.cs">
+      <DependentUpon>NewFixProgramForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -160,14 +188,23 @@
     <EmbeddedResource Include="ManageEmailForm.resx">
       <DependentUpon>ManageEmailForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ManageProgramForm.resx">
-      <DependentUpon>ManageProgramForm.cs</DependentUpon>
+    <EmbeddedResource Include="ManageFlexProgramForm.resx">
+      <DependentUpon>ManageFlexProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageFixProgramForm.resx">
+      <DependentUpon>ManageFixProgramForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewAccountForm.resx">
       <DependentUpon>NewAccountForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewEmailForm.resx">
       <DependentUpon>NewEmailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewFlexProgramForm.resx">
+      <DependentUpon>NewFlexProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewFixProgramForm.resx">
+      <DependentUpon>NewFixProgramForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -178,6 +215,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <EmbeddedResource Include="StaticProgramForm.resx">
       <DependentUpon>StaticProgramForm.cs</DependentUpon>
     </EmbeddedResource>

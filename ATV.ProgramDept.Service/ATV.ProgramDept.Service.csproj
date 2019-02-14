@@ -74,9 +74,9 @@
     <Compile Include="Utilities\RegexPattern.cs" />
     <Compile Include="Utilities\ValidationProvider.cs" />
     <Compile Include="ViewModel\LoggedInUserInfomation.cs" />
+    <Compile Include="ViewModel\ScheduleViewModel.cs" />
     <Compile Include="ViewModel\ProgramModel.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ATV.ProgramDept.Entity\ATV.ProgramDept.Entity.csproj">
       <Project>{E419669D-4467-4B31-A8D8-6ACA28118C60}</Project>

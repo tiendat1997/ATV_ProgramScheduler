@@ -100,6 +100,7 @@
             this.dgvUnvalidateUser.Name = "dgvUnvalidateUser";
             this.dgvUnvalidateUser.Size = new System.Drawing.Size(644, 169);
             this.dgvUnvalidateUser.TabIndex = 1;
+            this.dgvUnvalidateUser.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUnvalidateUser_CellContentClick);
             // 
             // iDDataGridViewTextBoxColumn
             // 
@@ -344,6 +345,7 @@
             this.Controls.Add(this.btnNewAccount);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ManageAccountForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Account Mangement";
             this.Load += new System.EventHandler(this.ManageAccountForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUnvalidateUser)).EndInit();

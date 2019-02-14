@@ -40,8 +40,8 @@
             this.tsmiAdminAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdminEmail = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdminProgram = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiAdminFlexProgram = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdminFixProgram = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAdminFlexProgram = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdminHistory = new System.Windows.Forms.ToolStripMenuItem();
             this.btnToEditor = new System.Windows.Forms.Button();
             this.pnlContent = new System.Windows.Forms.Panel();
@@ -135,24 +135,25 @@
             // tsmiAdminProgram
             // 
             this.tsmiAdminProgram.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiAdminFlexProgram,
-            this.tsmiAdminFixProgram});
+            this.tsmiAdminFixProgram,
+            this.tsmiAdminFlexProgram});
             this.tsmiAdminProgram.Name = "tsmiAdminProgram";
             this.tsmiAdminProgram.Size = new System.Drawing.Size(90, 20);
             this.tsmiAdminProgram.Text = "Chương trình";
-            // 
-            // tsmiAdminFlexProgram
-            // 
-            this.tsmiAdminFlexProgram.Name = "tsmiAdminFlexProgram";
-            this.tsmiAdminFlexProgram.Size = new System.Drawing.Size(197, 22);
-            this.tsmiAdminFlexProgram.Text = "Chương trình cố định";
-            this.tsmiAdminFlexProgram.Click += new System.EventHandler(this.tsmiAdminFlexProgram_Click);
             // 
             // tsmiAdminFixProgram
             // 
             this.tsmiAdminFixProgram.Name = "tsmiAdminFixProgram";
             this.tsmiAdminFixProgram.Size = new System.Drawing.Size(197, 22);
-            this.tsmiAdminFixProgram.Text = "Chương trình chen giờ ";
+            this.tsmiAdminFixProgram.Text = "Chương trình cố định";
+            this.tsmiAdminFixProgram.Click += new System.EventHandler(this.tsmiAdminFixProgram_Click);
+            // 
+            // tsmiAdminFlexProgram
+            // 
+            this.tsmiAdminFlexProgram.Name = "tsmiAdminFlexProgram";
+            this.tsmiAdminFlexProgram.Size = new System.Drawing.Size(197, 22);
+            this.tsmiAdminFlexProgram.Text = "Chương trình chen giờ ";
+            this.tsmiAdminFlexProgram.Click += new System.EventHandler(this.tsmiAdminFlexProgram_Click);
             // 
             // tsmiAdminHistory
             // 
@@ -212,8 +213,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiAdminAccount;
         private System.Windows.Forms.ToolStripMenuItem tsmiAdminEmail;
         private System.Windows.Forms.ToolStripMenuItem tsmiAdminProgram;
-        private System.Windows.Forms.ToolStripMenuItem tsmiAdminFlexProgram;
         private System.Windows.Forms.ToolStripMenuItem tsmiAdminFixProgram;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAdminFlexProgram;
         private System.Windows.Forms.ToolStripMenuItem tsmiAdminHistory;
         private System.Windows.Forms.Button btnToEditor;
         private System.Windows.Forms.Panel pnlContent;

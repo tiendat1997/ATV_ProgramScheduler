@@ -32,65 +32,7 @@ namespace ATV.ProgramDept.DesktopApp
             string email = txtEmail.Text.Trim();
             string phone1 = txtPhone1.Text.Trim();
             string phone2 = txtPhone2.Text.Trim();
-            bool isValidate = true;
-
-            // validate name
-            if (ValidationProvider.RequiredStringIsValid(name) == false)
-            {
-                isValidate = false;
-                errName.SetError(txtName, "Tên không được rỗng");
-            }
-            else
-            {                                
-                this.errName.SetError(txtName, "");
-            }
-            
-            // validate email
-            if (ValidationProvider.RequiredStringIsValid(email) == false)
-            {
-                isValidate = false;
-                errEmail.SetError(txtEmail, "Email không được rỗng");
-            }
-            else if (ValidationProvider.RegExStringIsValid(email, RegexPattern.MATCH_EMAIL_PATTERN) == false)
-            {
-                isValidate = false;
-                errEmail.SetError(txtEmail, "Email phải theo định dạng [abc@abc.abc]");
-            }
-            else
-            {
-                // check existed username 
-                var existed = _userRepository.Find(u => u.Email.Equals(email)).Count() > 0;
-                if (existed)
-                {
-                    isValidate = false; 
-                    errEmail.SetError(txtEmail, "Email đã được sử dụng. Vui lòng chọn email khác!");
-                }
-                else
-                {
-                    errEmail.SetError(txtEmail, "");
-                }                
-            }
-
-            // validate phone1
-            if (phone1 != string.Empty && ValidationProvider.RegExStringIsValid(phone1, RegexPattern.MATCH_NUMBER) == false)
-            {
-                isValidate = false;
-                errPhone1.SetError(txtPhone1, "Số điện thoại không chứa chữ");
-            }
-            else
-            {
-                errPhone1.SetError(txtPhone1,""); 
-            }
-            // validate phone2
-            if (phone2 != string.Empty && ValidationProvider.RegExStringIsValid(phone2, RegexPattern.MATCH_NUMBER) == false)
-            {
-                isValidate = false; 
-                errPhone2.SetError(txtPhone2, "Số điện thoại không chứa chữ");
-            }
-            else
-            {
-                errPhone2.SetError(txtPhone2,"");
-            }
+            bool isValidate = CheckValidate(name, email, phone1, phone2);
 
             if (isValidate)
             {
@@ -115,7 +57,7 @@ namespace ATV.ProgramDept.DesktopApp
                     if (MessageBox.Show("Tạo tài khoản thành công!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
                     {
                         _accountForm.ReloadUnvalidatedDataGridView();
-                        this.Close();
+                        Close();
                     }
                 }
                 catch (Exception ex)
@@ -125,7 +67,7 @@ namespace ATV.ProgramDept.DesktopApp
                     {
                         this.Close();
                     }
-                }               
+                }
             }
         }
 
@@ -133,6 +75,75 @@ namespace ATV.ProgramDept.DesktopApp
         {
             _userRepository.Dispose();
             this.Close();
+        }
+
+        private bool CheckValidate(string name, string email, string phone1, string phone2)
+        {
+            bool isValidate = true;
+            // validate name
+            if (ValidationProvider.RequiredStringIsValid(name) == false)
+            {
+                isValidate = false;
+                errName.SetError(txtName, "Tên không được rỗng");
+            }
+            else
+            {
+                this.errName.SetError(txtName, "");
+            }
+
+            // validate email
+            if (ValidationProvider.RequiredStringIsValid(email) == false)
+            {
+                isValidate = false;
+                errEmail.SetError(txtEmail, "Email không được rỗng");
+            }
+            else if (ValidationProvider.RegExStringIsValid(email, RegexPattern.MATCH_EMAIL_PATTERN) == false)
+            {
+                isValidate = false;
+                errEmail.SetError(txtEmail, "Email phải theo định dạng [abc@abc.abc]");
+            }
+            else
+            {
+                // check existed username 
+                var existed = _userRepository.Find(u => u.Email.Equals(email)).Count() > 0;
+                if (existed)
+                {
+                    isValidate = false;
+                    errEmail.SetError(txtEmail, "Email đã được sử dụng. Vui lòng chọn email khác!");
+                }
+                else
+                {
+                    errEmail.SetError(txtEmail, "");
+                }
+            }
+
+            // validate phone1
+            if (phone1 != string.Empty && ValidationProvider.RegExStringIsValid(phone1, RegexPattern.MATCH_NUMBER) == false)
+            {
+                isValidate = false;
+                errPhone1.SetError(txtPhone1, "Số điện thoại không chứa chữ");
+            }
+            else
+            {
+                errPhone1.SetError(txtPhone1, "");
+            }
+            // validate phone2
+            if (phone2 != string.Empty && ValidationProvider.RegExStringIsValid(phone2, RegexPattern.MATCH_NUMBER) == false)
+            {
+                isValidate = false;
+                errPhone2.SetError(txtPhone2, "Số điện thoại không chứa chữ");
+            }
+            else
+            {
+                errPhone2.SetError(txtPhone2, "");
+            }
+
+            return isValidate;
+        }
+
+        private void NewAccountForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _userRepository.Dispose();
         }
     }
 }

@@ -10,6 +10,10 @@ namespace ATV.ProgramDept.Service.Implement
 {
     public class DepartmentRepository : Repository<Department>, IDepartmentRepository
     {
-
+        public IEnumerable<Department> GetProgramsWithActiveOrNot(bool isActive)
+        {
+            var programs = Find(u => u.IsActive == isActive);
+            return programs;
+        }
     }
 }

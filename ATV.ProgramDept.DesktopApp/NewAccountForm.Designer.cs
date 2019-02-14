@@ -166,6 +166,7 @@
             this.Controls.Add(this.lblName);
             this.Name = "NewAccountForm";
             this.Text = "Tạo mới tài khoản";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.NewAccountForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.errName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errEmail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errPhone1)).EndInit();
