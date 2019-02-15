@@ -12,10 +12,10 @@ namespace ATV.ProgramDept.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Date()
         {
-            EditingHistories = new HashSet<EditingHistory>();
-            MailingHistories = new HashSet<MailingHistory>();
-            Schedules = new HashSet<Schedule>();
-            ScheduleTemplates = new HashSet<ScheduleTemplate>();
+            EditingHistory = new HashSet<EditingHistory>();
+            MailingHistory = new HashSet<MailingHistory>();
+            Schedule = new HashSet<Schedule>();
+            ScheduleTemplate = new HashSet<ScheduleTemplate>();
         }
 
         public int ID { get; set; }
@@ -33,15 +33,15 @@ namespace ATV.ProgramDept.Entity
         public virtual Week Week { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EditingHistory> EditingHistories { get; set; }
+        public virtual ICollection<EditingHistory> EditingHistory { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MailingHistory> MailingHistories { get; set; }
+        public virtual ICollection<MailingHistory> MailingHistory { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Schedule> Schedules { get; set; }
+        public virtual ICollection<Schedule> Schedule { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ScheduleTemplate> ScheduleTemplates { get; set; }
+        public virtual ICollection<ScheduleTemplate> ScheduleTemplate { get; set; }
     }
 }

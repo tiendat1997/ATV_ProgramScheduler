@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ATV.ProgramDept.Service.Interface
 {
-    public interface IScheduleTemplateRepository : IRepository<ScheduleTemplate>
+    public interface IScheduleTemplateDetailRepository : IRepository<ScheduleTemplateDetail>
     {
     }
 }

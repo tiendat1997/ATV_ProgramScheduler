@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ATV.ProgramDept.Service.Implement
 {
-    public class ScheduleTemplateRepository : Repository<ScheduleTemplate>, IScheduleTemplateRepository
+    public class ScheduleTemplateRepository : Repository<ScheduleTemplateDetail>, IScheduleTemplateDetailRepository
     {
         
     }
