@@ -39,7 +39,6 @@ namespace ATV.ProgramDept.DesktopApp
                 File.WriteAllBytes(saveFileDialog.FileName, ExcelUtils.exportSchedule(_scheduleViewModels));
                 this.Close();
             }
-
         }
     }
 }
