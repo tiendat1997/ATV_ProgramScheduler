@@ -62,9 +62,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constant\TimeFrame.cs" />
     <Compile Include="Enum\DayOfWeekEnum.cs" />
     <Compile Include="Enum\RoleEnum.cs" />
     <Compile Include="Enum\ProgramTypeEnum.cs" />
+    <Compile Include="Enum\ScheduleTypeEnum.cs" />
     <Compile Include="Implement\DepartmentRepository.cs" />
     <Compile Include="Implement\EditingHistoryRepository.cs" />
     <Compile Include="Implement\ProgramRepository.cs" />
@@ -85,7 +87,7 @@
     <Compile Include="Utilities\StaticLogger.cs" />
     <Compile Include="Utilities\ValidationProvider.cs" />
     <Compile Include="ViewModel\LoggedInUserInfomation.cs" />
-    <Compile Include="ViewModel\ScheduleTemplateViewModel.cs" />
+    <Compile Include="ViewModel\ScheduleTemplateDetailViewModel.cs" />
     <Compile Include="ViewModel\ScheduleViewModel.cs" />
     <Compile Include="ViewModel\ProgramModel.cs" />
   </ItemGroup>
