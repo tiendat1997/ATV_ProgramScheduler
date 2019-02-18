@@ -1,6 +1,7 @@
 ﻿using ATV.ProgramDept.Entity;
 using ATV.ProgramDept.Service.Enum;
 using ATV.ProgramDept.Service.Implement;
+using ATV.ProgramDept.Service.Utilities;
 using ATV.ProgramDept.Service.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -85,6 +86,8 @@ namespace ATV.ProgramDept.DesktopApp
                 Duration = x.Duration,
                 Note = x.Note
             }).ToList();
+
+            //ScheduleUlities.EstimateStartTime(viewList);
 
             var bindingList = new BindingList<ScheduleViewModel>(viewList);
             var source = new BindingSource(bindingList, null);

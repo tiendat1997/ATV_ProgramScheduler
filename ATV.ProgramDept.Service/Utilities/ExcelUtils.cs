@@ -1,6 +1,7 @@
 ﻿using ATV.ProgramDept.Service.ViewModel;
 using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
+using NPOI.HSSF.Util;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
@@ -32,7 +33,11 @@ namespace ATV.ProgramDept.Service.Utilities
                 ISheet currentSheet = workbook.GetSheetAt(i);
                 #region first row
                 MergeCell(currentSheet, 0, 0, 0, 5);
-                currentSheet.CreateRow(0).CreateCell(0).SetCellValue($"CHƯƠNG TRÌNH TRUYỀN HÌNH SÁNG                       {currentSheet.SheetName}: ");
+                ICell labelCell = currentSheet.CreateRow(0).CreateCell(0);
+                labelCell.SetCellValue($"CHƯƠNG TRÌNH TRUYỀN HÌNH SÁNG                       {currentSheet.SheetName}: ");
+                ICellStyle labelCellStyle = workbook.CreateCellStyle();
+                labelCellStyle.FillBackgroundColor = HSSFColor.LightGreen.Index;
+                labelCell.CellStyle = labelCellStyle;
                 #endregion
 
                 #region table head

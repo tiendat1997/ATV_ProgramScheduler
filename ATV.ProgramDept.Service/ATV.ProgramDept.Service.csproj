@@ -84,6 +84,7 @@
     <Compile Include="Utilities\ExcelUtils.cs" />
     <Compile Include="Utilities\MD5Utils.cs" />
     <Compile Include="Utilities\RegexPattern.cs" />
+    <Compile Include="Utilities\ScheduleUlities.cs" />
     <Compile Include="Utilities\ValidationProvider.cs" />
     <Compile Include="ViewModel\LoggedInUserInfomation.cs" />
     <Compile Include="ViewModel\ScheduleViewModel.cs" />
