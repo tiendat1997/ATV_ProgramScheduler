@@ -50,7 +50,6 @@ namespace ATV.ProgramDept.DesktopApp
                 fileStream.Close();
                 this.Close();
             }
-
         }
     }
 }
