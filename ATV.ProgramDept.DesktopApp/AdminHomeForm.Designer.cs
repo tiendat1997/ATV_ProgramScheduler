@@ -79,44 +79,51 @@
             // tsmiTemplateMon
             // 
             this.tsmiTemplateMon.Name = "tsmiTemplateMon";
-            this.tsmiTemplateMon.Size = new System.Drawing.Size(104, 22);
+            this.tsmiTemplateMon.Size = new System.Drawing.Size(180, 22);
             this.tsmiTemplateMon.Text = "Thứ 2";
+            this.tsmiTemplateMon.Click += new System.EventHandler(this.tsmiTemplateMon_Click);
             // 
             // tsmiTemplateTue
             // 
             this.tsmiTemplateTue.Name = "tsmiTemplateTue";
-            this.tsmiTemplateTue.Size = new System.Drawing.Size(104, 22);
+            this.tsmiTemplateTue.Size = new System.Drawing.Size(180, 22);
             this.tsmiTemplateTue.Text = "Thứ 3";
+            this.tsmiTemplateTue.Click += new System.EventHandler(this.tsmiTemplateTue_Click);
             // 
             // tsmiTemplateWed
             // 
             this.tsmiTemplateWed.Name = "tsmiTemplateWed";
-            this.tsmiTemplateWed.Size = new System.Drawing.Size(104, 22);
+            this.tsmiTemplateWed.Size = new System.Drawing.Size(180, 22);
             this.tsmiTemplateWed.Text = "Thứ 4";
+            this.tsmiTemplateWed.Click += new System.EventHandler(this.tsmiTemplateWed_Click);
             // 
             // tsmiTemplateThur
             // 
             this.tsmiTemplateThur.Name = "tsmiTemplateThur";
-            this.tsmiTemplateThur.Size = new System.Drawing.Size(104, 22);
+            this.tsmiTemplateThur.Size = new System.Drawing.Size(180, 22);
             this.tsmiTemplateThur.Text = "Thứ 5";
+            this.tsmiTemplateThur.Click += new System.EventHandler(this.tsmiTemplateThur_Click);
             // 
             // tsmiTemplateFri
             // 
             this.tsmiTemplateFri.Name = "tsmiTemplateFri";
-            this.tsmiTemplateFri.Size = new System.Drawing.Size(104, 22);
+            this.tsmiTemplateFri.Size = new System.Drawing.Size(180, 22);
             this.tsmiTemplateFri.Text = "Thứ 6";
+            this.tsmiTemplateFri.Click += new System.EventHandler(this.tsmiTemplateFri_Click);
             // 
             // tsmiTemplateSat
             // 
             this.tsmiTemplateSat.Name = "tsmiTemplateSat";
-            this.tsmiTemplateSat.Size = new System.Drawing.Size(104, 22);
+            this.tsmiTemplateSat.Size = new System.Drawing.Size(180, 22);
             this.tsmiTemplateSat.Text = "Thứ 7";
+            this.tsmiTemplateSat.Click += new System.EventHandler(this.tsmiTemplateSat_Click);
             // 
             // tsmiTemplateSun
             // 
             this.tsmiTemplateSun.Name = "tsmiTemplateSun";
-            this.tsmiTemplateSun.Size = new System.Drawing.Size(104, 22);
+            this.tsmiTemplateSun.Size = new System.Drawing.Size(180, 22);
             this.tsmiTemplateSun.Text = "CN";
+            this.tsmiTemplateSun.Click += new System.EventHandler(this.tsmiTemplateSun_Click);
             // 
             // tsmiAdminAccount
             // 

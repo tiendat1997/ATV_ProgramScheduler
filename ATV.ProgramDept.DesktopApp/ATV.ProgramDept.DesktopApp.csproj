@@ -153,6 +153,24 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScheduleDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScheduleDetailForm.Designer.cs">
+      <DependentUpon>ScheduleDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScheduleTemplateDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScheduleTemplateDetailForm.Designer.cs">
+      <DependentUpon>ScheduleTemplateDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScheduleTemplateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScheduleTemplateForm.Designer.cs">
+      <DependentUpon>ScheduleTemplateForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="StaticProgramForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -220,13 +238,26 @@
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
+    <EmbeddedResource Include="ScheduleDetailForm.resx">
+      <DependentUpon>ScheduleDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScheduleTemplateDetailForm.resx">
+      <DependentUpon>ScheduleTemplateDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScheduleTemplateForm.resx">
+      <DependentUpon>ScheduleTemplateForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StaticProgramForm.resx">
       <DependentUpon>StaticProgramForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\ATV.ProgramDept.Entity.Department.datasource" />
     <None Include="Properties\DataSources\ATV.ProgramDept.Entity.Program.datasource" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Entity.ScheduleDetail.datasource" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Entity.ScheduleTemplate.datasource" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Entity.ScheduleTemplateDetail.datasource" />
     <None Include="Properties\DataSources\ATV.ProgramDept.Service.ViewModel.ProgramModel.datasource" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Service.ViewModel.ScheduleTemplateViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

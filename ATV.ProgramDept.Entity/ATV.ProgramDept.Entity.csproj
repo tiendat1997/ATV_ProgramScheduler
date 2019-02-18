@@ -61,7 +61,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Schedule.cs" />
+    <Compile Include="ScheduleDetail.cs" />
     <Compile Include="ScheduleTemplate.cs" />
+    <Compile Include="ScheduleTemplateDetail.cs" />
+    <Compile Include="sysdiagrams.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Week.cs" />
   </ItemGroup>

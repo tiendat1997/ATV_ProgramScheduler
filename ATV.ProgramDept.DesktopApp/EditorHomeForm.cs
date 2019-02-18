@@ -33,8 +33,8 @@ namespace ATV.ProgramDept.DesktopApp
         private void InitDataGridView()
         {
             #region sample data
-            List<Schedule> schedules = new List<Schedule>();
-            schedules.Add(new Schedule
+            List<ScheduleDetail> schedules = new List<ScheduleDetail>();
+            schedules.Add(new ScheduleDetail
             {
                 Program = new Entity.Program
                 {
@@ -44,7 +44,7 @@ namespace ATV.ProgramDept.DesktopApp
                 Duration = 5,
                 Note = "Yoga 7: Khởi động khớp gối căng cơ liên sườn"
             });
-            schedules.Add(new Schedule
+            schedules.Add(new ScheduleDetail
             {
                 Program = new Entity.Program
                 {
@@ -54,7 +54,7 @@ namespace ATV.ProgramDept.DesktopApp
                 Duration = 25.28,
                 Note = "CaNhan\\20-10 CaNhacSang"
             });
-            schedules.Add(new Schedule
+            schedules.Add(new ScheduleDetail
             {
                 Program = new Entity.Program
                 {
@@ -64,7 +64,7 @@ namespace ATV.ProgramDept.DesktopApp
                 Duration = 10.36,
                 Note = "(Vệ tinh)"
             });
-            schedules.Add(new Schedule
+            schedules.Add(new ScheduleDetail
             {
                 Program = new Entity.Program
                 {
