@@ -23,6 +23,7 @@ namespace ATV.ProgramDept.DesktopApp
         {
             _userRepository = new UserRepository();
             _editingHistoryRepository = new EditingHistoryRepository();
+            StaticLogger.LogDebug(this.GetType(),"Login Instance Created");
             InitializeComponent();
         }
         

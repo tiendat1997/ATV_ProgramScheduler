@@ -40,13 +40,20 @@
     <Reference Include="EPPlus, Version=4.5.3.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.4.5.3\lib\net40\EPPlus.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.5.11\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -72,6 +79,7 @@
     <Compile Include="Utilities\ExcelUtils.cs" />
     <Compile Include="Utilities\MD5Utils.cs" />
     <Compile Include="Utilities\RegexPattern.cs" />
+    <Compile Include="Utilities\StaticLogger.cs" />
     <Compile Include="Utilities\ValidationProvider.cs" />
     <Compile Include="ViewModel\LoggedInUserInfomation.cs" />
     <Compile Include="ViewModel\ScheduleViewModel.cs" />
