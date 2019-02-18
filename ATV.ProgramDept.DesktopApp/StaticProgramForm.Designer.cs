@@ -62,6 +62,8 @@
             this.dgvProgram.RowTemplate.Height = 24;
             this.dgvProgram.Size = new System.Drawing.Size(560, 206);
             this.dgvProgram.TabIndex = 0;
+            this.dgvProgram.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+
             // 
             // nameDataGridViewTextBoxColumn
             // 

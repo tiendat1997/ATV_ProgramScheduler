@@ -30,13 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgvProgram = new System.Windows.Forms.DataGridView();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.durationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.performByDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.programModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lblSearch = new System.Windows.Forms.Label();
             this.txtSearchBox = new System.Windows.Forms.TextBox();
             this.btnInsert = new System.Windows.Forms.Button();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.durationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.performByDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAddProgram = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProgram)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.programModelBindingSource)).BeginInit();
@@ -60,8 +60,30 @@
             this.dgvProgram.Name = "dgvProgram";
             this.dgvProgram.ReadOnly = true;
             this.dgvProgram.RowTemplate.Height = 24;
+            this.dgvProgram.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProgram.Size = new System.Drawing.Size(560, 206);
             this.dgvProgram.TabIndex = 0;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Tên chương trình";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // durationDataGridViewTextBoxColumn
+            // 
+            this.durationDataGridViewTextBoxColumn.DataPropertyName = "Duration";
+            this.durationDataGridViewTextBoxColumn.HeaderText = "Thời lượng";
+            this.durationDataGridViewTextBoxColumn.Name = "durationDataGridViewTextBoxColumn";
+            this.durationDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // performByDataGridViewTextBoxColumn
+            // 
+            this.performByDataGridViewTextBoxColumn.DataPropertyName = "PerformBy";
+            this.performByDataGridViewTextBoxColumn.HeaderText = "Thực hiện bởi";
+            this.performByDataGridViewTextBoxColumn.Name = "performByDataGridViewTextBoxColumn";
+            this.performByDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // programModelBindingSource
             // 
@@ -92,27 +114,7 @@
             this.btnInsert.TabIndex = 3;
             this.btnInsert.Text = "Chèn";
             this.btnInsert.UseVisualStyleBackColor = true;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Tên chương trình";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // durationDataGridViewTextBoxColumn
-            // 
-            this.durationDataGridViewTextBoxColumn.DataPropertyName = "Duration";
-            this.durationDataGridViewTextBoxColumn.HeaderText = "Thời lượng";
-            this.durationDataGridViewTextBoxColumn.Name = "durationDataGridViewTextBoxColumn";
-            this.durationDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // performByDataGridViewTextBoxColumn
-            // 
-            this.performByDataGridViewTextBoxColumn.DataPropertyName = "PerformBy";
-            this.performByDataGridViewTextBoxColumn.HeaderText = "Thực hiện bởi";
-            this.performByDataGridViewTextBoxColumn.Name = "performByDataGridViewTextBoxColumn";
-            this.performByDataGridViewTextBoxColumn.ReadOnly = true;
+            this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
             // 
             // btnAddProgram
             // 

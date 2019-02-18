@@ -71,5 +71,10 @@ namespace ATV.ProgramDept.DesktopApp
             dgvProgram.DataSource = bindingList;
             dgvProgram.Update();
         }
+
+        private void btnInsert_Click(object sender, EventArgs e)
+        {
+            //int SelectedProgramID = dgvProgram.selected
+        }
     }
 }
