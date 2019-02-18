@@ -14,12 +14,12 @@ namespace ATV.ProgramDept.Service.Implement
     {
         public UserRepository()
         {
-
+            StaticLogger.LogInfo(this.GetType(), "UserRepository was Created");
         }
         public bool ChangePassword(string Username, string NewPassword)
         {
             string PasswordHash = MD5Utils.CreateMD5FromASCII(NewPassword);
-            User user = this._context.Users
+            User user = this._context.User
                 .Where(p => p.Username == Username)
                 .FirstOrDefault();
             if (user == null)
@@ -33,16 +33,18 @@ namespace ATV.ProgramDept.Service.Implement
             return true;
         }
 
-        public IEnumerable<User> GetUsers(bool isPassChanged)
+        public IEnumerable<User> GetUsers(bool isPassChanged, int roleId)
         {
-            var users = Find(u => u.IsPasswordChanged == isPassChanged).ToList();
-            return users; 
+            var users =
+                Find(u => u.IsActive == true && u.RoleID == roleId && u.IsPasswordChanged == isPassChanged)
+                .ToList();
+            return users;
         }
 
         public LoggedInUserInfomation Login(string Username, string Password)
         {
             string PasswordHash = MD5Utils.CreateMD5FromASCII(Password);
-            User user = this._context.Users
+            User user = this._context.User
                 .Where(p => p.Username == Username && p.PasswordHash == PasswordHash)
                 .FirstOrDefault();
             if (user == null)

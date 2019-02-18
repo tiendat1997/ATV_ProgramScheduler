@@ -10,5 +10,6 @@ namespace ATV.ProgramDept.Service.Interface
     public interface IProgramRepository : IRepository<Program>
     {
         IEnumerable<Program> GetAllActivePrograms();
+        IEnumerable<Program> GetProgramWithType(int programTypeId); 
     }
 }

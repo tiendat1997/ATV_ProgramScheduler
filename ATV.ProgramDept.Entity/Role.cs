@@ -12,7 +12,7 @@ namespace ATV.ProgramDept.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Role()
         {
-            Users = new HashSet<User>();
+            User = new HashSet<User>();
         }
 
         public int ID { get; set; }
@@ -21,6 +21,6 @@ namespace ATV.ProgramDept.Entity
         public string Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<User> User { get; set; }
     }
 }

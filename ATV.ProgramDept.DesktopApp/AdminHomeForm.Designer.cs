@@ -40,8 +40,8 @@
             this.tsmiAdminAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdminEmail = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdminProgram = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiAdminFlexProgram = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdminFixProgram = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAdminFlexProgram = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdminHistory = new System.Windows.Forms.ToolStripMenuItem();
             this.btnToEditor = new System.Windows.Forms.Button();
             this.pnlContent = new System.Windows.Forms.Panel();
@@ -79,44 +79,51 @@
             // tsmiTemplateMon
             // 
             this.tsmiTemplateMon.Name = "tsmiTemplateMon";
-            this.tsmiTemplateMon.Size = new System.Drawing.Size(104, 22);
+            this.tsmiTemplateMon.Size = new System.Drawing.Size(180, 22);
             this.tsmiTemplateMon.Text = "Thứ 2";
+            this.tsmiTemplateMon.Click += new System.EventHandler(this.tsmiTemplateMon_Click);
             // 
             // tsmiTemplateTue
             // 
             this.tsmiTemplateTue.Name = "tsmiTemplateTue";
-            this.tsmiTemplateTue.Size = new System.Drawing.Size(104, 22);
+            this.tsmiTemplateTue.Size = new System.Drawing.Size(180, 22);
             this.tsmiTemplateTue.Text = "Thứ 3";
+            this.tsmiTemplateTue.Click += new System.EventHandler(this.tsmiTemplateTue_Click);
             // 
             // tsmiTemplateWed
             // 
             this.tsmiTemplateWed.Name = "tsmiTemplateWed";
-            this.tsmiTemplateWed.Size = new System.Drawing.Size(104, 22);
+            this.tsmiTemplateWed.Size = new System.Drawing.Size(180, 22);
             this.tsmiTemplateWed.Text = "Thứ 4";
+            this.tsmiTemplateWed.Click += new System.EventHandler(this.tsmiTemplateWed_Click);
             // 
             // tsmiTemplateThur
             // 
             this.tsmiTemplateThur.Name = "tsmiTemplateThur";
-            this.tsmiTemplateThur.Size = new System.Drawing.Size(104, 22);
+            this.tsmiTemplateThur.Size = new System.Drawing.Size(180, 22);
             this.tsmiTemplateThur.Text = "Thứ 5";
+            this.tsmiTemplateThur.Click += new System.EventHandler(this.tsmiTemplateThur_Click);
             // 
             // tsmiTemplateFri
             // 
             this.tsmiTemplateFri.Name = "tsmiTemplateFri";
-            this.tsmiTemplateFri.Size = new System.Drawing.Size(104, 22);
+            this.tsmiTemplateFri.Size = new System.Drawing.Size(180, 22);
             this.tsmiTemplateFri.Text = "Thứ 6";
+            this.tsmiTemplateFri.Click += new System.EventHandler(this.tsmiTemplateFri_Click);
             // 
             // tsmiTemplateSat
             // 
             this.tsmiTemplateSat.Name = "tsmiTemplateSat";
-            this.tsmiTemplateSat.Size = new System.Drawing.Size(104, 22);
+            this.tsmiTemplateSat.Size = new System.Drawing.Size(180, 22);
             this.tsmiTemplateSat.Text = "Thứ 7";
+            this.tsmiTemplateSat.Click += new System.EventHandler(this.tsmiTemplateSat_Click);
             // 
             // tsmiTemplateSun
             // 
             this.tsmiTemplateSun.Name = "tsmiTemplateSun";
-            this.tsmiTemplateSun.Size = new System.Drawing.Size(104, 22);
+            this.tsmiTemplateSun.Size = new System.Drawing.Size(180, 22);
             this.tsmiTemplateSun.Text = "CN";
+            this.tsmiTemplateSun.Click += new System.EventHandler(this.tsmiTemplateSun_Click);
             // 
             // tsmiAdminAccount
             // 
@@ -135,24 +142,25 @@
             // tsmiAdminProgram
             // 
             this.tsmiAdminProgram.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiAdminFlexProgram,
-            this.tsmiAdminFixProgram});
+            this.tsmiAdminFixProgram,
+            this.tsmiAdminFlexProgram});
             this.tsmiAdminProgram.Name = "tsmiAdminProgram";
             this.tsmiAdminProgram.Size = new System.Drawing.Size(90, 20);
             this.tsmiAdminProgram.Text = "Chương trình";
-            // 
-            // tsmiAdminFlexProgram
-            // 
-            this.tsmiAdminFlexProgram.Name = "tsmiAdminFlexProgram";
-            this.tsmiAdminFlexProgram.Size = new System.Drawing.Size(197, 22);
-            this.tsmiAdminFlexProgram.Text = "Chương trình cố định";
-            this.tsmiAdminFlexProgram.Click += new System.EventHandler(this.tsmiAdminFlexProgram_Click);
             // 
             // tsmiAdminFixProgram
             // 
             this.tsmiAdminFixProgram.Name = "tsmiAdminFixProgram";
             this.tsmiAdminFixProgram.Size = new System.Drawing.Size(197, 22);
-            this.tsmiAdminFixProgram.Text = "Chương trình chen giờ ";
+            this.tsmiAdminFixProgram.Text = "Chương trình cố định";
+            this.tsmiAdminFixProgram.Click += new System.EventHandler(this.tsmiAdminFixProgram_Click);
+            // 
+            // tsmiAdminFlexProgram
+            // 
+            this.tsmiAdminFlexProgram.Name = "tsmiAdminFlexProgram";
+            this.tsmiAdminFlexProgram.Size = new System.Drawing.Size(197, 22);
+            this.tsmiAdminFlexProgram.Text = "Chương trình chen giờ ";
+            this.tsmiAdminFlexProgram.Click += new System.EventHandler(this.tsmiAdminFlexProgram_Click);
             // 
             // tsmiAdminHistory
             // 
@@ -212,8 +220,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiAdminAccount;
         private System.Windows.Forms.ToolStripMenuItem tsmiAdminEmail;
         private System.Windows.Forms.ToolStripMenuItem tsmiAdminProgram;
-        private System.Windows.Forms.ToolStripMenuItem tsmiAdminFlexProgram;
         private System.Windows.Forms.ToolStripMenuItem tsmiAdminFixProgram;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAdminFlexProgram;
         private System.Windows.Forms.ToolStripMenuItem tsmiAdminHistory;
         private System.Windows.Forms.Button btnToEditor;
         private System.Windows.Forms.Panel pnlContent;

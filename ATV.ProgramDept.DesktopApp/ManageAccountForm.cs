@@ -1,4 +1,5 @@
-﻿using ATV.ProgramDept.Service.Implement;
+﻿using ATV.ProgramDept.Service.Enum;
+using ATV.ProgramDept.Service.Implement;
 using ATV.ProgramDept.Service.Interface;
 using System;
 using System.Collections.Generic;
@@ -14,56 +15,97 @@ namespace ATV.ProgramDept.DesktopApp
 {
     public partial class ManageAccountForm : Form
     {
-        private readonly IUserRepository _userRepository; 
-        
+        private readonly IUserRepository _userRepository;
+
         public ManageAccountForm()
         {
             _userRepository = new UserRepository();
-            InitializeComponent();            
+            InitializeComponent();
         }
 
         private void ManageAccountForm_Load(object sender, EventArgs e)
         {
-            var unvalidateUser = _userRepository.GetUsers(false);
-            dgvUnvalidateUser.DataSource = unvalidateUser;
-            var validateUser = _userRepository.GetUsers(true);
-            dgvValidateUser.DataSource = validateUser;
-        }
+            // UNVALIDATE USER
+            var unvalidateUser = _userRepository.GetUsers(false, (int)RoleEnum.Editor);
+            var unvalidateBind = new BindingSource();
+            unvalidateBind.DataSource = unvalidateUser;
+            dgvUnvalidateUser.DataSource = unvalidateBind;
 
-        private void dgvUnvalidateUser_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dgvUnvalidateUser.Columns[e.ColumnIndex].Name.Equals("Approve"))
-            {
-                MessageBox.Show("Are you want to approve this person to the system !","Message",MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-            }
+            // VALIDATE USER            
+            var validateUser = _userRepository.GetUsers(true, (int)RoleEnum.Editor);
+            var validateBind = new BindingSource();
+            validateBind.DataSource = validateUser;
+            dgvValidateUser.DataSource = validateBind;
         }
 
         private void dgvValidateUser_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvValidateUser.Columns[e.ColumnIndex].Name.Equals("Remove"))
+            try
             {
-                if (MessageBox.Show("Are you want to Remove this person!", "Message", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
+                var row = dgvValidateUser.Rows[e.RowIndex];
+                var editedUser = (Entity.User)row.DataBoundItem;
+                var user = _userRepository.FindById(editedUser.ID);
+                var action = dgvValidateUser.Columns[e.ColumnIndex].Name;
+
+                if (action.Equals("Edit"))
                 {
-                   // Processing result;
+                    // Processing result;                                                                    
+                    user.Phone1 = editedUser.Phone1;
+                    user.Phone2 = editedUser.Phone2;
+                    user.Name = editedUser.Name;
+                    _userRepository.Save();
+                    MessageBox.Show("Lưu thành công", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+                else if (action.Equals("Remove"))
+                {
+                    if (MessageBox.Show("Bạn có chắc muốn xóa tài khoản này không ?", "Message", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        // Processing result;
+                        user.IsActive = false;
+                        _userRepository.Save();
+                        MessageBox.Show("Xóa thành công", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        dgvValidateUser.Rows.RemoveAt(row.Index);
+                        dgvValidateUser.Refresh();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("MANAGE_ACCOUNT_FORM " + ex.Message);
+            }
+            finally
+            {
+                if (dgvValidateUser.CurrentCell != null)
+                    dgvValidateUser.CurrentCell.Selected = false; // remove focus on datagridview
             }
         }
 
         private void btnNewAccount_Click(object sender, EventArgs e)
         {
             NewAccountForm newAccForm = new NewAccountForm(this);
-            newAccForm.Show(); 
+            newAccForm.Show();
         }
 
         public void ReloadUnvalidatedDataGridView()
         {
-            dgvUnvalidateUser.DataSource = _userRepository.GetUsers(false);
+            var unvalidateUser = _userRepository.GetUsers(false, (int)RoleEnum.Editor);
+            var unvalidateBind = new BindingSource();
+            unvalidateBind.DataSource = unvalidateUser;
+            dgvUnvalidateUser.DataSource = unvalidateBind;
             dgvUnvalidateUser.Refresh();
         }
         public void ReloadValidatedDataGridView()
         {
-            dgvValidateUser.DataSource = _userRepository.GetUsers(true);
+            var validateUser = _userRepository.GetUsers(true, (int)RoleEnum.Editor);
+            var validateBind = new BindingSource();
+            validateBind.DataSource = validateUser;
+            dgvValidateUser.DataSource = validateBind;
             dgvValidateUser.Refresh();
+        }
+
+        private void dgvUnvalidateUser_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

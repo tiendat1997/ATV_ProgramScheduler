@@ -12,7 +12,7 @@ namespace ATV.ProgramDept.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Department()
         {
-            MailingHistories = new HashSet<MailingHistory>();
+            MailingHistory = new HashSet<MailingHistory>();
         }
 
         public int ID { get; set; }
@@ -27,6 +27,6 @@ namespace ATV.ProgramDept.Entity
         public bool? IsActive { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MailingHistory> MailingHistories { get; set; }
+        public virtual ICollection<MailingHistory> MailingHistory { get; set; }
     }
 }

@@ -15,7 +15,12 @@ using System.Windows.Forms;
 
 namespace ATV.ProgramDept.DesktopApp
 {
-    public partial class InsertedProgramForm : Form
+    public interface IProgramForm
+    {
+        void ReloadDGV();
+
+    }
+    public partial class InsertedProgramForm : Form, IProgramForm
     {
         private readonly IProgramRepository _programRepository;
         BindingList<ProgramModel> bindingList;
@@ -49,7 +54,22 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void btnAddProgram_Click(object sender, EventArgs e)
         {
-
+            NewProgramForm newProgramForm = new NewProgramForm((int)ProgramTypeEnum.Insert, this);
+            newProgramForm.Show();
+        }
+        public void ReloadDGV()
+        {
+            bindingList = new BindingList<ProgramModel>(_programRepository.
+                 Find(p => p.IsActive.Value && p.ProgramTypeID == (int)ProgramTypeEnum.Insert)
+                 .Select(p => new ProgramModel()
+                 {
+                     Duration = Converting.ConvertDurationToString(p.Duration.Value),
+                     ID = p.ID,
+                     PerformBy = p.PerformBy,
+                     Name = p.Name
+                 }).ToList());
+            dgvProgram.DataSource = bindingList;
+            dgvProgram.Update();
         }
     }
 }

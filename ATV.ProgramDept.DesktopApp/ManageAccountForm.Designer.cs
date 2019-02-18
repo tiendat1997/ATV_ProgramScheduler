@@ -43,10 +43,9 @@
             this.isPasswordChangedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.roleIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isActiveDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Approve = new System.Windows.Forms.DataGridViewButtonColumn();
             this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dgvValidateUser = new System.Windows.Forms.DataGridView();
-            this.iDDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.identityCodeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usernameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.passwordHashDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -61,6 +60,7 @@
             this.editingHistoriesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mailingHistoriesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.roleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Remove = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUnvalidateUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).BeginInit();
@@ -79,6 +79,7 @@
             // 
             // dgvUnvalidateUser
             // 
+            this.dgvUnvalidateUser.AllowUserToAddRows = false;
             this.dgvUnvalidateUser.AutoGenerateColumns = false;
             this.dgvUnvalidateUser.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUnvalidateUser.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -93,8 +94,7 @@
             this.passwordHashDataGridViewTextBoxColumn,
             this.isPasswordChangedDataGridViewCheckBoxColumn,
             this.roleIDDataGridViewTextBoxColumn,
-            this.isActiveDataGridViewCheckBoxColumn,
-            this.Approve});
+            this.isActiveDataGridViewCheckBoxColumn});
             this.dgvUnvalidateUser.DataSource = this.userBindingSource;
             this.dgvUnvalidateUser.Location = new System.Drawing.Point(12, 51);
             this.dgvUnvalidateUser.Name = "dgvUnvalidateUser";
@@ -119,31 +119,33 @@
             // nameDataGridViewTextBoxColumn
             // 
             this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Họ và tên";
             this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.Width = 150;
             // 
             // usernameDataGridViewTextBoxColumn
             // 
             this.usernameDataGridViewTextBoxColumn.DataPropertyName = "Username";
-            this.usernameDataGridViewTextBoxColumn.HeaderText = "Username";
+            this.usernameDataGridViewTextBoxColumn.HeaderText = "Tên đăng nhập";
             this.usernameDataGridViewTextBoxColumn.Name = "usernameDataGridViewTextBoxColumn";
+            this.usernameDataGridViewTextBoxColumn.Width = 150;
             // 
             // defaultPasswordDataGridViewTextBoxColumn
             // 
             this.defaultPasswordDataGridViewTextBoxColumn.DataPropertyName = "DefaultPassword";
-            this.defaultPasswordDataGridViewTextBoxColumn.HeaderText = "DefaultPassword";
+            this.defaultPasswordDataGridViewTextBoxColumn.HeaderText = "Mật khẩu";
             this.defaultPasswordDataGridViewTextBoxColumn.Name = "defaultPasswordDataGridViewTextBoxColumn";
             // 
             // phone1DataGridViewTextBoxColumn
             // 
             this.phone1DataGridViewTextBoxColumn.DataPropertyName = "Phone1";
-            this.phone1DataGridViewTextBoxColumn.HeaderText = "Phone1";
+            this.phone1DataGridViewTextBoxColumn.HeaderText = "Điện thoại 1";
             this.phone1DataGridViewTextBoxColumn.Name = "phone1DataGridViewTextBoxColumn";
             // 
             // phone2DataGridViewTextBoxColumn
             // 
             this.phone2DataGridViewTextBoxColumn.DataPropertyName = "Phone2";
-            this.phone2DataGridViewTextBoxColumn.HeaderText = "Phone2";
+            this.phone2DataGridViewTextBoxColumn.HeaderText = "Điện thoại 2";
             this.phone2DataGridViewTextBoxColumn.Name = "phone2DataGridViewTextBoxColumn";
             // 
             // emailDataGridViewTextBoxColumn
@@ -181,25 +183,17 @@
             this.isActiveDataGridViewCheckBoxColumn.Name = "isActiveDataGridViewCheckBoxColumn";
             this.isActiveDataGridViewCheckBoxColumn.Visible = false;
             // 
-            // Approve
-            // 
-            this.Approve.HeaderText = "Xác nhận";
-            this.Approve.Name = "Approve";
-            this.Approve.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Approve.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Approve.Text = "Xác nhận";
-            this.Approve.UseColumnTextForButtonValue = true;
-            // 
             // userBindingSource
             // 
             this.userBindingSource.DataSource = typeof(ATV.ProgramDept.Entity.User);
             // 
             // dgvValidateUser
             // 
+            this.dgvValidateUser.AllowUserToAddRows = false;
             this.dgvValidateUser.AutoGenerateColumns = false;
             this.dgvValidateUser.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvValidateUser.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.iDDataGridViewTextBoxColumn1,
+            this.ID,
             this.identityCodeDataGridViewTextBoxColumn1,
             this.usernameDataGridViewTextBoxColumn1,
             this.passwordHashDataGridViewTextBoxColumn1,
@@ -214,20 +208,21 @@
             this.editingHistoriesDataGridViewTextBoxColumn,
             this.mailingHistoriesDataGridViewTextBoxColumn,
             this.roleDataGridViewTextBoxColumn,
+            this.Edit,
             this.Remove});
             this.dgvValidateUser.DataSource = this.userBindingSource;
             this.dgvValidateUser.Location = new System.Drawing.Point(13, 247);
             this.dgvValidateUser.Name = "dgvValidateUser";
-            this.dgvValidateUser.Size = new System.Drawing.Size(445, 150);
+            this.dgvValidateUser.Size = new System.Drawing.Size(593, 150);
             this.dgvValidateUser.TabIndex = 2;
             this.dgvValidateUser.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvValidateUser_CellContentClick);
             // 
-            // iDDataGridViewTextBoxColumn1
+            // ID
             // 
-            this.iDDataGridViewTextBoxColumn1.DataPropertyName = "ID";
-            this.iDDataGridViewTextBoxColumn1.HeaderText = "ID";
-            this.iDDataGridViewTextBoxColumn1.Name = "iDDataGridViewTextBoxColumn1";
-            this.iDDataGridViewTextBoxColumn1.Visible = false;
+            this.ID.DataPropertyName = "ID";
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.Visible = false;
             // 
             // identityCodeDataGridViewTextBoxColumn1
             // 
@@ -253,19 +248,20 @@
             // nameDataGridViewTextBoxColumn1
             // 
             this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn1.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn1.HeaderText = "Họ và tên";
             this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
+            this.nameDataGridViewTextBoxColumn1.Width = 150;
             // 
             // phone1DataGridViewTextBoxColumn1
             // 
             this.phone1DataGridViewTextBoxColumn1.DataPropertyName = "Phone1";
-            this.phone1DataGridViewTextBoxColumn1.HeaderText = "Phone1";
+            this.phone1DataGridViewTextBoxColumn1.HeaderText = "Điện thoại 1";
             this.phone1DataGridViewTextBoxColumn1.Name = "phone1DataGridViewTextBoxColumn1";
             // 
             // phone2DataGridViewTextBoxColumn1
             // 
             this.phone2DataGridViewTextBoxColumn1.DataPropertyName = "Phone2";
-            this.phone2DataGridViewTextBoxColumn1.HeaderText = "Phone2";
+            this.phone2DataGridViewTextBoxColumn1.HeaderText = "Điện thoại 2";
             this.phone2DataGridViewTextBoxColumn1.Name = "phone2DataGridViewTextBoxColumn1";
             // 
             // emailDataGridViewTextBoxColumn1
@@ -324,6 +320,13 @@
             this.roleDataGridViewTextBoxColumn.Name = "roleDataGridViewTextBoxColumn";
             this.roleDataGridViewTextBoxColumn.Visible = false;
             // 
+            // Edit
+            // 
+            this.Edit.HeaderText = "Thay đổi";
+            this.Edit.Name = "Edit";
+            this.Edit.Text = "Lưu";
+            this.Edit.UseColumnTextForButtonValue = true;
+            // 
             // Remove
             // 
             this.Remove.HeaderText = "Hủy";
@@ -342,6 +345,7 @@
             this.Controls.Add(this.btnNewAccount);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ManageAccountForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Account Mangement";
             this.Load += new System.EventHandler(this.ManageAccountForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUnvalidateUser)).EndInit();
@@ -369,8 +373,7 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn isPasswordChangedDataGridViewCheckBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn roleIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn isActiveDataGridViewCheckBoxColumn;
-        private System.Windows.Forms.DataGridViewButtonColumn Approve;
-        private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn identityCodeDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn usernameDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn passwordHashDataGridViewTextBoxColumn1;
@@ -385,6 +388,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn editingHistoriesDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn mailingHistoriesDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn roleDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewButtonColumn Edit;
         private System.Windows.Forms.DataGridViewButtonColumn Remove;
     }
 }

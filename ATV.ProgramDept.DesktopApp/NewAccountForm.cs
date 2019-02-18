@@ -32,8 +32,54 @@ namespace ATV.ProgramDept.DesktopApp
             string email = txtEmail.Text.Trim();
             string phone1 = txtPhone1.Text.Trim();
             string phone2 = txtPhone2.Text.Trim();
-            bool isValidate = true;
+            bool isValidate = CheckValidate(name, email, phone1, phone2);
 
+            if (isValidate)
+            {
+                try
+                {
+                    // CREATE NEW ACCOUNT 
+                    var newUser = new User
+                    {
+                        Username = email,
+                        DefaultPassword = "123456", // GET DEFAULT PASS
+                        Email = email,
+                        Name = name,
+                        Phone1 = phone1,
+                        Phone2 = phone2,
+                        RoleID = (int)RoleEnum.Editor,
+                        IsPasswordChanged = false,
+                        PasswordHash = "E10ADC3949BA59ABBE56E057F20F883E",
+                        IsActive = true
+                    };
+                    _userRepository.Create(newUser);
+                    _userRepository.Save();
+                    if (MessageBox.Show("Tạo tài khoản thành công!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
+                    {
+                        _accountForm.ReloadUnvalidatedDataGridView();
+                        Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("[NEW_ACCOUNT_FORM] " + ex.Message.ToString());
+                    if (MessageBox.Show("Xảy ra lỗi khi tạo", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
+                    {
+                        this.Close();
+                    }
+                }
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            _userRepository.Dispose();
+            this.Close();
+        }
+
+        private bool CheckValidate(string name, string email, string phone1, string phone2)
+        {
+            bool isValidate = true;
             // validate name
             if (ValidationProvider.RequiredStringIsValid(name) == false)
             {
@@ -44,7 +90,7 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 this.errName.SetError(txtName, "");
             }
-            
+
             // validate email
             if (ValidationProvider.RequiredStringIsValid(email) == false)
             {
@@ -58,7 +104,17 @@ namespace ATV.ProgramDept.DesktopApp
             }
             else
             {
-                errEmail.SetError(txtEmail,"");
+                // check existed username 
+                var existed = _userRepository.Find(u => u.Email.Equals(email)).Count() > 0;
+                if (existed)
+                {
+                    isValidate = false;
+                    errEmail.SetError(txtEmail, "Email đã được sử dụng. Vui lòng chọn email khác!");
+                }
+                else
+                {
+                    errEmail.SetError(txtEmail, "");
+                }
             }
 
             // validate phone1
@@ -69,57 +125,25 @@ namespace ATV.ProgramDept.DesktopApp
             }
             else
             {
-                errPhone1.SetError(txtPhone1,""); 
+                errPhone1.SetError(txtPhone1, "");
             }
             // validate phone2
             if (phone2 != string.Empty && ValidationProvider.RegExStringIsValid(phone2, RegexPattern.MATCH_NUMBER) == false)
             {
-                isValidate = false; 
+                isValidate = false;
                 errPhone2.SetError(txtPhone2, "Số điện thoại không chứa chữ");
             }
             else
             {
-                errPhone2.SetError(txtPhone2,"");
+                errPhone2.SetError(txtPhone2, "");
             }
 
-            if (isValidate)
-            {
-                try
-                {
-                    // CREATE NEW ACCOUNT 
-                    var newUser = new User
-                    {
-                        Username = email,
-                        DefaultPassword = "123456", // GET DEFAULT PASS
-                        Email = email,
-                        Name = name,
-                        RoleID = (int)RoleEnum.Editor,
-                        IsPasswordChanged = false,
-                        PasswordHash = "E10ADC3949BA59ABBE56E057F20F883E",
-                        IsActive = true
-                    };
-                    _userRepository.Create(newUser);
-                    _userRepository.Save();
-                    if (MessageBox.Show("Tạo tài khoản thành công!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
-                    {
-                        _accountForm.ReloadUnvalidatedDataGridView();
-                        this.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[NEW_ACCOUNT_FORM] " + ex.Message.ToString());
-                    if (MessageBox.Show("Xảy ra lỗi khi tạo", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
-                    {
-                        this.Close();
-                    }
-                }               
-            }
+            return isValidate;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {            
-            this.Close();
+        private void NewAccountForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _userRepository.Dispose();
         }
     }
 }

@@ -39,7 +39,12 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void tsmiAdminFlexProgram_Click(object sender, EventArgs e)
         {
-            ManageProgramForm programForm = new ManageProgramForm();
+            ManageFlexProgramForm programForm = new ManageFlexProgramForm();
+            Navigate(programForm, pnlContent);
+        }
+        private void tsmiAdminFixProgram_Click(object sender, EventArgs e)
+        {
+            ManageFixProgramForm programForm = new ManageFixProgramForm();
             Navigate(programForm, pnlContent);
         }
         // Navigate the menu bar 
@@ -49,7 +54,59 @@ namespace ATV.ProgramDept.DesktopApp
             form.Size = panel.Size;
             panel.Controls.Clear();
             panel.Controls.Add(form);
+            form.TopLevel = false;
+            form.Dock = DockStyle.Fill; 
             form.Show();
         }
+
+        #region DAY_OF_WEEK TEMPLATE
+        // 1 - MONDAY 
+        // GO TO MONDAY TEMPLATE 
+        private void tsmiTemplateMon_Click(object sender, EventArgs e)
+        {
+            ScheduleTemplateForm form = new ScheduleTemplateForm(1);                        
+            Navigate(form, pnlContent);
+        }
+        // GO TO TUESDAY TEMPLATE
+        private void tsmiTemplateTue_Click(object sender, EventArgs e)
+        {
+            ScheduleTemplateForm form = new ScheduleTemplateForm(2);
+            Navigate(form, pnlContent);
+        }
+
+        // GO TO WEDNESDAY TEMPLATE
+        private void tsmiTemplateWed_Click(object sender, EventArgs e)
+        {
+            ScheduleTemplateForm form = new ScheduleTemplateForm(3);
+            Navigate(form, pnlContent);
+        }
+
+        // GO TO THURSDAY TEMPLATE
+        private void tsmiTemplateThur_Click(object sender, EventArgs e)
+        {
+            ScheduleTemplateForm form = new ScheduleTemplateForm(4);
+            Navigate(form, pnlContent);
+        }
+        // GO TO FIRDAY TEMPLATE
+        private void tsmiTemplateFri_Click(object sender, EventArgs e)
+        {
+            ScheduleTemplateForm form = new ScheduleTemplateForm(5);
+            Navigate(form, pnlContent);
+        }
+
+        // GO TO SATURDAY TEMPLATE
+        private void tsmiTemplateSat_Click(object sender, EventArgs e)
+        {
+            ScheduleTemplateForm form = new ScheduleTemplateForm(6);
+            Navigate(form, pnlContent);
+        }
+
+        // GO TO SUNDAY TEMPLATE
+        private void tsmiTemplateSun_Click(object sender, EventArgs e)
+        {
+            ScheduleTemplateForm form = new ScheduleTemplateForm(7);
+            Navigate(form, pnlContent);
+        }
+        #endregion
     }
 }
