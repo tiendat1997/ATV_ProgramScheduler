@@ -15,13 +15,22 @@ using System.Windows.Forms;
 
 namespace ATV.ProgramDept.DesktopApp
 {
-    public partial class InsertedProgramForm : Form
+    public interface IProgramForm
+    {
+        void ReloadDGV();
+
+    }
+    public partial class InsertedProgramForm : Form, IProgramForm
     {
         private readonly IProgramRepository _programRepository;
         BindingList<ProgramModel> bindingList;
-        public InsertedProgramForm()
+        BindingList<ProgramModel> currentList;
+        EditorHomeForm editorHomeForm;
+
+        public InsertedProgramForm(EditorHomeForm editorHomeForm)
         {
             _programRepository = new ProgramRepository();
+            this.editorHomeForm = editorHomeForm;
             InitializeComponent();
             bindingList = new BindingList<ProgramModel>(_programRepository.
                  Find(p => p.IsActive.Value && p.ProgramTypeID == (int)ProgramTypeEnum.Insert)
@@ -32,23 +41,56 @@ namespace ATV.ProgramDept.DesktopApp
                      PerformBy = p.PerformBy,
                      Name = p.Name
                  }).ToList());
+            currentList = bindingList;
 
         }
 
         private void InsertedProgramForm_Load(object sender, EventArgs e)
         {
-            dgvProgram.DataSource = bindingList;
+            dgvProgram.DataSource = currentList;
         }
 
         private void txtSearchBox_TextChanged(object sender, EventArgs e)
         {
-            BindingList<ProgramModel> filtered = new BindingList<ProgramModel>(bindingList.Where(p => p.Name.ToLower().Contains(txtSearchBox.Text.ToLower())).ToList());
-            dgvProgram.DataSource = filtered;
+            currentList = new BindingList<ProgramModel>(bindingList.Where(p => p.Name.ToLower().Contains(txtSearchBox.Text.ToLower())).ToList());
+            dgvProgram.DataSource = currentList;
             dgvProgram.Update();
         }
 
         private void btnAddProgram_Click(object sender, EventArgs e)
         {
+            NewProgramForm newProgramForm = new NewProgramForm((int)ProgramTypeEnum.Insert, this);
+            newProgramForm.Show();
+        }
+        public void ReloadDGV()
+        {
+            bindingList = new BindingList<ProgramModel>(_programRepository.
+                 Find(p => p.IsActive.Value && p.ProgramTypeID == (int)ProgramTypeEnum.Insert)
+                 .Select(p => new ProgramModel()
+                 {
+                     Duration = Converting.ConvertDurationToString(p.Duration.Value),
+                     ID = p.ID,
+                     PerformBy = p.PerformBy,
+                     Name = p.Name
+                 }).ToList());
+            currentList = bindingList;
+            dgvProgram.DataSource = currentList;
+            dgvProgram.Update();
+        }
+
+        private void btnInsert_Click(object sender, EventArgs e)
+        {
+            if(dgvProgram.SelectedRows.Count > 0)
+            {
+                //EditorHomeForm.ProgramIDToInsert = currentList[dgvProgram.SelectedRows[0].Index].ID;
+                //this.Close();
+                editorHomeForm.ReadyForInsertProgram(currentList[dgvProgram.SelectedRows[0].Index].ID);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn chương trình");
+            }
 
         }
     }

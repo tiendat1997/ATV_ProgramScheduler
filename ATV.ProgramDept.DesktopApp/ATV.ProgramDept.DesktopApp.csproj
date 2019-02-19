@@ -106,11 +106,11 @@
     <Compile Include="InsertedProgramForm.Designer.cs">
       <DependentUpon>InsertedProgramForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="InsertProgramForm.cs">
+    <Compile Include="NewProgramForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InsertProgramForm.Designer.cs">
-      <DependentUpon>InsertProgramForm.cs</DependentUpon>
+    <Compile Include="NewProgramForm.Designer.cs">
+      <DependentUpon>NewProgramForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -201,8 +201,8 @@
     <EmbeddedResource Include="InsertedProgramForm.resx">
       <DependentUpon>InsertedProgramForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InsertProgramForm.resx">
-      <DependentUpon>InsertProgramForm.cs</DependentUpon>
+    <EmbeddedResource Include="NewProgramForm.resx">
+      <DependentUpon>NewProgramForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -283,7 +283,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ATV.ProgramDept.Entity\ATV.ProgramDept.Entity.csproj">
-      <Project>{E419669D-4467-4B31-A8D8-6ACA28118C60}</Project>
+      <Project>{e419669d-4467-4b31-a8d8-6aca28118c60}</Project>
       <Name>ATV.ProgramDept.Entity</Name>
     </ProjectReference>
     <ProjectReference Include="..\ATV.ProgramDept.Service\ATV.ProgramDept.Service.csproj">
