@@ -98,13 +98,13 @@ namespace ATV.ProgramDept.DesktopApp
         {
             dgvScheduleTemplateDetail.AutoGenerateColumns = false;
             contextMenuForColumn2.MenuItems.Add("Chèn CT cố định", new EventHandler(InsertFixProgramEvent));
-            contextMenuForColumn2.MenuItems.Add("Chèn CT chen giờ", new EventHandler(InsertFlexProgramEVent));            
+            contextMenuForColumn2.MenuItems.Add("Chèn CT chen giờ", new EventHandler(InsertFixProgramEvent));            
         }
         private void InsertFixProgramEvent(object sender, EventArgs eventArgs)
         {
 
         }
-        private void InsertFlexProgramEVent(object sender, EventArgs eventArgs)
+        private void InsertFlexProgramEvent(object sender, EventArgs eventArgs)
         {
 
         }        
