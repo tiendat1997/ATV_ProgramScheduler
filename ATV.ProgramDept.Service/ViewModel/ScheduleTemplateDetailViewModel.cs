@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ATV.ProgramDept.Service.ViewModel
 {
-    public class ScheduleTemplateDetailViewModel
-    {
-        public TimeSpan StartTime { get; set; }
+    public class ScheduleTemplateDetailViewModel : ScheduleBase
+    {        
         public int ID { get; set; }
 
         public int ProgramID { get; set; }
@@ -25,9 +24,7 @@ namespace ATV.ProgramDept.Service.ViewModel
 
         public string Contents { get; set; }
 
-        public string PerformBy { get; set; }
-
-        public double Duration { get; set; }
+        public string PerformBy { get; set; }        
 
         public string Note { get; set; }
     }

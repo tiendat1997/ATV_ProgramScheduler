@@ -1,5 +1,6 @@
 ﻿using ATV.ProgramDept.Service.Constant;
 using ATV.ProgramDept.Service.Enum;
+using ATV.ProgramDept.Service.Utilities;
 using ATV.ProgramDept.Service.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace ATV.ProgramDept.DesktopApp
     public partial class ScheduleTemplateForm : Form
     {
         private ContextMenu contextMenuForColumn1 = new ContextMenu();
-        private ContextMenu contextMenuForColumn2 = new ContextMenu(); 
+        private ContextMenu contextMenuForColumn2 = new ContextMenu();
         public int DayOfWeek { get; set; }
         public ScheduleTemplateForm(int dayOfWeek)
         {
@@ -34,7 +35,7 @@ namespace ATV.ProgramDept.DesktopApp
                     StartTime = new TimeSpan(5,0,0),
                     ProgramName = "Chương trình tập thể dục",
                     Contents = "Something vui và funny",
-                    Duration = 30,
+                    Duration = 15,
                     PerformBy = "P.Phát Thanh",
                     Note = "something",
                     Position = 1,
@@ -42,336 +43,25 @@ namespace ATV.ProgramDept.DesktopApp
                 new ScheduleTemplateDetailViewModel
                 {
                     StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
+                    ProgramName = "Chương trình thiếu nhi",
                     Contents = "Something vui và funny",
-                    Duration = 30,
+                    Duration = 33,
                     PerformBy = "P.Phát Thanh",
                     Note = "something",
                     Position = 1,
                 },
-                   new ScheduleTemplateDetailViewModel
+                new ScheduleTemplateDetailViewModel
                 {
                     StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
+                    ProgramName = "Chương trình thời sự sáng",
                     Contents = "Something vui và funny",
-                    Duration = 30,
+                    Duration = 60,
                     PerformBy = "P.Phát Thanh",
                     Note = "something",
                     Position = 1,
-                },
-                      new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                         new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                            new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                               new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                  new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                     new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                        new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                           new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                              new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                 new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-
-                },
-                                                    new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                       new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                          new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                             new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                                new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                                   new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                                      new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                                         new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                                            new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                                               new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                                                  new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                                                     new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                                                        new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                                                           new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                                                              new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                                                                 new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                                                                    new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                                                                       new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                                                                          new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                                                                             new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                                                                                                                new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 30,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-
+                },                  
             };
+            ScheduleUlities.EstimateStartTime(list);
             var bindList = new BindingList<ScheduleTemplateDetailViewModel>(list);
             var bindSource = new BindingSource(bindList, null);
             dgvScheduleTemplateDetail.DataSource = bindSource;
@@ -413,7 +103,7 @@ namespace ATV.ProgramDept.DesktopApp
                 default:
                     break;
             }
-        }       
+        }
 
         private void ScheduleTemplateForm_Load(object sender, EventArgs e)
         {
