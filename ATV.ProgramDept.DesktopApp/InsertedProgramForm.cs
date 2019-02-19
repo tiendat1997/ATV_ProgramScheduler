@@ -24,6 +24,7 @@ namespace ATV.ProgramDept.DesktopApp
     {
         private readonly IProgramRepository _programRepository;
         BindingList<ProgramModel> bindingList;
+        BindingList<ProgramModel> currentList;
         public InsertedProgramForm()
         {
             _programRepository = new ProgramRepository();
@@ -37,18 +38,19 @@ namespace ATV.ProgramDept.DesktopApp
                      PerformBy = p.PerformBy,
                      Name = p.Name
                  }).ToList());
+            currentList = bindingList;
 
         }
 
         private void InsertedProgramForm_Load(object sender, EventArgs e)
         {
-            dgvProgram.DataSource = bindingList;
+            dgvProgram.DataSource = currentList;
         }
 
         private void txtSearchBox_TextChanged(object sender, EventArgs e)
         {
-            BindingList<ProgramModel> filtered = new BindingList<ProgramModel>(bindingList.Where(p => p.Name.ToLower().Contains(txtSearchBox.Text.ToLower())).ToList());
-            dgvProgram.DataSource = filtered;
+            currentList = new BindingList<ProgramModel>(bindingList.Where(p => p.Name.ToLower().Contains(txtSearchBox.Text.ToLower())).ToList());
+            dgvProgram.DataSource = currentList;
             dgvProgram.Update();
         }
 
@@ -68,13 +70,23 @@ namespace ATV.ProgramDept.DesktopApp
                      PerformBy = p.PerformBy,
                      Name = p.Name
                  }).ToList());
-            dgvProgram.DataSource = bindingList;
+            currentList = bindingList;
+            dgvProgram.DataSource = currentList;
             dgvProgram.Update();
         }
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            //int SelectedProgramID = dgvProgram.selected
+            if(dgvProgram.SelectedRows.Count > 0)
+            {
+                EditorHomeForm.ProgramIDToInsert = currentList[dgvProgram.SelectedRows[0].Index].ID;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn chương trình");
+            }
+
         }
     }
 }

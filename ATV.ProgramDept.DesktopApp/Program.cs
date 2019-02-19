@@ -18,7 +18,7 @@ namespace ATV.ProgramDept.DesktopApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new StaticProgramForm());
+            //Application.Run(new InsertedProgramForm());
             Application.Run(new LoginForm());
         }
     }

@@ -57,13 +57,13 @@
             this.dgvProgram.DataSource = this.programModelBindingSource;
             this.dgvProgram.Location = new System.Drawing.Point(38, 84);
             this.dgvProgram.Margin = new System.Windows.Forms.Padding(4);
+            this.dgvProgram.MultiSelect = false;
             this.dgvProgram.Name = "dgvProgram";
             this.dgvProgram.ReadOnly = true;
             this.dgvProgram.RowTemplate.Height = 24;
+            this.dgvProgram.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProgram.Size = new System.Drawing.Size(560, 206);
             this.dgvProgram.TabIndex = 0;
-            this.dgvProgram.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-
             // 
             // nameDataGridViewTextBoxColumn
             // 

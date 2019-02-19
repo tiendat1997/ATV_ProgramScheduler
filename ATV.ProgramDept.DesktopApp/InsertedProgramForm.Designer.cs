@@ -57,6 +57,7 @@
             this.dgvProgram.DataSource = this.programModelBindingSource;
             this.dgvProgram.Location = new System.Drawing.Point(38, 88);
             this.dgvProgram.Margin = new System.Windows.Forms.Padding(4);
+            this.dgvProgram.MultiSelect = false;
             this.dgvProgram.Name = "dgvProgram";
             this.dgvProgram.ReadOnly = true;
             this.dgvProgram.RowTemplate.Height = 24;

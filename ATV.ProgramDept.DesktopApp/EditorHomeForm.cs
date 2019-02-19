@@ -20,6 +20,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private bool isEdit = false;
         private List<ScheduleViewModel> viewList;
+        public static int ProgramIDToInsert;
 
         public EditorHomeForm()
         {
@@ -163,6 +164,12 @@ namespace ATV.ProgramDept.DesktopApp
         {
             scheduleHomeContainer.Parent = tabControl2.SelectedTab;
             lblScheduleSessionName.Text = "CHƯƠNG TRÌNH TRUYỀN HÌNH " + tabControl2.SelectedTab.Text.ToUpper();
+        }
+
+        private void tsmiInsertFlexProgram_Click(object sender, EventArgs e)
+        {
+            InsertedProgramForm insertedProgramForm = new InsertedProgramForm();
+            insertedProgramForm.ShowDialog();
         }
     }
 }

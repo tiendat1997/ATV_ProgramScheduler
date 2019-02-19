@@ -19,6 +19,7 @@ namespace ATV.ProgramDept.DesktopApp
     {
         private readonly IProgramRepository _programRepository;
         BindingList<ProgramModel> bindingList;
+        BindingList<ProgramModel> currentList;
         public StaticProgramForm()
         {
             _programRepository = new ProgramRepository();
@@ -31,19 +32,20 @@ namespace ATV.ProgramDept.DesktopApp
                     PerformBy = p.PerformBy,
                     Name = p.Name
                 }).ToList());
+            currentList = bindingList;
             InitializeComponent();
         }
 
         private void StaticProgramForm_Load(object sender, EventArgs e)
         {
-            dgvProgram.DataSource = bindingList;
+            dgvProgram.DataSource = currentList;
             
         }
 
         private void txtSearchBox_TextChanged(object sender, EventArgs e)
         {
-            BindingList<ProgramModel> filtered = new BindingList<ProgramModel>(bindingList.Where(p => p.Name.ToLower().Contains(txtSearchBox.Text.ToLower())).ToList());
-            dgvProgram.DataSource = filtered;
+            currentList = new BindingList<ProgramModel>(bindingList.Where(p => p.Name.ToLower().Contains(txtSearchBox.Text.ToLower())).ToList());
+            dgvProgram.DataSource = currentList;
             dgvProgram.Update();
         }
 
@@ -61,7 +63,8 @@ namespace ATV.ProgramDept.DesktopApp
                      PerformBy = p.PerformBy,
                      Name = p.Name
                  }).ToList());
-            dgvProgram.DataSource = bindingList;
+            currentList = bindingList;
+            dgvProgram.DataSource = currentList;
             dgvProgram.Update();
         }
 
