@@ -15,6 +15,8 @@ namespace ATV.ProgramDept.DesktopApp
 {
     public partial class ScheduleTemplateForm : Form
     {
+        private ContextMenu contextMenuForColumn1 = new ContextMenu();
+        private ContextMenu contextMenuForColumn2 = new ContextMenu(); 
         public int DayOfWeek { get; set; }
         public ScheduleTemplateForm(int dayOfWeek)
         {
@@ -411,11 +413,26 @@ namespace ATV.ProgramDept.DesktopApp
                 default:
                     break;
             }
-        }
+        }       
 
         private void ScheduleTemplateForm_Load(object sender, EventArgs e)
         {
             dgvScheduleTemplateDetail.AutoGenerateColumns = false;
+            contextMenuForColumn1.MenuItems.Add("Make Active", new EventHandler(MakeActive));
+            contextMenuForColumn2.MenuItems.Add("Delete", new EventHandler(Delete));
+            contextMenuForColumn2.MenuItems.Add("Register", new EventHandler(Register));
+        }
+        private void MakeActive(object sender, EventArgs eventArgs)
+        {
+
+        }
+        private void Delete(object sender, EventArgs eventArgs)
+        {
+
+        }
+        private void Register(object sender, EventArgs eventArgs)
+        {
+
         }
 
         private void dgvScheduleTemplateDetail_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -465,6 +482,19 @@ namespace ATV.ProgramDept.DesktopApp
                 return false;
             }
             return cell1.Value.ToString() == cell2.Value.ToString();
+        }
+
+        private void dgvScheduleTemplateDetail_MouseUp(object sender, MouseEventArgs e)
+        {
+            DataGridView.HitTestInfo hitTestInfo;
+            if (e.Button == MouseButtons.Right)
+            {
+                hitTestInfo = dgvScheduleTemplateDetail.HitTest(e.X, e.Y);
+                dgvScheduleTemplateDetail.Rows[hitTestInfo.RowIndex].Selected = true;
+                contextMenuForColumn2.Show(dgvScheduleTemplateDetail, new Point(e.X, e.Y));
+
+                dgvScheduleTemplateDetail.ClearSelection();
+            }
         }
     }
 }

@@ -46,6 +46,7 @@
             this.scheduleTemplateDetailViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.flpScheduleTemplate = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.btnSave = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvScheduleTemplateDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.scheduleTemplateDetailViewModelBindingSource)).BeginInit();
@@ -75,15 +76,18 @@
             this.dgvScheduleTemplateDetail.DataSource = this.scheduleTemplateDetailViewModelBindingSource;
             this.dgvScheduleTemplateDetail.Location = new System.Drawing.Point(3, 44);
             this.dgvScheduleTemplateDetail.Name = "dgvScheduleTemplateDetail";
-            this.dgvScheduleTemplateDetail.Size = new System.Drawing.Size(797, 329);
+            this.dgvScheduleTemplateDetail.Size = new System.Drawing.Size(797, 406);
             this.dgvScheduleTemplateDetail.TabIndex = 0;
             this.dgvScheduleTemplateDetail.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvScheduleTemplateDetail_CellFormatting);
+            this.dgvScheduleTemplateDetail.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dgvScheduleTemplateDetail_MouseUp);
             // 
             // Section
             // 
+            this.Section.DataPropertyName = "Section";
             this.Section.FillWeight = 50F;
             this.Section.HeaderText = "Buổi";
             this.Section.Name = "Section";
+            this.Section.ReadOnly = true;
             // 
             // startTimeDataGridViewTextBoxColumn
             // 
@@ -189,12 +193,23 @@
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.pnlHeader.Controls.Add(this.btnSave);
             this.pnlHeader.Controls.Add(this.lblTitle);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(3, 3);
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(797, 35);
             this.pnlHeader.TabIndex = 1;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Location = new System.Drawing.Point(710, 5);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 1;
+            this.btnSave.Text = "Lưu";
+            this.btnSave.UseVisualStyleBackColor = true;
             // 
             // lblTitle
             // 
@@ -246,5 +261,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn positionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn isNotedDataGridViewCheckBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn isActiveDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.Button btnSave;
     }
 }
