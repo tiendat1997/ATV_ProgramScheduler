@@ -176,15 +176,10 @@ namespace ATV.ProgramDept.DesktopApp
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             dayScheduleHomeContainer.Parent = tabControl1.SelectedTab;
-            lblScheduleDate.Text = tabControl1.SelectedTab.Text + ": " + DateTime.Now.ToShortDateString();
+            //lblScheduleDate.Text = tabControl1.SelectedTab.Text + ": " + DateTime.Now.ToShortDateString();
 
             loadDataToGridView(tabControl1.SelectedIndex + 1);
         }
 
-        private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            scheduleHomeContainer.Parent = tabControl2.SelectedTab;
-            lblScheduleSessionName.Text = "CHƯƠNG TRÌNH TRUYỀN HÌNH " + tabControl2.SelectedTab.Text.ToUpper();
-        }
     }
 }
