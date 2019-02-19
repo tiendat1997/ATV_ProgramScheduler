@@ -20,9 +20,11 @@ namespace ATV.ProgramDept.DesktopApp
         private readonly IProgramRepository _programRepository;
         BindingList<ProgramModel> bindingList;
         BindingList<ProgramModel> currentList;
-        public StaticProgramForm()
+        EditorHomeForm editorHomeForm;
+        public StaticProgramForm(EditorHomeForm editorHomeForm)
         {
             _programRepository = new ProgramRepository();
+            this.editorHomeForm = editorHomeForm;
             bindingList = new BindingList<ProgramModel>(_programRepository.
                 Find(p => p.IsActive.Value && p.ProgramTypeID == (int)ProgramTypeEnum.Static)
                 .Select(p => new ProgramModel()
@@ -72,6 +74,21 @@ namespace ATV.ProgramDept.DesktopApp
         {
             NewProgramForm newProgramForm = new NewProgramForm((int)ProgramTypeEnum.Static, this);
             newProgramForm.Show();
+        }
+
+        private void btnInsert_Click(object sender, EventArgs e)
+        {
+            if (dgvProgram.SelectedRows.Count > 0)
+            {
+                //EditorHomeForm.ProgramIDToInsert = currentList[dgvProgram.SelectedRows[0].Index].ID;
+                //this.Close();
+                editorHomeForm.ReadyForInsertProgram(currentList[dgvProgram.SelectedRows[0].Index].ID);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn chương trình");
+            }
         }
     }
 }

@@ -115,6 +115,7 @@
             this.btnInsert.TabIndex = 3;
             this.btnInsert.Text = "Chèn";
             this.btnInsert.UseVisualStyleBackColor = true;
+            this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
             // 
             // btnAddProgram
             // 

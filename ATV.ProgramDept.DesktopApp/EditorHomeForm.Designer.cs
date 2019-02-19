@@ -96,13 +96,13 @@
             // tsmiInsertNewProgram
             // 
             this.tsmiInsertNewProgram.Name = "tsmiInsertNewProgram";
-            this.tsmiInsertNewProgram.Size = new System.Drawing.Size(216, 26);
+            this.tsmiInsertNewProgram.Size = new System.Drawing.Size(199, 26);
             this.tsmiInsertNewProgram.Text = "Chèn CT mới";
             // 
             // tsmiInsertFlexProgram
             // 
             this.tsmiInsertFlexProgram.Name = "tsmiInsertFlexProgram";
-            this.tsmiInsertFlexProgram.Size = new System.Drawing.Size(216, 26);
+            this.tsmiInsertFlexProgram.Size = new System.Drawing.Size(199, 26);
             this.tsmiInsertFlexProgram.Text = "Chèn CT chen giờ";
             this.tsmiInsertFlexProgram.Click += new System.EventHandler(this.tsmiInsertFlexProgram_Click);
             // 
@@ -111,6 +111,7 @@
             this.tsmiInsertFixProgram.Name = "tsmiInsertFixProgram";
             this.tsmiInsertFixProgram.Size = new System.Drawing.Size(216, 26);
             this.tsmiInsertFixProgram.Text = "Chèn CT cố định";
+            this.tsmiInsertFixProgram.Click += new System.EventHandler(this.tsmiInsertFixProgram_Click);
             // 
             // tsmiEditorExport
             // 
@@ -141,7 +142,7 @@
             // 
             this.btnToAdmin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnToAdmin.Location = new System.Drawing.Point(967, 1);
-            this.btnToAdmin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnToAdmin.Margin = new System.Windows.Forms.Padding(4);
             this.btnToAdmin.Name = "btnToAdmin";
             this.btnToAdmin.Size = new System.Drawing.Size(100, 28);
             this.btnToAdmin.TabIndex = 1;
@@ -159,7 +160,7 @@
             this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage7);
             this.tabControl1.Location = new System.Drawing.Point(0, 33);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1067, 522);
@@ -170,9 +171,9 @@
             // 
             this.tabPage1.Controls.Add(this.dayScheduleHomeContainer);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage1.Size = new System.Drawing.Size(1059, 493);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Thứ 2";
@@ -184,7 +185,7 @@
             this.dayScheduleHomeContainer.Controls.Add(this.btnSaveSchedule);
             this.dayScheduleHomeContainer.Controls.Add(this.tabControl2);
             this.dayScheduleHomeContainer.Location = new System.Drawing.Point(0, 0);
-            this.dayScheduleHomeContainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dayScheduleHomeContainer.Margin = new System.Windows.Forms.Padding(4);
             this.dayScheduleHomeContainer.Name = "dayScheduleHomeContainer";
             this.dayScheduleHomeContainer.Size = new System.Drawing.Size(1056, 490);
             this.dayScheduleHomeContainer.TabIndex = 2;
@@ -192,7 +193,7 @@
             // btnSaveSchedule
             // 
             this.btnSaveSchedule.Location = new System.Drawing.Point(956, -1);
-            this.btnSaveSchedule.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSaveSchedule.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveSchedule.Name = "btnSaveSchedule";
             this.btnSaveSchedule.Size = new System.Drawing.Size(100, 28);
             this.btnSaveSchedule.TabIndex = 1;
@@ -207,7 +208,7 @@
             this.tabControl2.Controls.Add(this.tabPage10);
             this.tabControl2.Controls.Add(this.tabPage11);
             this.tabControl2.Location = new System.Drawing.Point(0, 7);
-            this.tabControl2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl2.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(1061, 482);
@@ -218,9 +219,9 @@
             // 
             this.tabPage8.Controls.Add(this.scheduleHomeContainer);
             this.tabPage8.Location = new System.Drawing.Point(4, 25);
-            this.tabPage8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage8.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage8.Size = new System.Drawing.Size(1053, 453);
             this.tabPage8.TabIndex = 0;
             this.tabPage8.Text = "Sáng";
@@ -232,7 +233,7 @@
             this.scheduleHomeContainer.Controls.Add(this.dgvSchedule);
             this.scheduleHomeContainer.Controls.Add(this.lblScheduleDate);
             this.scheduleHomeContainer.Location = new System.Drawing.Point(3, 0);
-            this.scheduleHomeContainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scheduleHomeContainer.Margin = new System.Windows.Forms.Padding(4);
             this.scheduleHomeContainer.Name = "scheduleHomeContainer";
             this.scheduleHomeContainer.Size = new System.Drawing.Size(1048, 447);
             this.scheduleHomeContainer.TabIndex = 3;
@@ -257,7 +258,7 @@
             this.dgvSchedule.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSchedule.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dgvSchedule.Location = new System.Drawing.Point(11, 34);
-            this.dgvSchedule.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvSchedule.Margin = new System.Windows.Forms.Padding(4);
             this.dgvSchedule.MultiSelect = false;
             this.dgvSchedule.Name = "dgvSchedule";
             this.dgvSchedule.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
@@ -265,6 +266,7 @@
             this.dgvSchedule.TabIndex = 2;
             this.dgvSchedule.TabStop = false;
             this.dgvSchedule.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSchedule_CellClick);
+            this.dgvSchedule.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSchedule_CellContentClick);
             this.dgvSchedule.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSchedule_CellEnter);
             // 
             // lblScheduleDate
@@ -281,9 +283,9 @@
             // tabPage9
             // 
             this.tabPage9.Location = new System.Drawing.Point(4, 25);
-            this.tabPage9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage9.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage9.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage9.Size = new System.Drawing.Size(1053, 453);
             this.tabPage9.TabIndex = 1;
             this.tabPage9.Text = "Trưa";
@@ -292,7 +294,7 @@
             // tabPage10
             // 
             this.tabPage10.Location = new System.Drawing.Point(4, 25);
-            this.tabPage10.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage10.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage10.Name = "tabPage10";
             this.tabPage10.Size = new System.Drawing.Size(1053, 453);
             this.tabPage10.TabIndex = 2;
@@ -302,7 +304,7 @@
             // tabPage11
             // 
             this.tabPage11.Location = new System.Drawing.Point(4, 25);
-            this.tabPage11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage11.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage11.Name = "tabPage11";
             this.tabPage11.Size = new System.Drawing.Size(1053, 453);
             this.tabPage11.TabIndex = 3;
@@ -312,9 +314,9 @@
             // tabPage2
             // 
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage2.Size = new System.Drawing.Size(1059, 493);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Thứ 3";
@@ -323,7 +325,7 @@
             // tabPage3
             // 
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(1059, 493);
             this.tabPage3.TabIndex = 2;
@@ -333,7 +335,7 @@
             // tabPage4
             // 
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
-            this.tabPage4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(1059, 493);
             this.tabPage4.TabIndex = 3;
@@ -343,7 +345,7 @@
             // tabPage5
             // 
             this.tabPage5.Location = new System.Drawing.Point(4, 25);
-            this.tabPage5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage5.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Size = new System.Drawing.Size(1059, 493);
             this.tabPage5.TabIndex = 4;
@@ -353,7 +355,7 @@
             // tabPage6
             // 
             this.tabPage6.Location = new System.Drawing.Point(4, 25);
-            this.tabPage6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage6.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Size = new System.Drawing.Size(1059, 493);
             this.tabPage6.TabIndex = 5;
@@ -363,7 +365,7 @@
             // tabPage7
             // 
             this.tabPage7.Location = new System.Drawing.Point(4, 25);
-            this.tabPage7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage7.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Size = new System.Drawing.Size(1059, 493);
             this.tabPage7.TabIndex = 6;
@@ -379,7 +381,7 @@
             this.Controls.Add(this.btnToAdmin);
             this.Controls.Add(this.mnsEditor);
             this.MainMenuStrip = this.mnsEditor;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "EditorHomeForm";
             this.Text = "ATV Program Department - Home";
             this.mnsEditor.ResumeLayout(false);

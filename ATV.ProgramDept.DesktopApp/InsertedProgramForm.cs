@@ -25,9 +25,12 @@ namespace ATV.ProgramDept.DesktopApp
         private readonly IProgramRepository _programRepository;
         BindingList<ProgramModel> bindingList;
         BindingList<ProgramModel> currentList;
-        public InsertedProgramForm()
+        EditorHomeForm editorHomeForm;
+
+        public InsertedProgramForm(EditorHomeForm editorHomeForm)
         {
             _programRepository = new ProgramRepository();
+            this.editorHomeForm = editorHomeForm;
             InitializeComponent();
             bindingList = new BindingList<ProgramModel>(_programRepository.
                  Find(p => p.IsActive.Value && p.ProgramTypeID == (int)ProgramTypeEnum.Insert)
@@ -79,7 +82,9 @@ namespace ATV.ProgramDept.DesktopApp
         {
             if(dgvProgram.SelectedRows.Count > 0)
             {
-                EditorHomeForm.ProgramIDToInsert = currentList[dgvProgram.SelectedRows[0].Index].ID;
+                //EditorHomeForm.ProgramIDToInsert = currentList[dgvProgram.SelectedRows[0].Index].ID;
+                //this.Close();
+                editorHomeForm.ReadyForInsertProgram(currentList[dgvProgram.SelectedRows[0].Index].ID);
                 this.Close();
             }
             else

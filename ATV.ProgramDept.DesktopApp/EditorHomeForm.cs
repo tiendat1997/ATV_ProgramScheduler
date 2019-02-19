@@ -1,6 +1,7 @@
 ﻿using ATV.ProgramDept.Entity;
 using ATV.ProgramDept.Service.Enum;
 using ATV.ProgramDept.Service.Implement;
+using ATV.ProgramDept.Service.Interface;
 using ATV.ProgramDept.Service.Utilities;
 using ATV.ProgramDept.Service.ViewModel;
 using System;
@@ -20,10 +21,14 @@ namespace ATV.ProgramDept.DesktopApp
 
         private bool isEdit = false;
         private List<ScheduleViewModel> viewList;
-        public static int ProgramIDToInsert;
+        private int programIDToInsert;
+        private bool readyForInsert;
+        private readonly IProgramRepository _programRepository;
 
         public EditorHomeForm()
         {
+            readyForInsert = false;
+            _programRepository = new ProgramRepository();
             InitializeComponent();
             if (!Program.User.Rolename.Equals("Admin"))
             {
@@ -125,7 +130,25 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void dgvSchedule_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (!readyForInsert)
+            {
+                return;
+            }
 
+            ScheduleViewModel scheduleViewModel = _programRepository.Find(p => p.ID == programIDToInsert).
+                Select(p => new ScheduleViewModel()
+                {
+                    Duration = p.Duration.Value,
+                    Name = p.Name,
+
+                }).FirstOrDefault();
+            viewList.Insert(e.RowIndex, scheduleViewModel);
+            readyForInsert = false;
+            dgvSchedule.Cursor = System.Windows.Forms.Cursors.Default;
+            var bindingList = new BindingList<ScheduleViewModel>(viewList);
+            var source = new BindingSource(bindingList, null);
+            dgvSchedule.DataSource = source;
+            dgvSchedule.Update();
         }
 
         private void btnSaveSchedule_Click(object sender, EventArgs e)
@@ -168,8 +191,27 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void tsmiInsertFlexProgram_Click(object sender, EventArgs e)
         {
-            InsertedProgramForm insertedProgramForm = new InsertedProgramForm();
+            InsertedProgramForm insertedProgramForm = new InsertedProgramForm(this);
             insertedProgramForm.ShowDialog();
+        }
+
+        public void ReadyForInsertProgram(int ProgramID)
+        {
+            dgvSchedule.Cursor = System.Windows.Forms.Cursors.Cross;
+            programIDToInsert = ProgramID;
+            readyForInsert = true;
+
+        }
+
+        private void dgvSchedule_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void tsmiInsertFixProgram_Click(object sender, EventArgs e)
+        {
+            StaticProgramForm staticProgramForm = new StaticProgramForm(this);
+            staticProgramForm.ShowDialog();
         }
     }
 }
