@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace ATV.ProgramDept.Service.ViewModel
 {
-    public class ScheduleViewModel
+    public class ScheduleViewModel : ScheduleBase
     {
-        public string StartTime { get; set; }
         public string Name { get; set; }
         public string Content { get; set; }
         public string Code { get; set; }
-        public double Duration { get; set; }
         public string Note { get; set; }
     }
 }

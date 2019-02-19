@@ -12,14 +12,24 @@ namespace ATV.ProgramDept.Service.Utilities
     {
         private static readonly TimeSpan DEFAULT_START_TIME = new TimeSpan(5, 0, 0);
 
-        public static void EstimateStartTime(List<ScheduleViewModel> schedules)
+        public static void EstimateStartTime<T>(List<T> schedules) where T:ScheduleBase
         {
             TimeSpan startTime = DEFAULT_START_TIME;
             if (schedules != null && schedules.Count > 0)
             {
-                foreach (ScheduleViewModel schedule in schedules)
+                TimeSpan prev = startTime;
+                int seconds = 0;
+                int hours = 0;
+                int minutes = 0;
+                foreach (ScheduleBase schedule in schedules)
                 {
-                    schedule.StartTime = startTime.ToString("hh:mm:ss");
+                    schedule.StartTime = prev.Add(new TimeSpan(hours,minutes,(int)seconds));
+
+                    seconds = (int)((schedule.Duration - (int)schedule.Duration) * 100);
+                    hours = (int)schedule.Duration / 60;
+                    minutes = (int)schedule.Duration % 60;
+
+                    prev = schedule.StartTime;
                 }
             }
         }

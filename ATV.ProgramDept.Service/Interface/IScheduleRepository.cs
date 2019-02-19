@@ -1,4 +1,6 @@
-﻿using ATV.ProgramDept.Entity;
+﻿
+using ATV.ProgramDept.Entity;
+using ATV.ProgramDept.Service.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace ATV.ProgramDept.Service.Interface
 {
-    public interface IScheduleTemplateDetailRepository : IRepository<ScheduleTemplateDetail>
+    public interface IScheduleRepository
     {
+        IEnumerable<Schedule> GetWeekSchedule(int weekId);
     }
 }

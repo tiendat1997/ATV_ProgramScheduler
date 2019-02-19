@@ -57,7 +57,7 @@ namespace ATV.ProgramDept.Service.Utilities
                 foreach (var schedule in schedules)
                 {
                     IRow currentRow = currentSheet.CreateRow(currentRowIndex);
-                    currentRow.CreateCell(0).SetCellValue(schedule.StartTime);
+                    currentRow.CreateCell(0).SetCellValue(schedule.StartTime.ToString());
                     currentRow.CreateCell(1).SetCellValue(schedule.Name);
                     currentRow.CreateCell(2).SetCellValue(schedule.Content);
                     currentRow.CreateCell(3).SetCellValue(schedule.Code);
