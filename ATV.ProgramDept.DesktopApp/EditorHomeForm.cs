@@ -1,6 +1,7 @@
 ﻿using ATV.ProgramDept.Entity;
 using ATV.ProgramDept.Service.Enum;
 using ATV.ProgramDept.Service.Implement;
+using ATV.ProgramDept.Service.Utilities;
 using ATV.ProgramDept.Service.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -19,14 +20,14 @@ namespace ATV.ProgramDept.DesktopApp
 
         private bool isEdit = false;
         private List<ScheduleViewModel> viewList;
-        
+
         public EditorHomeForm()
-        {      
-            InitializeComponent();  
+        {
+            InitializeComponent();
             if (!Program.User.Rolename.Equals("Admin"))
             {
                 this.btnToAdmin.Hide();
-            }            
+            }
             InitDataGridView();
         }
 
@@ -76,7 +77,8 @@ namespace ATV.ProgramDept.DesktopApp
             });
             #endregion
 
-            viewList = schedules.Select(x => new ScheduleViewModel{
+            viewList = schedules.Select(x => new ScheduleViewModel
+            {
                 StartTime = "",
                 Name = x.Program.Name,
                 Content = x.Contents,
@@ -84,6 +86,8 @@ namespace ATV.ProgramDept.DesktopApp
                 Duration = x.Duration,
                 Note = x.Note
             }).ToList();
+
+            //ScheduleUlities.EstimateStartTime(viewList);
 
             var bindingList = new BindingList<ScheduleViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
@@ -116,11 +120,11 @@ namespace ATV.ProgramDept.DesktopApp
         {
 
         }
-      
+
 
         private void dgvSchedule_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-           
+
         }
 
         private void btnSaveSchedule_Click(object sender, EventArgs e)
@@ -147,6 +151,18 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 this.dgvSchedule.CurrentCell.ReadOnly = true;
             }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dayScheduleHomeContainer.Parent = tabControl1.SelectedTab;
+            lblScheduleDate.Text = tabControl1.SelectedTab.Text + ": " + DateTime.Now.ToShortDateString();
+        }
+
+        private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            scheduleHomeContainer.Parent = tabControl2.SelectedTab;
+            lblScheduleSessionName.Text = "CHƯƠNG TRÌNH TRUYỀN HÌNH " + tabControl2.SelectedTab.Text.ToUpper();
         }
     }
 }
