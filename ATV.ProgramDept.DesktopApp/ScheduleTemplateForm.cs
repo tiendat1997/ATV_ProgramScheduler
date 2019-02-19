@@ -21,6 +21,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private ContextMenu contextMenuForColumn1 = new ContextMenu();
         private ContextMenu contextMenuForColumn2 = new ContextMenu();
+        private List<ScheduleTemplateDetailViewModel> listTemplateDetails; 
         public int DayOfWeek { get; set; }
 
         private readonly IScheduleTemplateRepository _scheduleTemplateRepository;
@@ -34,7 +35,7 @@ namespace ATV.ProgramDept.DesktopApp
         }
         private void InitSampleDataForDataGridView()
         {
-            var list = _scheduleTemplateRepository.GetScheduleTemplateDetails(DayOfWeek)
+            listTemplateDetails = _scheduleTemplateRepository.GetScheduleTemplateDetails(DayOfWeek)
                 .Select(s => new ScheduleTemplateDetailViewModel
                 {
                     ID = s.ID,
@@ -47,43 +48,10 @@ namespace ATV.ProgramDept.DesktopApp
                     ProgramName = s.ProgramName,                    
                     IsActive = s.IsActive,
                     IsNoted = s.IsNoted
-                })
-                .ToList();
-            //var list = new List<ScheduleTemplateDetailViewModel>
-            //{
-            //    new ScheduleTemplateDetailViewModel
-            //    {
-            //        StartTime = new TimeSpan(5,0,0),
-            //        ProgramName = "Chương trình tập thể dục",
-            //        Contents = "Something vui và funny",
-            //        Duration = 15,
-            //        PerformBy = "P.Phát Thanh",
-            //        Note = "something",
-            //        Position = 1,
-            //    },
-            //    new ScheduleTemplateDetailViewModel
-            //    {
-            //        StartTime = new TimeSpan(5,0,0),
-            //        ProgramName = "Chương trình thiếu nhi",
-            //        Contents = "Something vui và funny",
-            //        Duration = 33,
-            //        PerformBy = "P.Phát Thanh",
-            //        Note = "something",
-            //        Position = 1,
-            //    },
-            //    new ScheduleTemplateDetailViewModel
-            //    {
-            //        StartTime = new TimeSpan(5,0,0),
-            //        ProgramName = "Chương trình thời sự sáng",
-            //        Contents = "Something vui và funny",
-            //        Duration = 60,
-            //        PerformBy = "P.Phát Thanh",
-            //        Note = "something",
-            //        Position = 1,
-            //    },                  
-            //};
-            ScheduleUlities.EstimateStartTime(list);
-            var bindList = new BindingList<ScheduleTemplateDetailViewModel>(list);
+                })                
+                .ToList();           
+            ScheduleUlities.EstimateStartTime(listTemplateDetails);
+            var bindList = new BindingList<ScheduleTemplateDetailViewModel>(listTemplateDetails);
             var bindSource = new BindingSource(bindList, null);
             dgvScheduleTemplateDetail.DataSource = bindSource;
         }
@@ -129,24 +97,17 @@ namespace ATV.ProgramDept.DesktopApp
         private void ScheduleTemplateForm_Load(object sender, EventArgs e)
         {
             dgvScheduleTemplateDetail.AutoGenerateColumns = false;
-            contextMenuForColumn1.MenuItems.Add("Make Active", new EventHandler(MakeActive));
-            contextMenuForColumn2.MenuItems.Add("Delete", new EventHandler(Delete));
-            contextMenuForColumn2.MenuItems.Add("Register", new EventHandler(Register));
-
+            contextMenuForColumn2.MenuItems.Add("Chèn CT cố định", new EventHandler(InsertFixProgramEvent));
+            contextMenuForColumn2.MenuItems.Add("Chèn CT chen giờ", new EventHandler(InsertFlexProgramEVent));            
         }
-        private void MakeActive(object sender, EventArgs eventArgs)
+        private void InsertFixProgramEvent(object sender, EventArgs eventArgs)
         {
 
         }
-        private void Delete(object sender, EventArgs eventArgs)
+        private void InsertFlexProgramEVent(object sender, EventArgs eventArgs)
         {
 
-        }
-        private void Register(object sender, EventArgs eventArgs)
-        {
-
-        }
-
+        }        
         private void dgvScheduleTemplateDetail_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.ColumnIndex == 1 && e.Value != null) // StartTime Columns 
@@ -198,14 +159,22 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void dgvScheduleTemplateDetail_MouseUp(object sender, MouseEventArgs e)
         {
-            DataGridView.HitTestInfo hitTestInfo;
-            if (e.Button == MouseButtons.Right)
-            {
-                hitTestInfo = dgvScheduleTemplateDetail.HitTest(e.X, e.Y);
+            DataGridView.HitTestInfo hitTestInfo = dgvScheduleTemplateDetail.HitTest(e.X, e.Y);
+            if (hitTestInfo.RowY != -1 && hitTestInfo.ColumnX != 1 && e.Button == MouseButtons.Right)
+            {                
                 dgvScheduleTemplateDetail.Rows[hitTestInfo.RowIndex].Selected = true;
                 contextMenuForColumn2.Show(dgvScheduleTemplateDetail, new Point(e.X, e.Y));
 
                 dgvScheduleTemplateDetail.ClearSelection();
+            }
+        }
+
+        private void dgvScheduleTemplateDetail_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 4) // Duration Columns
+            {
+                ScheduleUlities.EstimateStartTime(listTemplateDetails);
+                dgvScheduleTemplateDetail.Refresh();
             }
         }
     }
