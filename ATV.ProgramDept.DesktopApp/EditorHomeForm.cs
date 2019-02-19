@@ -162,6 +162,8 @@ namespace ATV.ProgramDept.DesktopApp
 
                 }).FirstOrDefault();
             viewList.Insert(e.RowIndex, scheduleViewModel);
+            ScheduleUlities.EstimateStartTime(viewList);
+
             readyForInsert = false;
             dgvSchedule.Cursor = System.Windows.Forms.Cursors.Default;
             var bindingList = new BindingList<ScheduleViewModel>(viewList);
@@ -204,11 +206,7 @@ namespace ATV.ProgramDept.DesktopApp
             loadDataToGridView(tabDays.SelectedIndex + 1);
         }
 
-        private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            scheduleHomeContainer.Parent = tabControl2.SelectedTab;
-            lblScheduleSessionName.Text = "CHƯƠNG TRÌNH TRUYỀN HÌNH " + tabControl2.SelectedTab.Text.ToUpper();
-        }
+      
 
         private void tsmiInsertFlexProgram_Click(object sender, EventArgs e)
         {

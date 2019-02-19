@@ -283,7 +283,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ATV.ProgramDept.Entity\ATV.ProgramDept.Entity.csproj">
-      <Project>{E419669D-4467-4B31-A8D8-6ACA28118C60}</Project>
+      <Project>{e419669d-4467-4b31-a8d8-6aca28118c60}</Project>
       <Name>ATV.ProgramDept.Entity</Name>
     </ProjectReference>
     <ProjectReference Include="..\ATV.ProgramDept.Service\ATV.ProgramDept.Service.csproj">
