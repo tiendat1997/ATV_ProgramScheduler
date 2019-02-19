@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.mnsEditor = new System.Windows.Forms.MenuStrip();
             this.tsmiEditorProgram = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiInsertNewProgram = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,6 +41,7 @@
             this.btnToAdmin = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dayScheduleHomeContainer = new System.Windows.Forms.Panel();
             this.btnSaveSchedule = new System.Windows.Forms.Button();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage8 = new System.Windows.Forms.TabPage();
@@ -56,15 +58,22 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.dayScheduleHomeContainer = new System.Windows.Forms.Panel();
+            this.scheduleViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.startTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.durationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.noteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mnsEditor.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.dayScheduleHomeContainer.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage8.SuspendLayout();
             this.scheduleHomeContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSchedule)).BeginInit();
-            this.dayScheduleHomeContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scheduleViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // mnsEditor
@@ -173,6 +182,15 @@
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
+            // dayScheduleHomeContainer
+            // 
+            this.dayScheduleHomeContainer.Controls.Add(this.btnSaveSchedule);
+            this.dayScheduleHomeContainer.Controls.Add(this.tabControl2);
+            this.dayScheduleHomeContainer.Location = new System.Drawing.Point(0, 0);
+            this.dayScheduleHomeContainer.Name = "dayScheduleHomeContainer";
+            this.dayScheduleHomeContainer.Size = new System.Drawing.Size(792, 398);
+            this.dayScheduleHomeContainer.TabIndex = 2;
+            // 
             // btnSaveSchedule
             // 
             this.btnSaveSchedule.Location = new System.Drawing.Point(717, -1);
@@ -233,7 +251,17 @@
             this.dgvSchedule.AllowUserToAddRows = false;
             this.dgvSchedule.AllowUserToResizeColumns = false;
             this.dgvSchedule.AllowUserToResizeRows = false;
+            this.dgvSchedule.AutoGenerateColumns = false;
+            this.dgvSchedule.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvSchedule.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSchedule.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.startTimeDataGridViewTextBoxColumn,
+            this.nameDataGridViewTextBoxColumn,
+            this.contentDataGridViewTextBoxColumn,
+            this.codeDataGridViewTextBoxColumn,
+            this.durationDataGridViewTextBoxColumn,
+            this.noteDataGridViewTextBoxColumn});
+            this.dgvSchedule.DataSource = this.scheduleViewModelBindingSource;
             this.dgvSchedule.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dgvSchedule.Location = new System.Drawing.Point(8, 28);
             this.dgvSchedule.MultiSelect = false;
@@ -260,7 +288,7 @@
             this.tabPage9.Location = new System.Drawing.Point(4, 22);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(788, 365);
+            this.tabPage9.Size = new System.Drawing.Size(788, 366);
             this.tabPage9.TabIndex = 1;
             this.tabPage9.Text = "Trưa";
             this.tabPage9.UseVisualStyleBackColor = true;
@@ -269,7 +297,7 @@
             // 
             this.tabPage10.Location = new System.Drawing.Point(4, 22);
             this.tabPage10.Name = "tabPage10";
-            this.tabPage10.Size = new System.Drawing.Size(788, 365);
+            this.tabPage10.Size = new System.Drawing.Size(788, 366);
             this.tabPage10.TabIndex = 2;
             this.tabPage10.Text = "Chiều và tối";
             this.tabPage10.UseVisualStyleBackColor = true;
@@ -278,7 +306,7 @@
             // 
             this.tabPage11.Location = new System.Drawing.Point(4, 22);
             this.tabPage11.Name = "tabPage11";
-            this.tabPage11.Size = new System.Drawing.Size(788, 365);
+            this.tabPage11.Size = new System.Drawing.Size(788, 366);
             this.tabPage11.TabIndex = 3;
             this.tabPage11.Text = "Rạng sáng";
             this.tabPage11.UseVisualStyleBackColor = true;
@@ -338,14 +366,50 @@
             this.tabPage7.Text = "Chủ nhật";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
-            // dayScheduleHomeContainer
+            // scheduleViewModelBindingSource
             // 
-            this.dayScheduleHomeContainer.Controls.Add(this.btnSaveSchedule);
-            this.dayScheduleHomeContainer.Controls.Add(this.tabControl2);
-            this.dayScheduleHomeContainer.Location = new System.Drawing.Point(0, 0);
-            this.dayScheduleHomeContainer.Name = "dayScheduleHomeContainer";
-            this.dayScheduleHomeContainer.Size = new System.Drawing.Size(792, 398);
-            this.dayScheduleHomeContainer.TabIndex = 2;
+            this.scheduleViewModelBindingSource.DataSource = typeof(ATV.ProgramDept.Service.ViewModel.ScheduleViewModel);
+            // 
+            // startTimeDataGridViewTextBoxColumn
+            // 
+            this.startTimeDataGridViewTextBoxColumn.DataPropertyName = "StartTime";
+            this.startTimeDataGridViewTextBoxColumn.FillWeight = 50F;
+            this.startTimeDataGridViewTextBoxColumn.HeaderText = "Giờ";
+            this.startTimeDataGridViewTextBoxColumn.Name = "startTimeDataGridViewTextBoxColumn";
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.FillWeight = 150F;
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Tiết mục";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // contentDataGridViewTextBoxColumn
+            // 
+            this.contentDataGridViewTextBoxColumn.DataPropertyName = "Content";
+            this.contentDataGridViewTextBoxColumn.FillWeight = 150F;
+            this.contentDataGridViewTextBoxColumn.HeaderText = "Nội dung";
+            this.contentDataGridViewTextBoxColumn.Name = "contentDataGridViewTextBoxColumn";
+            // 
+            // codeDataGridViewTextBoxColumn
+            // 
+            this.codeDataGridViewTextBoxColumn.DataPropertyName = "Code";
+            this.codeDataGridViewTextBoxColumn.HeaderText = "Thực hiện";
+            this.codeDataGridViewTextBoxColumn.Name = "codeDataGridViewTextBoxColumn";
+            // 
+            // durationDataGridViewTextBoxColumn
+            // 
+            this.durationDataGridViewTextBoxColumn.DataPropertyName = "Duration";
+            this.durationDataGridViewTextBoxColumn.FillWeight = 50F;
+            this.durationDataGridViewTextBoxColumn.HeaderText = "Thời lượng";
+            this.durationDataGridViewTextBoxColumn.Name = "durationDataGridViewTextBoxColumn";
+            // 
+            // noteDataGridViewTextBoxColumn
+            // 
+            this.noteDataGridViewTextBoxColumn.DataPropertyName = "Note";
+            this.noteDataGridViewTextBoxColumn.FillWeight = 150F;
+            this.noteDataGridViewTextBoxColumn.HeaderText = "Ghi chú";
+            this.noteDataGridViewTextBoxColumn.Name = "noteDataGridViewTextBoxColumn";
             // 
             // EditorHomeForm
             // 
@@ -362,12 +426,13 @@
             this.mnsEditor.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.dayScheduleHomeContainer.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tabPage8.ResumeLayout(false);
             this.scheduleHomeContainer.ResumeLayout(false);
             this.scheduleHomeContainer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSchedule)).EndInit();
-            this.dayScheduleHomeContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.scheduleViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -404,6 +469,13 @@
         private System.Windows.Forms.Label lblScheduleDate;
         private System.Windows.Forms.Panel scheduleHomeContainer;
         private System.Windows.Forms.Panel dayScheduleHomeContainer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn startTimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contentDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn durationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn noteDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource scheduleViewModelBindingSource;
     }
 }
 
