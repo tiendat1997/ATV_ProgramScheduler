@@ -1,6 +1,7 @@
 ﻿using ATV.ProgramDept.Entity;
 using ATV.ProgramDept.Service.Enum;
 using ATV.ProgramDept.Service.Implement;
+using ATV.ProgramDept.Service.Interface;
 using ATV.ProgramDept.Service.Utilities;
 using ATV.ProgramDept.Service.ViewModel;
 using System;
@@ -19,7 +20,10 @@ namespace ATV.ProgramDept.DesktopApp
     {
 
         private bool isEdit = false;
+        private List<Schedule> weekSchedules;
         private List<ScheduleViewModel> viewList;
+        private IScheduleRepository scheduleRepository = new ScheduleRepository();
+        private IWeekRepository weekRepository = new WeekRepository();
 
         public EditorHomeForm()
         {
@@ -31,67 +35,90 @@ namespace ATV.ProgramDept.DesktopApp
             InitDataGridView();
         }
 
-        private void InitDataGridView()
+        private void loadDataToGridView(int dayId)
         {
-            #region sample data
-            List<ScheduleDetail> schedules = new List<ScheduleDetail>();
-            schedules.Add(new ScheduleDetail
+            var schedule = weekSchedules.Where(s => s.DateID.HasValue && s.DateID == dayId)
+                .FirstOrDefault(); ;
+            
+            if (schedule != null)
             {
-                Program = new Entity.Program
+                var scheduleDetail = schedule.ScheduleDetail.ToList();
+                viewList = scheduleDetail.Select(x => new ScheduleViewModel
                 {
-                    Name = "Thể dục buổi sáng"
-                },
-                Contents = "",
-                Duration = 5,
-                Note = "Yoga 7: Khởi động khớp gối căng cơ liên sườn"
-            });
-            schedules.Add(new ScheduleDetail
-            {
-                Program = new Entity.Program
-                {
-                    Name = "Ca nhạc"
-                },
-                Contents = "",
-                Duration = 25.28,
-                Note = "CaNhan\\20-10 CaNhacSang"
-            });
-            schedules.Add(new ScheduleDetail
-            {
-                Program = new Entity.Program
-                {
-                    Name = "Thế giới tuần qua"
-                },
-                Contents = "",
-                Duration = 10.36,
-                Note = "(Vệ tinh)"
-            });
-            schedules.Add(new ScheduleDetail
-            {
-                Program = new Entity.Program
-                {
-                    Name = "An Giang địa danh và sự kiện"
-                },
-                Contents = "",
-                Duration = 10.00,
-                Note = "Phát lại của chủ nhật 7/10"
-            });
-            #endregion
+                    StartTime = new TimeSpan(5, 0, 0),
+                    Name = x.Program.Name,
+                    Content = x.Contents,
+                    Code = x.ID + "",
+                    Duration = x.Duration,
+                    Note = x.Note
+                }).ToList();
 
-            viewList = schedules.Select(x => new ScheduleViewModel
-            {
-                StartTime = new TimeSpan(5,0,0),
-                Name = x.Program.Name,
-                Content = x.Contents,
-                Code = x.ID + "",
-                Duration = x.Duration,
-                Note = x.Note
-            }).ToList();
+                ScheduleUlities.EstimateStartTime(viewList);
 
-            ScheduleUlities.EstimateStartTime(viewList);
+
+            }
+            else
+            {
+                viewList = new List<ScheduleViewModel>();
+            }
 
             var bindingList = new BindingList<ScheduleViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
             dgvSchedule.DataSource = source;
+
+
+        }
+
+        private void InitDataGridView()
+        {
+            #region sample data
+            //List<ScheduleDetail> schedules = new List<ScheduleDetail>();
+            //schedules.Add(new ScheduleDetail
+            //{
+            //    Program = new Entity.Program
+            //    {
+            //        Name = "Thể dục buổi sáng"
+            //    },
+            //    Contents = "",
+            //    Duration = 5,
+            //    Note = "Yoga 7: Khởi động khớp gối căng cơ liên sườn"
+            //});
+            //schedules.Add(new ScheduleDetail
+            //{
+            //    Program = new Entity.Program
+            //    {
+            //        Name = "Ca nhạc"
+            //    },
+            //    Contents = "",
+            //    Duration = 25.28,
+            //    Note = "CaNhan\\20-10 CaNhacSang"
+            //});
+            //schedules.Add(new ScheduleDetail
+            //{
+            //    Program = new Entity.Program
+            //    {
+            //        Name = "Thế giới tuần qua"
+            //    },
+            //    Contents = "",
+            //    Duration = 10.36,
+            //    Note = "(Vệ tinh)"
+            //});
+            //schedules.Add(new ScheduleDetail
+            //{
+            //    Program = new Entity.Program
+            //    {
+            //        Name = "An Giang địa danh và sự kiện"
+            //    },
+            //    Contents = "",
+            //    Duration = 10.00,
+            //    Note = "Phát lại của chủ nhật 7/10"
+            //});
+            #endregion
+
+            int weekId = weekRepository.GetWeekId(new DateTime(2019, 2, 7), new DateTime(2019,2,13));
+            weekSchedules = scheduleRepository.GetWeekSchedule(weekId).ToList();
+
+            loadDataToGridView((int)DayOfWeek.Monday);
         }
 
         private void btnToAdmin_Click(object sender, EventArgs e)
@@ -150,6 +177,8 @@ namespace ATV.ProgramDept.DesktopApp
         {
             dayScheduleHomeContainer.Parent = tabControl1.SelectedTab;
             lblScheduleDate.Text = tabControl1.SelectedTab.Text + ": " + DateTime.Now.ToShortDateString();
+
+            loadDataToGridView(tabControl1.SelectedIndex + 1);
         }
 
         private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
