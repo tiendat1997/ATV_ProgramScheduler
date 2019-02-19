@@ -79,7 +79,7 @@ namespace ATV.ProgramDept.DesktopApp
 
             viewList = schedules.Select(x => new ScheduleViewModel
             {
-                StartTime = "",
+                StartTime = new TimeSpan(5,0,0),
                 Name = x.Program.Name,
                 Content = x.Contents,
                 Code = x.ID + "",
@@ -87,17 +87,18 @@ namespace ATV.ProgramDept.DesktopApp
                 Note = x.Note
             }).ToList();
 
-            //ScheduleUlities.EstimateStartTime(viewList);
+            ScheduleUlities.EstimateStartTime(viewList);
 
             var bindingList = new BindingList<ScheduleViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
             dgvSchedule.DataSource = source;
 
+
             dgvSchedule.Columns[0].HeaderText = "Giờ";
             dgvSchedule.Columns[1].HeaderText = "Tiết mục";
             dgvSchedule.Columns[2].HeaderText = "Nội dung";
             dgvSchedule.Columns[3].HeaderText = "Mã số";
-            dgvSchedule.Columns[4].HeaderText = "thời lượng";
+            dgvSchedule.Columns[4].HeaderText = "Thời lượng";
             dgvSchedule.Columns[5].HeaderText = "Ghi chú";
         }
 
