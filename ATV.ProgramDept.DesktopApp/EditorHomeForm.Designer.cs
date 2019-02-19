@@ -39,16 +39,16 @@
             this.tsmiEditorPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiEditorHistory = new System.Windows.Forms.ToolStripMenuItem();
             this.btnToAdmin = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabDays = new System.Windows.Forms.TabControl();
+            this.tpMon = new System.Windows.Forms.TabPage();
             this.dayScheduleHomeContainer = new System.Windows.Forms.Panel();
             this.scheduleViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tpTue = new System.Windows.Forms.TabPage();
+            this.tpWed = new System.Windows.Forms.TabPage();
+            this.tpThu = new System.Windows.Forms.TabPage();
+            this.tpFri = new System.Windows.Forms.TabPage();
+            this.tpSat = new System.Windows.Forms.TabPage();
+            this.tpSun = new System.Windows.Forms.TabPage();
             this.dgvSchedule = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,8 +58,8 @@
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSaveSchedule = new System.Windows.Forms.Button();
             this.mnsEditor.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabDays.SuspendLayout();
+            this.tpMon.SuspendLayout();
             this.dayScheduleHomeContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scheduleViewModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSchedule)).BeginInit();
@@ -143,33 +143,33 @@
             this.btnToAdmin.UseVisualStyleBackColor = true;
             this.btnToAdmin.Click += new System.EventHandler(this.btnToAdmin_Click);
             // 
-            // tabControl1
+            // tabDays
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Controls.Add(this.tabPage6);
-            this.tabControl1.Controls.Add(this.tabPage7);
-            this.tabControl1.Location = new System.Drawing.Point(0, 27);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(800, 424);
-            this.tabControl1.TabIndex = 2;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            this.tabDays.Controls.Add(this.tpMon);
+            this.tabDays.Controls.Add(this.tpTue);
+            this.tabDays.Controls.Add(this.tpWed);
+            this.tabDays.Controls.Add(this.tpThu);
+            this.tabDays.Controls.Add(this.tpFri);
+            this.tabDays.Controls.Add(this.tpSat);
+            this.tabDays.Controls.Add(this.tpSun);
+            this.tabDays.Location = new System.Drawing.Point(0, 27);
+            this.tabDays.Name = "tabDays";
+            this.tabDays.SelectedIndex = 0;
+            this.tabDays.Size = new System.Drawing.Size(800, 424);
+            this.tabDays.TabIndex = 2;
+            this.tabDays.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
-            // tabPage1
+            // tpMon
             // 
-            this.tabPage1.Controls.Add(this.dayScheduleHomeContainer);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(792, 398);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Thứ 2";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            this.tpMon.Controls.Add(this.dayScheduleHomeContainer);
+            this.tpMon.Location = new System.Drawing.Point(4, 22);
+            this.tpMon.Name = "tpMon";
+            this.tpMon.Padding = new System.Windows.Forms.Padding(3);
+            this.tpMon.Size = new System.Drawing.Size(792, 398);
+            this.tpMon.TabIndex = 0;
+            this.tpMon.Text = "Thứ 2";
+            this.tpMon.UseVisualStyleBackColor = true;
+            this.tpMon.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // dayScheduleHomeContainer
             // 
@@ -184,60 +184,60 @@
             // 
             this.scheduleViewModelBindingSource.DataSource = typeof(ATV.ProgramDept.Service.ViewModel.ScheduleViewModel);
             // 
-            // tabPage2
+            // tpTue
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(792, 398);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Thứ 3";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tpTue.Location = new System.Drawing.Point(4, 22);
+            this.tpTue.Name = "tpTue";
+            this.tpTue.Padding = new System.Windows.Forms.Padding(3);
+            this.tpTue.Size = new System.Drawing.Size(792, 398);
+            this.tpTue.TabIndex = 1;
+            this.tpTue.Text = "Thứ 3";
+            this.tpTue.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
+            // tpWed
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(792, 398);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Thứ 4";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tpWed.Location = new System.Drawing.Point(4, 22);
+            this.tpWed.Name = "tpWed";
+            this.tpWed.Size = new System.Drawing.Size(792, 398);
+            this.tpWed.TabIndex = 2;
+            this.tpWed.Text = "Thứ 4";
+            this.tpWed.UseVisualStyleBackColor = true;
             // 
-            // tabPage4
+            // tpThu
             // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(792, 398);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Thứ 5";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tpThu.Location = new System.Drawing.Point(4, 22);
+            this.tpThu.Name = "tpThu";
+            this.tpThu.Size = new System.Drawing.Size(792, 398);
+            this.tpThu.TabIndex = 3;
+            this.tpThu.Text = "Thứ 5";
+            this.tpThu.UseVisualStyleBackColor = true;
             // 
-            // tabPage5
+            // tpFri
             // 
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(792, 398);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Thứ 6";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.tpFri.Location = new System.Drawing.Point(4, 22);
+            this.tpFri.Name = "tpFri";
+            this.tpFri.Size = new System.Drawing.Size(792, 398);
+            this.tpFri.TabIndex = 4;
+            this.tpFri.Text = "Thứ 6";
+            this.tpFri.UseVisualStyleBackColor = true;
             // 
-            // tabPage6
+            // tpSat
             // 
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(792, 398);
-            this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "Thứ 7";
-            this.tabPage6.UseVisualStyleBackColor = true;
+            this.tpSat.Location = new System.Drawing.Point(4, 22);
+            this.tpSat.Name = "tpSat";
+            this.tpSat.Size = new System.Drawing.Size(792, 398);
+            this.tpSat.TabIndex = 5;
+            this.tpSat.Text = "Thứ 7";
+            this.tpSat.UseVisualStyleBackColor = true;
             // 
-            // tabPage7
+            // tpSun
             // 
-            this.tabPage7.Location = new System.Drawing.Point(4, 22);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(792, 398);
-            this.tabPage7.TabIndex = 6;
-            this.tabPage7.Text = "Chủ nhật";
-            this.tabPage7.UseVisualStyleBackColor = true;
+            this.tpSun.Location = new System.Drawing.Point(4, 22);
+            this.tpSun.Name = "tpSun";
+            this.tpSun.Size = new System.Drawing.Size(792, 398);
+            this.tpSun.TabIndex = 6;
+            this.tpSun.Text = "Chủ nhật";
+            this.tpSun.UseVisualStyleBackColor = true;
             // 
             // dgvSchedule
             // 
@@ -320,7 +320,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabDays);
             this.Controls.Add(this.btnToAdmin);
             this.Controls.Add(this.mnsEditor);
             this.MainMenuStrip = this.mnsEditor;
@@ -328,8 +328,8 @@
             this.Text = "ATV Program Department - Home";
             this.mnsEditor.ResumeLayout(false);
             this.mnsEditor.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.tabDays.ResumeLayout(false);
+            this.tpMon.ResumeLayout(false);
             this.dayScheduleHomeContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scheduleViewModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSchedule)).EndInit();
@@ -350,14 +350,14 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiInsertFlexProgram;
         private System.Windows.Forms.ToolStripMenuItem tsmiInsertFixProgram;
         private System.Windows.Forms.Button btnToAdmin;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.TabPage tabPage6;
-        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.TabControl tabDays;
+        private System.Windows.Forms.TabPage tpMon;
+        private System.Windows.Forms.TabPage tpTue;
+        private System.Windows.Forms.TabPage tpWed;
+        private System.Windows.Forms.TabPage tpThu;
+        private System.Windows.Forms.TabPage tpFri;
+        private System.Windows.Forms.TabPage tpSat;
+        private System.Windows.Forms.TabPage tpSun;
         private System.Windows.Forms.Panel dayScheduleHomeContainer;
         private System.Windows.Forms.BindingSource scheduleViewModelBindingSource;
         private System.Windows.Forms.Button btnSaveSchedule;

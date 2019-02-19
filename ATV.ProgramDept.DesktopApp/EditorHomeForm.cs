@@ -175,10 +175,10 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dayScheduleHomeContainer.Parent = tabControl1.SelectedTab;
+            dayScheduleHomeContainer.Parent = tabDays.SelectedTab;
             //lblScheduleDate.Text = tabControl1.SelectedTab.Text + ": " + DateTime.Now.ToShortDateString();
 
-            loadDataToGridView(tabControl1.SelectedIndex + 1);
+            loadDataToGridView(tabDays.SelectedIndex + 1);
         }
 
     }
