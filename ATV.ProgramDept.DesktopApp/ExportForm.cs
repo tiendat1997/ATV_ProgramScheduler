@@ -1,15 +1,9 @@
-﻿using ATV.ProgramDept.Entity;
-using ATV.ProgramDept.Service.Utilities;
+﻿using ATV.ProgramDept.Service.Utilities;
 using ATV.ProgramDept.Service.ViewModel;
+using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ATV.ProgramDept.DesktopApp
@@ -30,13 +24,30 @@ namespace ATV.ProgramDept.DesktopApp
         private void btnExport_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Excel 2007 (*.xlsx)|Excel 2003 (*.xls)|All files (*.*)|*.*";
-            saveFileDialog.FilterIndex = 1;
+            saveFileDialog.Filter = "Excel 2003 (*.xls)|*.xls|Excel 2007 (*.xlsx)|*.xlsx";
+            saveFileDialog.DefaultExt = "xls";
+            saveFileDialog.AddExtension = true;
             saveFileDialog.RestoreDirectory = true;
-            saveFileDialog.FileName = "Sample.xlsx";
+            saveFileDialog.FileName = "Sample.xls";
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                File.WriteAllBytes(saveFileDialog.FileName, ExcelUtils.exportSchedule(_scheduleViewModels));
+                FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create);
+                IWorkbook workbook = null;
+                if (saveFileDialog.FilterIndex == 2)
+                {
+                    workbook = ExcelUtils.ExportWeeklySchedule(_scheduleViewModels, ExcelUtils.TYPE_XLSX);
+                }
+                else if (saveFileDialog.FilterIndex == 1)
+                {
+                    workbook = ExcelUtils.ExportWeeklySchedule(_scheduleViewModels, ExcelUtils.TYPE_XLS);
+                }
+
+                if (workbook != null)
+                {
+                    workbook.Write(fileStream);
+
+                }
+                fileStream.Close();
                 this.Close();
             }
         }
