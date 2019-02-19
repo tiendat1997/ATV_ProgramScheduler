@@ -89,7 +89,7 @@
     <Compile Include="Interface\IEditingHistoryRepository.cs" />
     <Compile Include="Interface\IProgramRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
-    <Compile Include="Interface\IScheduleTemplateDetailRepository.cs" />
+    <Compile Include="Interface\IScheduleTemplateRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Converting.cs" />

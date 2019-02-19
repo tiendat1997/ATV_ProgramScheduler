@@ -1,5 +1,7 @@
 ﻿using ATV.ProgramDept.Service.Constant;
 using ATV.ProgramDept.Service.Enum;
+using ATV.ProgramDept.Service.Implement;
+using ATV.ProgramDept.Service.Interface;
 using ATV.ProgramDept.Service.Utilities;
 using ATV.ProgramDept.Service.ViewModel;
 using System;
@@ -16,51 +18,70 @@ namespace ATV.ProgramDept.DesktopApp
 {
     public partial class ScheduleTemplateForm : Form
     {
+
         private ContextMenu contextMenuForColumn1 = new ContextMenu();
         private ContextMenu contextMenuForColumn2 = new ContextMenu();
         public int DayOfWeek { get; set; }
+
+        private readonly IScheduleTemplateRepository _scheduleTemplateRepository;
         public ScheduleTemplateForm(int dayOfWeek)
         {
             InitializeComponent();
+            _scheduleTemplateRepository = new ScheduleTemplateRepository();
             DayOfWeek = dayOfWeek;
             SetTitleDayOfWeek();
             InitSampleDataForDataGridView();
         }
         private void InitSampleDataForDataGridView()
         {
-            var list = new List<ScheduleTemplateDetailViewModel>
-            {
-                new ScheduleTemplateDetailViewModel
+            var list = _scheduleTemplateRepository.GetScheduleTemplateDetails(DayOfWeek)
+                .Select(s => new ScheduleTemplateDetailViewModel
                 {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình tập thể dục",
-                    Contents = "Something vui và funny",
-                    Duration = 15,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình thiếu nhi",
-                    Contents = "Something vui và funny",
-                    Duration = 33,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },
-                new ScheduleTemplateDetailViewModel
-                {
-                    StartTime = new TimeSpan(5,0,0),
-                    ProgramName = "Chương trình thời sự sáng",
-                    Contents = "Something vui và funny",
-                    Duration = 60,
-                    PerformBy = "P.Phát Thanh",
-                    Note = "something",
-                    Position = 1,
-                },                  
-            };
+                    ID = s.ID,
+                    Contents = s.Contents,
+                    Duration = s.Duration,
+                    PerformBy = s.PerformBy,
+                    Note = s.Note,
+                    Position = s.Position,
+                    ProgramID = s.ProgramID,
+                    ProgramName = s.ProgramName,                    
+                    IsActive = s.IsActive,
+                    IsNoted = s.IsNoted
+                })
+                .ToList();
+            //var list = new List<ScheduleTemplateDetailViewModel>
+            //{
+            //    new ScheduleTemplateDetailViewModel
+            //    {
+            //        StartTime = new TimeSpan(5,0,0),
+            //        ProgramName = "Chương trình tập thể dục",
+            //        Contents = "Something vui và funny",
+            //        Duration = 15,
+            //        PerformBy = "P.Phát Thanh",
+            //        Note = "something",
+            //        Position = 1,
+            //    },
+            //    new ScheduleTemplateDetailViewModel
+            //    {
+            //        StartTime = new TimeSpan(5,0,0),
+            //        ProgramName = "Chương trình thiếu nhi",
+            //        Contents = "Something vui và funny",
+            //        Duration = 33,
+            //        PerformBy = "P.Phát Thanh",
+            //        Note = "something",
+            //        Position = 1,
+            //    },
+            //    new ScheduleTemplateDetailViewModel
+            //    {
+            //        StartTime = new TimeSpan(5,0,0),
+            //        ProgramName = "Chương trình thời sự sáng",
+            //        Contents = "Something vui và funny",
+            //        Duration = 60,
+            //        PerformBy = "P.Phát Thanh",
+            //        Note = "something",
+            //        Position = 1,
+            //    },                  
+            //};
             ScheduleUlities.EstimateStartTime(list);
             var bindList = new BindingList<ScheduleTemplateDetailViewModel>(list);
             var bindSource = new BindingSource(bindList, null);
@@ -111,6 +132,7 @@ namespace ATV.ProgramDept.DesktopApp
             contextMenuForColumn1.MenuItems.Add("Make Active", new EventHandler(MakeActive));
             contextMenuForColumn2.MenuItems.Add("Delete", new EventHandler(Delete));
             contextMenuForColumn2.MenuItems.Add("Register", new EventHandler(Register));
+
         }
         private void MakeActive(object sender, EventArgs eventArgs)
         {
