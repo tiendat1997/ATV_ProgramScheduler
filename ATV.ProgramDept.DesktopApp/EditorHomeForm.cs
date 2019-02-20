@@ -21,6 +21,8 @@ namespace ATV.ProgramDept.DesktopApp
     {
 
         private bool isEdit = false;
+        private bool IsInsertInDgv = false;
+        private int currentRowIndex;
         private List<Schedule> weekSchedules;
         private List<ScheduleViewModel> viewList;
         private IScheduleRepository scheduleRepository = new ScheduleRepository();
@@ -28,6 +30,8 @@ namespace ATV.ProgramDept.DesktopApp
         private int programIDToInsert;
         private bool readyForInsert;
         private readonly IProgramRepository _programRepository;
+
+        private ContextMenu contextMenuDgv = new ContextMenu();
 
         public EditorHomeForm()
         {
@@ -217,9 +221,26 @@ namespace ATV.ProgramDept.DesktopApp
 
         public void ReadyForInsertProgram(int ProgramID)
         {
-            dgvSchedule.Cursor = System.Windows.Forms.Cursors.Cross;
-            programIDToInsert = ProgramID;
-            readyForInsert = true;
+            if (IsInsertInDgv)
+            {
+                ScheduleViewModel scheduleDetail = _programRepository.Find(p => p.ID == ProgramID).
+               Select(p => new ScheduleViewModel()
+               {
+                   Duration = p.Duration.Value,
+                   Name = p.Name,                   
+                   Code = p.PerformBy,
+               }).FirstOrDefault();
+                viewList.Insert(currentRowIndex, scheduleDetail);
+                ScheduleUlities.EstimateStartTime(viewList);
+                dgvSchedule.Refresh();
+                IsInsertInDgv = false;
+            }
+            else
+            {
+                dgvSchedule.Cursor = System.Windows.Forms.Cursors.Cross;
+                programIDToInsert = ProgramID;
+                readyForInsert = true;
+            }            
         }
 
         private void dgvSchedule_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -231,6 +252,38 @@ namespace ATV.ProgramDept.DesktopApp
         {
             StaticProgramForm staticProgramForm = new StaticProgramForm(this);
             staticProgramForm.ShowDialog();
+        }
+
+        private void EditorHomeForm_Load(object sender, EventArgs e)
+        {
+            contextMenuDgv.MenuItems.Add("Chèn CT cố định", new EventHandler(InsertFixProgramEvent));
+            contextMenuDgv.MenuItems.Add("Chèn CT chen giờ", new EventHandler(InsertFlexProgramEvent));
+        }
+        // Insert CT Cố định
+        private void InsertFixProgramEvent(object sender, EventArgs eventArgs)
+        {
+            IsInsertInDgv = true;
+            StaticProgramForm staticProgramForm = new StaticProgramForm(this);
+            staticProgramForm.ShowDialog();
+        }
+        // Insert CT chen giờ
+        private void InsertFlexProgramEvent(object sender, EventArgs eventArgs)
+        {
+            IsInsertInDgv = true;
+            InsertedProgramForm insertedProgramForm = new InsertedProgramForm(this);
+            insertedProgramForm.ShowDialog();
+        }
+
+        private void dgvSchedule_MouseUp(object sender, MouseEventArgs e)
+        {
+            DataGridView.HitTestInfo hitTestInfo = dgvSchedule.HitTest(e.X, e.Y);
+            if (hitTestInfo.RowY != -1 && hitTestInfo.ColumnX != 1 && e.Button == MouseButtons.Right)
+            {
+                dgvSchedule.Rows[hitTestInfo.RowIndex].Selected = true;
+                contextMenuDgv.Show(dgvSchedule, new Point(e.X, e.Y));
+                currentRowIndex = hitTestInfo.RowIndex;
+                dgvSchedule.ClearSelection();
+            }
         }
     }
 }

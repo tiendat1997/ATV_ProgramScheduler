@@ -19,9 +19,7 @@ namespace ATV.ProgramDept.DesktopApp
 {
     public partial class ScheduleTemplateForm : Form, IInsertProgram
     {
-
-        private ContextMenu contextMenuForColumn1 = new ContextMenu();
-        private ContextMenu contextMenuForColumn2 = new ContextMenu();
+        private ContextMenu contextMenuDgv = new ContextMenu();
         private List<ScheduleTemplateDetailViewModel> listTemplateDetails; 
         public int DayOfWeek { get; set; }
         private int currentRowIndex; 
@@ -100,8 +98,8 @@ namespace ATV.ProgramDept.DesktopApp
         private void ScheduleTemplateForm_Load(object sender, EventArgs e)
         {
             dgvScheduleTemplateDetail.AutoGenerateColumns = false;
-            contextMenuForColumn2.MenuItems.Add("Chèn CT cố định", new EventHandler(InsertFixProgramEvent));
-            contextMenuForColumn2.MenuItems.Add("Chèn CT chen giờ", new EventHandler(InsertFlexProgramEvent));            
+            contextMenuDgv.MenuItems.Add("Chèn CT cố định", new EventHandler(InsertFixProgramEvent));
+            contextMenuDgv.MenuItems.Add("Chèn CT chen giờ", new EventHandler(InsertFlexProgramEvent));            
         }
         // Insert CT Cố định
         private void InsertFixProgramEvent(object sender, EventArgs eventArgs)
@@ -170,7 +168,7 @@ namespace ATV.ProgramDept.DesktopApp
             if (hitTestInfo.RowY != -1 && hitTestInfo.ColumnX != 1 && e.Button == MouseButtons.Right)
             {                
                 dgvScheduleTemplateDetail.Rows[hitTestInfo.RowIndex].Selected = true;
-                contextMenuForColumn2.Show(dgvScheduleTemplateDetail, new Point(e.X, e.Y));
+                contextMenuDgv.Show(dgvScheduleTemplateDetail, new Point(e.X, e.Y));
                 currentRowIndex = hitTestInfo.RowIndex;
                 dgvScheduleTemplateDetail.ClearSelection();
             }
