@@ -1,4 +1,5 @@
-﻿using ATV.ProgramDept.Service.Constant;
+﻿using ATV.ProgramDept.DesktopApp.Interface;
+using ATV.ProgramDept.Service.Constant;
 using ATV.ProgramDept.Service.Enum;
 using ATV.ProgramDept.Service.Implement;
 using ATV.ProgramDept.Service.Interface;
@@ -16,19 +17,21 @@ using System.Windows.Forms;
 
 namespace ATV.ProgramDept.DesktopApp
 {
-    public partial class ScheduleTemplateForm : Form
+    public partial class ScheduleTemplateForm : Form, IInsertProgram
     {
 
         private ContextMenu contextMenuForColumn1 = new ContextMenu();
         private ContextMenu contextMenuForColumn2 = new ContextMenu();
         private List<ScheduleTemplateDetailViewModel> listTemplateDetails; 
         public int DayOfWeek { get; set; }
-
+        private int currentRowIndex; 
         private readonly IScheduleTemplateRepository _scheduleTemplateRepository;
+        private readonly IProgramRepository _programRepository;
         public ScheduleTemplateForm(int dayOfWeek)
         {
             InitializeComponent();
             _scheduleTemplateRepository = new ScheduleTemplateRepository();
+            _programRepository = new ProgramRepository();
             DayOfWeek = dayOfWeek;
             SetTitleDayOfWeek();
             InitSampleDataForDataGridView();
@@ -98,15 +101,19 @@ namespace ATV.ProgramDept.DesktopApp
         {
             dgvScheduleTemplateDetail.AutoGenerateColumns = false;
             contextMenuForColumn2.MenuItems.Add("Chèn CT cố định", new EventHandler(InsertFixProgramEvent));
-            contextMenuForColumn2.MenuItems.Add("Chèn CT chen giờ", new EventHandler(InsertFixProgramEvent));            
+            contextMenuForColumn2.MenuItems.Add("Chèn CT chen giờ", new EventHandler(InsertFlexProgramEvent));            
         }
+        // Insert CT Cố định
         private void InsertFixProgramEvent(object sender, EventArgs eventArgs)
         {
-
+            StaticProgramForm staticProgramForm = new StaticProgramForm(this);
+            staticProgramForm.ShowDialog();
         }
+        // Insert CT chen giờ
         private void InsertFlexProgramEvent(object sender, EventArgs eventArgs)
         {
-
+            InsertedProgramForm insertedProgramForm = new InsertedProgramForm(this);
+            insertedProgramForm.ShowDialog();
         }        
         private void dgvScheduleTemplateDetail_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -164,7 +171,7 @@ namespace ATV.ProgramDept.DesktopApp
             {                
                 dgvScheduleTemplateDetail.Rows[hitTestInfo.RowIndex].Selected = true;
                 contextMenuForColumn2.Show(dgvScheduleTemplateDetail, new Point(e.X, e.Y));
-
+                currentRowIndex = hitTestInfo.RowIndex;
                 dgvScheduleTemplateDetail.ClearSelection();
             }
         }
@@ -176,6 +183,21 @@ namespace ATV.ProgramDept.DesktopApp
                 ScheduleUlities.EstimateStartTime(listTemplateDetails);
                 dgvScheduleTemplateDetail.Refresh();
             }
+        }
+
+        public void ReadyForInsertProgram(int programID)
+        {
+            ScheduleTemplateDetailViewModel scheduleDetail = _programRepository.Find(p => p.ID == programID).
+                Select(p => new ScheduleTemplateDetailViewModel()
+                {
+                    Duration = p.Duration.Value,
+                    ProgramName = p.Name,
+                    ProgramID = p.ID,
+                    PerformBy = p.PerformBy,                 
+                }).FirstOrDefault();
+            listTemplateDetails.Insert(currentRowIndex, scheduleDetail);
+            ScheduleUlities.EstimateStartTime(listTemplateDetails);
+            dgvScheduleTemplateDetail.Refresh();
         }
     }
 }

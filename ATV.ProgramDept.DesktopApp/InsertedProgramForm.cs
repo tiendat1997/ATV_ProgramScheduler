@@ -1,4 +1,5 @@
-﻿using ATV.ProgramDept.Service.Enum;
+﻿using ATV.ProgramDept.DesktopApp.Interface;
+using ATV.ProgramDept.Service.Enum;
 using ATV.ProgramDept.Service.Implement;
 using ATV.ProgramDept.Service.Interface;
 using ATV.ProgramDept.Service.Utilities;
@@ -25,9 +26,9 @@ namespace ATV.ProgramDept.DesktopApp
         private readonly IProgramRepository _programRepository;
         BindingList<ProgramModel> bindingList;
         BindingList<ProgramModel> currentList;
-        EditorHomeForm editorHomeForm;
+        IInsertProgram editorHomeForm;
 
-        public InsertedProgramForm(EditorHomeForm editorHomeForm)
+        public InsertedProgramForm(IInsertProgram editorHomeForm) 
         {
             _programRepository = new ProgramRepository();
             this.editorHomeForm = editorHomeForm;

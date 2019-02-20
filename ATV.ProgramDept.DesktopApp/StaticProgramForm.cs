@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ATV.ProgramDept.DesktopApp.Interface;
 using ATV.ProgramDept.Service.Enum;
 using ATV.ProgramDept.Service.Implement;
 using ATV.ProgramDept.Service.Interface;
@@ -20,8 +21,8 @@ namespace ATV.ProgramDept.DesktopApp
         private readonly IProgramRepository _programRepository;
         BindingList<ProgramModel> bindingList;
         BindingList<ProgramModel> currentList;
-        EditorHomeForm editorHomeForm;
-        public StaticProgramForm(EditorHomeForm editorHomeForm)
+        IInsertProgram editorHomeForm;
+        public StaticProgramForm(IInsertProgram editorHomeForm)
         {
             _programRepository = new ProgramRepository();
             this.editorHomeForm = editorHomeForm;

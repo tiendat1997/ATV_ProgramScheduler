@@ -106,6 +106,7 @@
     <Compile Include="InsertedProgramForm.Designer.cs">
       <DependentUpon>InsertedProgramForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interface\IInsertProgram.cs" />
     <Compile Include="NewProgramForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -291,5 +292,6 @@
       <Name>ATV.ProgramDept.Service</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

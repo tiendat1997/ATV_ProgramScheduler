@@ -1,4 +1,5 @@
-﻿using ATV.ProgramDept.Entity;
+﻿using ATV.ProgramDept.DesktopApp.Interface;
+using ATV.ProgramDept.Entity;
 using ATV.ProgramDept.Service.Enum;
 using ATV.ProgramDept.Service.Implement;
 using ATV.ProgramDept.Service.Interface;
@@ -16,7 +17,7 @@ using System.Windows.Forms;
 
 namespace ATV.ProgramDept.DesktopApp
 {
-    public partial class EditorHomeForm : Form
+    public partial class EditorHomeForm : Form, IInsertProgram
     {
 
         private bool isEdit = false;
@@ -219,7 +220,6 @@ namespace ATV.ProgramDept.DesktopApp
             dgvSchedule.Cursor = System.Windows.Forms.Cursors.Cross;
             programIDToInsert = ProgramID;
             readyForInsert = true;
-
         }
 
         private void dgvSchedule_CellContentClick(object sender, DataGridViewCellEventArgs e)
