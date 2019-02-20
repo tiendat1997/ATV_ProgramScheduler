@@ -30,6 +30,7 @@ namespace ATV.ProgramDept.DesktopApp
         private int programIDToInsert;
         private bool readyForInsert;
         private readonly IProgramRepository _programRepository;
+        private IEditingHistoryRepository _editingHistoryRepository;
 
         private ContextMenu contextMenuDgv = new ContextMenu();
 
@@ -37,6 +38,7 @@ namespace ATV.ProgramDept.DesktopApp
         {
             readyForInsert = false;
             _programRepository = new ProgramRepository();
+            _editingHistoryRepository = new EditingHistoryRepository();
             InitializeComponent();
             if (!Program.User.Rolename.Equals("Admin"))
             {
@@ -58,7 +60,7 @@ namespace ATV.ProgramDept.DesktopApp
                     StartTime = new TimeSpan(5, 0, 0),
                     Name = x.Program.Name,
                     Content = x.Contents,
-                    Code = x.ID + "",
+                    Code = x.PerformBy,
                     Duration = x.Duration,
                     Note = x.Note
                 }).ToList();
@@ -164,7 +166,8 @@ namespace ATV.ProgramDept.DesktopApp
                 {
                     Duration = p.Duration.Value,
                     Name = p.Name,
-
+                    Code = p.PerformBy,
+                    
                 }).FirstOrDefault();
             viewList.Insert(e.RowIndex, scheduleViewModel);
             ScheduleUlities.EstimateStartTime(viewList);
@@ -179,15 +182,46 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void btnSaveSchedule_Click(object sender, EventArgs e)
         {
-            isEdit = !isEdit;
+            _editingHistoryRepository = new EditingHistoryRepository();
+            EditingHistory LatestEditingHistory = _editingHistoryRepository.GetAll().OrderByDescending(p => p.Time).FirstOrDefault();
             if (isEdit)
             {
-                btnSaveSchedule.Text = "Lưu";
+                isEdit = !isEdit;
+                btnSaveSchedule.Text = "Chỉnh sửa";
+                LatestEditingHistory.IsFinished = true;
+                _editingHistoryRepository.Update(LatestEditingHistory);
+                _editingHistoryRepository.Save();
             }
             else
             {
-                btnSaveSchedule.Text = "Chỉnh sửa";
+                if (LatestEditingHistory.IsFinished)
+                {
+                    EditingHistory editingHistory = new EditingHistory()
+                    {
+                        UserID = Program.User.ID,
+                        DateID = 1, //đang nhập mặc định là 1, giải quyết sau
+                        IsFinished = false,
+                        Time = DateTime.Now
+                    };
+                    _editingHistoryRepository.Create(editingHistory);
+                    _editingHistoryRepository.Save();
+                    isEdit = !isEdit;
+                    btnSaveSchedule.Text = "Lưu";
+                }
+                else
+                {
+                    MessageBox.Show("Hiện tại " + LatestEditingHistory.User.Username + " đang thực hiện công việc chỉnh sửa, vui lòng quay lại sau!");
+                }
             }
+            //isEdit = !isEdit;
+            //if (isEdit)
+            //{
+            //    btnSaveSchedule.Text = "Lưu";
+            //}
+            //else
+            //{
+            //    btnSaveSchedule.Text = "Chỉnh sửa";
+            //}
             var test = dgvSchedule.DataBindings.SyncRoot;
         }
 
@@ -232,7 +266,10 @@ namespace ATV.ProgramDept.DesktopApp
                }).FirstOrDefault();
                 viewList.Insert(currentRowIndex, scheduleDetail);
                 ScheduleUlities.EstimateStartTime(viewList);
-                dgvSchedule.Refresh();
+                var bindingList = new BindingList<ScheduleViewModel>(viewList);
+                var source = new BindingSource(bindingList, null);
+                dgvSchedule.DataSource = source;
+                dgvSchedule.Update();
                 IsInsertInDgv = false;
             }
             else
@@ -284,6 +321,11 @@ namespace ATV.ProgramDept.DesktopApp
                 currentRowIndex = hitTestInfo.RowIndex;
                 dgvSchedule.ClearSelection();
             }
+        }
+
+        private void EditorHomeForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //cập nhật lại editing history thành isfinished
         }
     }
 }

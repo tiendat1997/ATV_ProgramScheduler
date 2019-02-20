@@ -25,6 +25,9 @@ namespace ATV.ProgramDept.DesktopApp
             _editingHistoryRepository = new EditingHistoryRepository();
             StaticLogger.LogDebug(this.GetType(),"Login Instance Created");
             InitializeComponent();
+            //for test
+            txtPassword.Text = "123456";
+            txtUsername.Text = "admin";
         }
         
         private void btnLogin_Click(object sender, EventArgs e)

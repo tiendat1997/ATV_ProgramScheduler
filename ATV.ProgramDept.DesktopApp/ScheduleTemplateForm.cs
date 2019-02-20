@@ -195,7 +195,10 @@ namespace ATV.ProgramDept.DesktopApp
                 }).FirstOrDefault();
             listTemplateDetails.Insert(currentRowIndex, scheduleDetail);
             ScheduleUlities.EstimateStartTime(listTemplateDetails);
-            dgvScheduleTemplateDetail.Refresh();
+            var bindingList = new BindingList<ScheduleTemplateDetailViewModel>(listTemplateDetails);
+            var source = new BindingSource(bindingList, null);
+            dgvScheduleTemplateDetail.DataSource = source;
+            dgvScheduleTemplateDetail.Update();
         }
     }
 }
