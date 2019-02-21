@@ -34,8 +34,8 @@
             this.startTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.programNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contentsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.durationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.performByDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.durationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.noteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.programIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -65,8 +65,8 @@
             this.startTimeDataGridViewTextBoxColumn,
             this.programNameDataGridViewTextBoxColumn,
             this.contentsDataGridViewTextBoxColumn,
-            this.durationDataGridViewTextBoxColumn,
             this.performByDataGridViewTextBoxColumn,
+            this.durationDataGridViewTextBoxColumn,
             this.noteDataGridViewTextBoxColumn,
             this.iDDataGridViewTextBoxColumn,
             this.programIDDataGridViewTextBoxColumn,
@@ -114,19 +114,19 @@
             this.contentsDataGridViewTextBoxColumn.HeaderText = "Nội dung";
             this.contentsDataGridViewTextBoxColumn.Name = "contentsDataGridViewTextBoxColumn";
             // 
-            // durationDataGridViewTextBoxColumn
-            // 
-            this.durationDataGridViewTextBoxColumn.DataPropertyName = "Duration";
-            this.durationDataGridViewTextBoxColumn.FillWeight = 43.52792F;
-            this.durationDataGridViewTextBoxColumn.HeaderText = "Thời lượng";
-            this.durationDataGridViewTextBoxColumn.Name = "durationDataGridViewTextBoxColumn";
-            // 
             // performByDataGridViewTextBoxColumn
             // 
             this.performByDataGridViewTextBoxColumn.DataPropertyName = "PerformBy";
             this.performByDataGridViewTextBoxColumn.FillWeight = 43.52792F;
             this.performByDataGridViewTextBoxColumn.HeaderText = "Thực hiện";
             this.performByDataGridViewTextBoxColumn.Name = "performByDataGridViewTextBoxColumn";
+            // 
+            // durationDataGridViewTextBoxColumn
+            // 
+            this.durationDataGridViewTextBoxColumn.DataPropertyName = "Duration";
+            this.durationDataGridViewTextBoxColumn.FillWeight = 43.52792F;
+            this.durationDataGridViewTextBoxColumn.HeaderText = "Thời lượng";
+            this.durationDataGridViewTextBoxColumn.Name = "durationDataGridViewTextBoxColumn";
             // 
             // noteDataGridViewTextBoxColumn
             // 
@@ -258,8 +258,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn startTimeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn programNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn contentsDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn durationDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn performByDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn durationDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn noteDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn programIDDataGridViewTextBoxColumn;

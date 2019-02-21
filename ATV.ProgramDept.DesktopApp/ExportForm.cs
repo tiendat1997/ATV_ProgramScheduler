@@ -10,13 +10,13 @@ namespace ATV.ProgramDept.DesktopApp
 {
     public partial class ExportForm : Form
     {
-        private List<ScheduleViewModel> _scheduleViewModels;
-        public ExportForm(List<ScheduleViewModel> scheduleViewModels)
+        private List<ScheduleDetailViewModel> _scheduleViewModels;
+        public ExportForm(List<ScheduleDetailViewModel> scheduleViewModels)
         {
             InitializeComponent();
             if (scheduleViewModels == null)
             {
-                scheduleViewModels = new List<ScheduleViewModel>();
+                scheduleViewModels = new List<ScheduleDetailViewModel>();
             }
             _scheduleViewModels = scheduleViewModels;
         }
