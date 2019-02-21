@@ -11,5 +11,7 @@ namespace ATV.ProgramDept.Service.Interface
     public interface IScheduleTemplateRepository : IRepository<ScheduleTemplate>
     {
         IEnumerable<ScheduleTemplateDetail> GetScheduleTemplateDetails(int dayOfWeek);
+        ScheduleTemplateViewModel GetScheduleTemplate(int dayOfWeek);
+        void UpdateScheduleTemplateDetails(int templateId, List<ScheduleTemplateDetailViewModel> list);
     }
 }
