@@ -295,6 +295,7 @@ namespace ATV.ProgramDept.DesktopApp
         {
             contextMenuDgv.MenuItems.Add("Chèn CT cố định", new EventHandler(InsertFixProgramEvent));
             contextMenuDgv.MenuItems.Add("Chèn CT chen giờ", new EventHandler(InsertFlexProgramEvent));
+            contextMenuDgv.MenuItems.Add("Xóa CT", new EventHandler(DeleteProgramEvent));
         }
         // Insert CT Cố định
         private void InsertFixProgramEvent(object sender, EventArgs eventArgs)
@@ -310,11 +311,20 @@ namespace ATV.ProgramDept.DesktopApp
             InsertedProgramForm insertedProgramForm = new InsertedProgramForm(this);
             insertedProgramForm.ShowDialog();
         }
-
+        //Delete CT
+        private void DeleteProgramEvent(object sender, EventArgs eventArgs)
+        {
+            dgvSchedule.Rows.RemoveAt(currentRowIndex);
+            ScheduleUlities.EstimateStartTime(viewList);
+            var bindingList = new BindingList<ScheduleViewModel>(viewList);
+            var source = new BindingSource(bindingList, null);
+            dgvSchedule.DataSource = source;
+            dgvSchedule.Update();
+        }
         private void dgvSchedule_MouseUp(object sender, MouseEventArgs e)
         {
             DataGridView.HitTestInfo hitTestInfo = dgvSchedule.HitTest(e.X, e.Y);
-            if (hitTestInfo.RowY != -1 && hitTestInfo.ColumnX != 1 && e.Button == MouseButtons.Right)
+            if (hitTestInfo.RowY != -1 && hitTestInfo.ColumnX != 1 && e.Button == MouseButtons.Right && isEdit)
             {
                 dgvSchedule.Rows[hitTestInfo.RowIndex].Selected = true;
                 contextMenuDgv.Show(dgvSchedule, new Point(e.X, e.Y));
@@ -326,6 +336,23 @@ namespace ATV.ProgramDept.DesktopApp
         private void EditorHomeForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             //cập nhật lại editing history thành isfinished
+        }
+
+        private void dgvSchedule_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            if (!isEdit)
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void dgvSchedule_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            ScheduleUlities.EstimateStartTime(viewList);
+            var bindingList = new BindingList<ScheduleViewModel>(viewList);
+            var source = new BindingSource(bindingList, null);
+            dgvSchedule.DataSource = source;
+            dgvSchedule.Update();
         }
     }
 }

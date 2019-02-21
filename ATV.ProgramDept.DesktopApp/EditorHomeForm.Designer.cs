@@ -167,7 +167,7 @@
             this.tpMon.Controls.Add(this.dayScheduleHomeContainer);
             this.tpMon.Location = new System.Drawing.Point(4, 22);
             this.tpMon.Name = "tpMon";
-            this.tpMon.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tpMon.Padding = new System.Windows.Forms.Padding(3);
             this.tpMon.Size = new System.Drawing.Size(792, 398);
             this.tpMon.TabIndex = 0;
             this.tpMon.Text = "Thứ 2";
@@ -220,6 +220,8 @@
             this.dgvSchedule.TabStop = false;
             this.dgvSchedule.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSchedule_CellClick);
             this.dgvSchedule.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSchedule_CellEnter);
+            this.dgvSchedule.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvSchedule_UserDeletedRow);
+            this.dgvSchedule.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvSchedule_UserDeletingRow);
             this.dgvSchedule.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dgvSchedule_MouseUp);
             // 
             // dataGridViewTextBoxColumn1
@@ -271,7 +273,7 @@
             // 
             this.tpTue.Location = new System.Drawing.Point(4, 22);
             this.tpTue.Name = "tpTue";
-            this.tpTue.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tpTue.Padding = new System.Windows.Forms.Padding(3);
             this.tpTue.Size = new System.Drawing.Size(792, 398);
             this.tpTue.TabIndex = 1;
             this.tpTue.Text = "Thứ 3";
