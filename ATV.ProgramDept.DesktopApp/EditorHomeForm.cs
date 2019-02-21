@@ -198,7 +198,7 @@ namespace ATV.ProgramDept.DesktopApp
                     EditingHistory editingHistory = new EditingHistory()
                     {
                         UserID = Program.User.ID,
-                        DateID = 1, //đang nhập mặc định là 1, giải quyết sau
+                        WeekID = 1, //đang nhập mặc định là 1, giải quyết sau
                         IsFinished = false,
                         Time = DateTime.Now
                     };
@@ -324,7 +324,10 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void EditorHomeForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //cập nhật lại editing history thành isfinished
+            EditingHistory LatestEditingHistory = _editingHistoryRepository.GetAll().OrderByDescending(p => p.Time).FirstOrDefault();
+            LatestEditingHistory.IsFinished = true;
+            _editingHistoryRepository.Update(LatestEditingHistory);
+            _editingHistoryRepository.Save();
         }
     }
 }

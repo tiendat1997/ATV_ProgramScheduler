@@ -29,10 +29,10 @@ namespace ATV.ProgramDept.Entity
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Date>()
-                .HasMany(e => e.EditingHistory)
-                .WithRequired(e => e.Date)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Date>()
+            //    .HasMany(e => e.EditingHistory)
+            //    .WithRequired(e => e.Date)
+            //    .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Date>()
                 .HasMany(e => e.MailingHistory)
@@ -117,6 +117,10 @@ namespace ATV.ProgramDept.Entity
 
             modelBuilder.Entity<Week>()
                 .HasMany(e => e.Date)
+                .WithRequired(e => e.Week)
+                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Week>()
+                .HasMany(e => e.EditingHistory)
                 .WithRequired(e => e.Week)
                 .WillCascadeOnDelete(false);
         }
