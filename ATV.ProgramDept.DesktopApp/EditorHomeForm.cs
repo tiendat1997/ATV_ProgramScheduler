@@ -171,7 +171,6 @@ namespace ATV.ProgramDept.DesktopApp
                 }).FirstOrDefault();
             viewList.Insert(e.RowIndex, scheduleViewModel);
             ScheduleUlities.EstimateStartTime(viewList);
-
             readyForInsert = false;
             dgvSchedule.Cursor = System.Windows.Forms.Cursors.Default;
             var bindingList = new BindingList<ScheduleViewModel>(viewList);
