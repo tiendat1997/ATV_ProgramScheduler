@@ -41,29 +41,35 @@
             this.btnToAdmin = new System.Windows.Forms.Button();
             this.tabDays = new System.Windows.Forms.TabControl();
             this.tpMon = new System.Windows.Forms.TabPage();
-            this.dayScheduleHomeContainer = new System.Windows.Forms.Panel();
-            this.btnSaveSchedule = new System.Windows.Forms.Button();
             this.dgvSchedule = new System.Windows.Forms.DataGridView();
-            this.scheduleViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.scheduleDetailViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tpTue = new System.Windows.Forms.TabPage();
             this.tpWed = new System.Windows.Forms.TabPage();
             this.tpThu = new System.Windows.Forms.TabPage();
             this.tpFri = new System.Windows.Forms.TabPage();
             this.tpSat = new System.Windows.Forms.TabPage();
             this.tpSun = new System.Windows.Forms.TabPage();
+            this.btnSaveSchedule = new System.Windows.Forms.Button();
+            this.dayScheduleHomeContainer = new System.Windows.Forms.Panel();
             this.Section = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.startTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.programNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contentsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.performByDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.durationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.noteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.programIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.scheduleIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.positionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isNotedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.isActiveDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.mnsEditor.SuspendLayout();
             this.tabDays.SuspendLayout();
             this.tpMon.SuspendLayout();
-            this.dayScheduleHomeContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSchedule)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.scheduleViewModelBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scheduleDetailViewModelBindingSource)).BeginInit();
+            this.dayScheduleHomeContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // mnsEditor
@@ -139,7 +145,7 @@
             // btnToAdmin
             // 
             this.btnToAdmin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnToAdmin.Location = new System.Drawing.Point(725, 1);
+            this.btnToAdmin.Location = new System.Drawing.Point(721, 1);
             this.btnToAdmin.Name = "btnToAdmin";
             this.btnToAdmin.Size = new System.Drawing.Size(75, 23);
             this.btnToAdmin.TabIndex = 1;
@@ -156,10 +162,11 @@
             this.tabDays.Controls.Add(this.tpFri);
             this.tabDays.Controls.Add(this.tpSat);
             this.tabDays.Controls.Add(this.tpSun);
-            this.tabDays.Location = new System.Drawing.Point(0, 27);
+            this.tabDays.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabDays.Location = new System.Drawing.Point(0, 24);
             this.tabDays.Name = "tabDays";
             this.tabDays.SelectedIndex = 0;
-            this.tabDays.Size = new System.Drawing.Size(800, 424);
+            this.tabDays.Size = new System.Drawing.Size(800, 426);
             this.tabDays.TabIndex = 2;
             this.tabDays.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -169,30 +176,11 @@
             this.tpMon.Location = new System.Drawing.Point(4, 22);
             this.tpMon.Name = "tpMon";
             this.tpMon.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMon.Size = new System.Drawing.Size(792, 398);
+            this.tpMon.Size = new System.Drawing.Size(792, 400);
             this.tpMon.TabIndex = 0;
             this.tpMon.Text = "Thứ 2";
             this.tpMon.UseVisualStyleBackColor = true;
             this.tpMon.Click += new System.EventHandler(this.tabPage1_Click);
-            // 
-            // dayScheduleHomeContainer
-            // 
-            this.dayScheduleHomeContainer.Controls.Add(this.btnSaveSchedule);
-            this.dayScheduleHomeContainer.Controls.Add(this.dgvSchedule);
-            this.dayScheduleHomeContainer.Location = new System.Drawing.Point(0, 0);
-            this.dayScheduleHomeContainer.Name = "dayScheduleHomeContainer";
-            this.dayScheduleHomeContainer.Size = new System.Drawing.Size(792, 398);
-            this.dayScheduleHomeContainer.TabIndex = 2;
-            // 
-            // btnSaveSchedule
-            // 
-            this.btnSaveSchedule.Location = new System.Drawing.Point(704, 0);
-            this.btnSaveSchedule.Name = "btnSaveSchedule";
-            this.btnSaveSchedule.Size = new System.Drawing.Size(75, 23);
-            this.btnSaveSchedule.TabIndex = 3;
-            this.btnSaveSchedule.Text = "Chỉnh sửa";
-            this.btnSaveSchedule.UseVisualStyleBackColor = true;
-            this.btnSaveSchedule.Click += new System.EventHandler(this.btnSaveSchedule_Click);
             // 
             // dgvSchedule
             // 
@@ -205,19 +193,25 @@
             this.dgvSchedule.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSchedule.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Section,
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6});
-            this.dgvSchedule.DataSource = this.scheduleViewModelBindingSource;
+            this.startTimeDataGridViewTextBoxColumn,
+            this.programNameDataGridViewTextBoxColumn,
+            this.contentsDataGridViewTextBoxColumn,
+            this.performByDataGridViewTextBoxColumn,
+            this.durationDataGridViewTextBoxColumn,
+            this.noteDataGridViewTextBoxColumn,
+            this.iDDataGridViewTextBoxColumn,
+            this.programIDDataGridViewTextBoxColumn,
+            this.scheduleIDDataGridViewTextBoxColumn,
+            this.positionDataGridViewTextBoxColumn,
+            this.isNotedDataGridViewCheckBoxColumn,
+            this.isActiveDataGridViewCheckBoxColumn});
+            this.dgvSchedule.DataSource = this.scheduleDetailViewModelBindingSource;
             this.dgvSchedule.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
-            this.dgvSchedule.Location = new System.Drawing.Point(11, 29);
+            this.dgvSchedule.Location = new System.Drawing.Point(3, 26);
             this.dgvSchedule.MultiSelect = false;
             this.dgvSchedule.Name = "dgvSchedule";
             this.dgvSchedule.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvSchedule.Size = new System.Drawing.Size(770, 336);
+            this.dgvSchedule.Size = new System.Drawing.Size(792, 375);
             this.dgvSchedule.TabIndex = 3;
             this.dgvSchedule.TabStop = false;
             this.dgvSchedule.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSchedule_CellClick);
@@ -228,9 +222,9 @@
             this.dgvSchedule.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvSchedule_UserDeletingRow);
             this.dgvSchedule.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dgvSchedule_MouseUp);
             // 
-            // scheduleViewModelBindingSource
+            // scheduleDetailViewModelBindingSource
             // 
-            this.scheduleViewModelBindingSource.DataSource = typeof(ATV.ProgramDept.Service.ViewModel.ScheduleViewModel);
+            this.scheduleDetailViewModelBindingSource.DataSource = typeof(ATV.ProgramDept.Service.ViewModel.ScheduleDetailViewModel);
             // 
             // tpTue
             // 
@@ -287,54 +281,119 @@
             this.tpSun.Text = "Chủ nhật";
             this.tpSun.UseVisualStyleBackColor = true;
             // 
+            // btnSaveSchedule
+            // 
+            this.btnSaveSchedule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveSchedule.Location = new System.Drawing.Point(711, -3);
+            this.btnSaveSchedule.Name = "btnSaveSchedule";
+            this.btnSaveSchedule.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveSchedule.TabIndex = 3;
+            this.btnSaveSchedule.Text = "Chỉnh sửa";
+            this.btnSaveSchedule.UseVisualStyleBackColor = true;
+            this.btnSaveSchedule.Click += new System.EventHandler(this.btnSaveSchedule_Click);
+            // 
+            // dayScheduleHomeContainer
+            // 
+            this.dayScheduleHomeContainer.BackColor = System.Drawing.Color.Transparent;
+            this.dayScheduleHomeContainer.Controls.Add(this.btnSaveSchedule);
+            this.dayScheduleHomeContainer.Controls.Add(this.dgvSchedule);
+            this.dayScheduleHomeContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dayScheduleHomeContainer.Location = new System.Drawing.Point(3, 3);
+            this.dayScheduleHomeContainer.Name = "dayScheduleHomeContainer";
+            this.dayScheduleHomeContainer.Size = new System.Drawing.Size(786, 394);
+            this.dayScheduleHomeContainer.TabIndex = 2;
+            // 
             // Section
             // 
             this.Section.DataPropertyName = "Section";
-            this.Section.FillWeight = 50F;
+            this.Section.FillWeight = 26.4325F;
             this.Section.HeaderText = "Buổi";
             this.Section.Name = "Section";
             // 
-            // dataGridViewTextBoxColumn1
+            // startTimeDataGridViewTextBoxColumn
             // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "StartTime";
-            this.dataGridViewTextBoxColumn1.FillWeight = 40.17962F;
-            this.dataGridViewTextBoxColumn1.HeaderText = "Giờ";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.startTimeDataGridViewTextBoxColumn.DataPropertyName = "StartTime";
+            this.startTimeDataGridViewTextBoxColumn.FillWeight = 23.94511F;
+            this.startTimeDataGridViewTextBoxColumn.HeaderText = "Giờ";
+            this.startTimeDataGridViewTextBoxColumn.Name = "startTimeDataGridViewTextBoxColumn";
             // 
-            // dataGridViewTextBoxColumn2
+            // programNameDataGridViewTextBoxColumn
             // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Name";
-            this.dataGridViewTextBoxColumn2.FillWeight = 120.5388F;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Tiết mục";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.programNameDataGridViewTextBoxColumn.DataPropertyName = "ProgramName";
+            this.programNameDataGridViewTextBoxColumn.FillWeight = 64.60091F;
+            this.programNameDataGridViewTextBoxColumn.HeaderText = "Tiết mục";
+            this.programNameDataGridViewTextBoxColumn.Name = "programNameDataGridViewTextBoxColumn";
             // 
-            // dataGridViewTextBoxColumn3
+            // contentsDataGridViewTextBoxColumn
             // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Content";
-            this.dataGridViewTextBoxColumn3.FillWeight = 120.5388F;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Nội dung";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.contentsDataGridViewTextBoxColumn.DataPropertyName = "Contents";
+            this.contentsDataGridViewTextBoxColumn.FillWeight = 54.20644F;
+            this.contentsDataGridViewTextBoxColumn.HeaderText = "Nội dung";
+            this.contentsDataGridViewTextBoxColumn.Name = "contentsDataGridViewTextBoxColumn";
             // 
-            // dataGridViewTextBoxColumn4
+            // performByDataGridViewTextBoxColumn
             // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Code";
-            this.dataGridViewTextBoxColumn4.FillWeight = 80.35924F;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Thực hiện";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.performByDataGridViewTextBoxColumn.DataPropertyName = "PerformBy";
+            this.performByDataGridViewTextBoxColumn.FillWeight = 21.04795F;
+            this.performByDataGridViewTextBoxColumn.HeaderText = "Thực hiện";
+            this.performByDataGridViewTextBoxColumn.Name = "performByDataGridViewTextBoxColumn";
             // 
-            // dataGridViewTextBoxColumn5
+            // durationDataGridViewTextBoxColumn
             // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "Duration";
-            this.dataGridViewTextBoxColumn5.FillWeight = 40.17962F;
-            this.dataGridViewTextBoxColumn5.HeaderText = "Thời lượng";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.durationDataGridViewTextBoxColumn.DataPropertyName = "Duration";
+            this.durationDataGridViewTextBoxColumn.FillWeight = 20.36427F;
+            this.durationDataGridViewTextBoxColumn.HeaderText = "Thời lượng";
+            this.durationDataGridViewTextBoxColumn.Name = "durationDataGridViewTextBoxColumn";
             // 
-            // dataGridViewTextBoxColumn6
+            // noteDataGridViewTextBoxColumn
             // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "Note";
-            this.dataGridViewTextBoxColumn6.FillWeight = 120.5388F;
-            this.dataGridViewTextBoxColumn6.HeaderText = "Ghi chú";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.noteDataGridViewTextBoxColumn.DataPropertyName = "Note";
+            this.noteDataGridViewTextBoxColumn.FillWeight = 49.76297F;
+            this.noteDataGridViewTextBoxColumn.HeaderText = "Ghi chú";
+            this.noteDataGridViewTextBoxColumn.Name = "noteDataGridViewTextBoxColumn";
+            this.noteDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // iDDataGridViewTextBoxColumn
+            // 
+            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
+            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
+            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
+            this.iDDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // programIDDataGridViewTextBoxColumn
+            // 
+            this.programIDDataGridViewTextBoxColumn.DataPropertyName = "ProgramID";
+            this.programIDDataGridViewTextBoxColumn.HeaderText = "ProgramID";
+            this.programIDDataGridViewTextBoxColumn.Name = "programIDDataGridViewTextBoxColumn";
+            this.programIDDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // scheduleIDDataGridViewTextBoxColumn
+            // 
+            this.scheduleIDDataGridViewTextBoxColumn.DataPropertyName = "ScheduleID";
+            this.scheduleIDDataGridViewTextBoxColumn.HeaderText = "ScheduleID";
+            this.scheduleIDDataGridViewTextBoxColumn.Name = "scheduleIDDataGridViewTextBoxColumn";
+            this.scheduleIDDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // positionDataGridViewTextBoxColumn
+            // 
+            this.positionDataGridViewTextBoxColumn.DataPropertyName = "Position";
+            this.positionDataGridViewTextBoxColumn.HeaderText = "Position";
+            this.positionDataGridViewTextBoxColumn.Name = "positionDataGridViewTextBoxColumn";
+            this.positionDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // isNotedDataGridViewCheckBoxColumn
+            // 
+            this.isNotedDataGridViewCheckBoxColumn.DataPropertyName = "IsNoted";
+            this.isNotedDataGridViewCheckBoxColumn.HeaderText = "IsNoted";
+            this.isNotedDataGridViewCheckBoxColumn.Name = "isNotedDataGridViewCheckBoxColumn";
+            this.isNotedDataGridViewCheckBoxColumn.Visible = false;
+            // 
+            // isActiveDataGridViewCheckBoxColumn
+            // 
+            this.isActiveDataGridViewCheckBoxColumn.DataPropertyName = "IsActive";
+            this.isActiveDataGridViewCheckBoxColumn.HeaderText = "IsActive";
+            this.isActiveDataGridViewCheckBoxColumn.Name = "isActiveDataGridViewCheckBoxColumn";
+            this.isActiveDataGridViewCheckBoxColumn.Visible = false;
             // 
             // EditorHomeForm
             // 
@@ -349,13 +408,14 @@
             this.Text = "ATV Program Department - Home";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditorHomeForm_FormClosing);
             this.Load += new System.EventHandler(this.EditorHomeForm_Load);
+            this.Resize += new System.EventHandler(this.EditorHomeForm_Resize);
             this.mnsEditor.ResumeLayout(false);
             this.mnsEditor.PerformLayout();
             this.tabDays.ResumeLayout(false);
             this.tpMon.ResumeLayout(false);
-            this.dayScheduleHomeContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSchedule)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.scheduleViewModelBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scheduleDetailViewModelBindingSource)).EndInit();
+            this.dayScheduleHomeContainer.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -381,17 +441,23 @@
         private System.Windows.Forms.TabPage tpFri;
         private System.Windows.Forms.TabPage tpSat;
         private System.Windows.Forms.TabPage tpSun;
-        private System.Windows.Forms.Panel dayScheduleHomeContainer;
-        private System.Windows.Forms.BindingSource scheduleViewModelBindingSource;
         private System.Windows.Forms.Button btnSaveSchedule;
         private System.Windows.Forms.DataGridView dgvSchedule;
+        private System.Windows.Forms.BindingSource scheduleDetailViewModelBindingSource;
+        private System.Windows.Forms.Panel dayScheduleHomeContainer;
         private System.Windows.Forms.DataGridViewTextBoxColumn Section;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn startTimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn programNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contentsDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn performByDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn durationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn noteDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn programIDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn scheduleIDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn positionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn isNotedDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn isActiveDataGridViewCheckBoxColumn;
     }
 }
 

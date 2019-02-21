@@ -14,7 +14,7 @@ namespace ATV.ProgramDept.Service.Utilities
         public static readonly byte TYPE_XLS = 1;
         public static readonly byte TYPE_XLSX = 2;
 
-        public static IWorkbook ExportWeeklySchedule(List<ScheduleViewModel> schedules, int type)
+        public static IWorkbook ExportWeeklySchedule(List<ScheduleDetailViewModel> schedules, int type)
         {
             IWorkbook workbook;
             if (type == TYPE_XLS)
@@ -58,9 +58,9 @@ namespace ATV.ProgramDept.Service.Utilities
                 {
                     IRow currentRow = currentSheet.CreateRow(currentRowIndex);
                     currentRow.CreateCell(0).SetCellValue(schedule.StartTime.ToString());
-                    currentRow.CreateCell(1).SetCellValue(schedule.Name);
-                    currentRow.CreateCell(2).SetCellValue(schedule.Content);
-                    currentRow.CreateCell(3).SetCellValue(schedule.Code);
+                    currentRow.CreateCell(1).SetCellValue(schedule.ProgramName);
+                    currentRow.CreateCell(2).SetCellValue(schedule.Contents);
+                    currentRow.CreateCell(3).SetCellValue(schedule.PerformBy);
                     currentRow.CreateCell(4).SetCellValue(schedule.Duration + "");
                     currentRow.CreateCell(5).SetCellValue(schedule.Note);
 

@@ -25,7 +25,7 @@ namespace ATV.ProgramDept.DesktopApp
         private bool IsInsertInDgv = false;
         private int currentRowIndex;
         private List<Schedule> weekSchedules;
-        private List<ScheduleViewModel> viewList;
+        private List<ScheduleDetailViewModel> viewList;
         private IScheduleRepository scheduleRepository = new ScheduleRepository();
         private IWeekRepository weekRepository = new WeekRepository();
         private int programIDToInsert;
@@ -56,12 +56,12 @@ namespace ATV.ProgramDept.DesktopApp
             if (schedule != null)
             {
                 var scheduleDetail = schedule.ScheduleDetail.ToList();
-                viewList = scheduleDetail.Select(x => new ScheduleViewModel
+                viewList = scheduleDetail.Select(x => new ScheduleDetailViewModel
                 {
                     StartTime = new TimeSpan(5, 0, 0),
-                    Name = x.Program.Name,
-                    Content = x.Contents,
-                    Code = x.PerformBy,
+                    ProgramName = x.Program.Name,
+                    Contents = x.Contents,
+                    PerformBy = x.PerformBy,
                     Duration = x.Duration,
                     Note = x.Note
                 }).ToList();
@@ -72,10 +72,10 @@ namespace ATV.ProgramDept.DesktopApp
             }
             else
             {
-                viewList = new List<ScheduleViewModel>();
+                viewList = new List<ScheduleDetailViewModel>();
             }
 
-            var bindingList = new BindingList<ScheduleViewModel>(viewList);
+            var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
             dgvSchedule.DataSource = source;
 
@@ -162,12 +162,12 @@ namespace ATV.ProgramDept.DesktopApp
                 return;
             }
 
-            ScheduleViewModel scheduleViewModel = _programRepository.Find(p => p.ID == programIDToInsert).
-                Select(p => new ScheduleViewModel()
+            ScheduleDetailViewModel scheduleViewModel = _programRepository.Find(p => p.ID == programIDToInsert).
+                Select(p => new ScheduleDetailViewModel()
                 {
                     Duration = p.Duration.Value,
-                    Name = p.Name,
-                    Code = p.PerformBy,
+                    ProgramName = p.Name,
+                    PerformBy = p.PerformBy,
                     
                 }).FirstOrDefault();
             viewList.Insert(e.RowIndex, scheduleViewModel);
@@ -175,7 +175,7 @@ namespace ATV.ProgramDept.DesktopApp
 
             readyForInsert = false;
             dgvSchedule.Cursor = System.Windows.Forms.Cursors.Default;
-            var bindingList = new BindingList<ScheduleViewModel>(viewList);
+            var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
             dgvSchedule.DataSource = source;
             dgvSchedule.Update();
@@ -258,16 +258,16 @@ namespace ATV.ProgramDept.DesktopApp
         {
             if (IsInsertInDgv)
             {
-                ScheduleViewModel scheduleDetail = _programRepository.Find(p => p.ID == ProgramID).
-               Select(p => new ScheduleViewModel()
+                ScheduleDetailViewModel scheduleDetail = _programRepository.Find(p => p.ID == ProgramID).
+               Select(p => new ScheduleDetailViewModel()
                {
                    Duration = p.Duration.Value,
-                   Name = p.Name,                   
-                   Code = p.PerformBy,
+                   ProgramName = p.Name,                   
+                   PerformBy = p.PerformBy,
                }).FirstOrDefault();
                 viewList.Insert(currentRowIndex, scheduleDetail);
                 ScheduleUlities.EstimateStartTime(viewList);
-                var bindingList = new BindingList<ScheduleViewModel>(viewList);
+                var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
                 var source = new BindingSource(bindingList, null);
                 dgvSchedule.DataSource = source;
                 dgvSchedule.Update();
@@ -294,6 +294,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void EditorHomeForm_Load(object sender, EventArgs e)
         {
+            dgvSchedule.AutoGenerateColumns = false;
             contextMenuDgv.MenuItems.Add("Chèn CT cố định", new EventHandler(InsertFixProgramEvent));
             contextMenuDgv.MenuItems.Add("Chèn CT chen giờ", new EventHandler(InsertFlexProgramEvent));
             contextMenuDgv.MenuItems.Add("Xóa CT", new EventHandler(DeleteProgramEvent));
@@ -317,7 +318,7 @@ namespace ATV.ProgramDept.DesktopApp
         {
             dgvSchedule.Rows.RemoveAt(currentRowIndex);
             ScheduleUlities.EstimateStartTime(viewList);
-            var bindingList = new BindingList<ScheduleViewModel>(viewList);
+            var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
             dgvSchedule.DataSource = source;
             dgvSchedule.Update();
@@ -350,7 +351,7 @@ namespace ATV.ProgramDept.DesktopApp
         private void dgvSchedule_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
             ScheduleUlities.EstimateStartTime(viewList);
-            var bindingList = new BindingList<ScheduleViewModel>(viewList);
+            var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
             dgvSchedule.DataSource = source;
             dgvSchedule.Update();
@@ -411,6 +412,20 @@ namespace ATV.ProgramDept.DesktopApp
                 ScheduleUlities.EstimateStartTime(viewList);
                 dgvSchedule.Refresh();
             }
+        }
+
+        private void ReorderPositionScheduler()
+        {
+            for (int i = 0; i < viewList.Count; i++)
+            {
+                viewList[i].Position = i;
+            }
+        }
+
+        private void EditorHomeForm_Resize(object sender, EventArgs e)
+        {
+            dgvSchedule.Width = dayScheduleHomeContainer.Width;
+            dgvSchedule.Height = dayScheduleHomeContainer.Height;
         }
     }
 }

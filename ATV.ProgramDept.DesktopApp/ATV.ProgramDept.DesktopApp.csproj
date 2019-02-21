@@ -264,6 +264,7 @@
     <None Include="Properties\DataSources\ATV.ProgramDept.Entity.ScheduleTemplate.datasource" />
     <None Include="Properties\DataSources\ATV.ProgramDept.Entity.ScheduleTemplateDetail.datasource" />
     <None Include="Properties\DataSources\ATV.ProgramDept.Service.ViewModel.ProgramModel.datasource" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Service.ViewModel.ScheduleDetailViewModel.datasource" />
     <None Include="Properties\DataSources\ATV.ProgramDept.Service.ViewModel.ScheduleTemplateDetailViewModel.datasource" />
     <None Include="Properties\DataSources\ATV.ProgramDept.Service.ViewModel.ScheduleTemplateViewModel.datasource" />
     <None Include="Properties\DataSources\ATV.ProgramDept.Service.ViewModel.ScheduleViewModel.datasource" />
