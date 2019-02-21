@@ -84,6 +84,7 @@
     <Compile Include="Implement\ProgramRepository.cs" />
     <Compile Include="Implement\Repository.cs" />
     <Compile Include="Implement\ScheduleRepository.cs" />
+    <Compile Include="Implement\ScheduleTemplateDetailRepository.cs" />
     <Compile Include="Implement\ScheduleTemplateRepository.cs" />
     <Compile Include="Implement\UserRepository.cs" />
     <Compile Include="Implement\WeekRepository.cs" />
@@ -91,7 +92,8 @@
     <Compile Include="Interface\IEditingHistoryRepository.cs" />
     <Compile Include="Interface\IProgramRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
-    <Compile Include="Interface\IScheduleRepository.cs" />    
+    <Compile Include="Interface\IScheduleRepository.cs" />
+    <Compile Include="Interface\IScheduleTemplateDetailRepository.cs" />
     <Compile Include="Interface\IScheduleTemplateRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
     <Compile Include="Interface\IWeekRepository.cs" />
@@ -106,6 +108,7 @@
     <Compile Include="ViewModel\LoggedInUserInfomation.cs" />
     <Compile Include="ViewModel\ScheduleBase.cs" />
     <Compile Include="ViewModel\ScheduleTemplateDetailViewModel.cs" />
+    <Compile Include="ViewModel\ScheduleTemplateViewModel.cs" />
     <Compile Include="ViewModel\ScheduleViewModel.cs" />
     <Compile Include="ViewModel\ProgramModel.cs" />
   </ItemGroup>
