@@ -30,12 +30,17 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgvScheduleTemplateDetail = new System.Windows.Forms.DataGridView();
+            this.scheduleTemplateDetailViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.flpScheduleTemplate = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlHeader = new System.Windows.Forms.Panel();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.Section = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.startTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.programNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contentsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.durationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.performByDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.durationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.noteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.programIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,11 +48,6 @@
             this.positionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isNotedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.isActiveDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.scheduleTemplateDetailViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.flpScheduleTemplate = new System.Windows.Forms.FlowLayoutPanel();
-            this.pnlHeader = new System.Windows.Forms.Panel();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.lblTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvScheduleTemplateDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.scheduleTemplateDetailViewModelBindingSource)).BeginInit();
             this.flpScheduleTemplate.SuspendLayout();
@@ -65,8 +65,8 @@
             this.startTimeDataGridViewTextBoxColumn,
             this.programNameDataGridViewTextBoxColumn,
             this.contentsDataGridViewTextBoxColumn,
-            this.durationDataGridViewTextBoxColumn,
             this.performByDataGridViewTextBoxColumn,
+            this.durationDataGridViewTextBoxColumn,
             this.noteDataGridViewTextBoxColumn,
             this.iDDataGridViewTextBoxColumn,
             this.programIDDataGridViewTextBoxColumn,
@@ -83,6 +83,54 @@
             this.dgvScheduleTemplateDetail.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvScheduleTemplateDetail_CellValueChanged);
             this.dgvScheduleTemplateDetail.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvScheduleTemplateDetail_UserDeletedRow);
             this.dgvScheduleTemplateDetail.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dgvScheduleTemplateDetail_MouseUp);
+            // 
+            // scheduleTemplateDetailViewModelBindingSource
+            // 
+            this.scheduleTemplateDetailViewModelBindingSource.DataSource = typeof(ATV.ProgramDept.Service.ViewModel.ScheduleTemplateDetailViewModel);
+            // 
+            // flpScheduleTemplate
+            // 
+            this.flpScheduleTemplate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flpScheduleTemplate.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.flpScheduleTemplate.Controls.Add(this.pnlHeader);
+            this.flpScheduleTemplate.Controls.Add(this.dgvScheduleTemplateDetail);
+            this.flpScheduleTemplate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpScheduleTemplate.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.flpScheduleTemplate.Location = new System.Drawing.Point(0, 0);
+            this.flpScheduleTemplate.Name = "flpScheduleTemplate";
+            this.flpScheduleTemplate.Size = new System.Drawing.Size(800, 450);
+            this.flpScheduleTemplate.TabIndex = 1;
+            // 
+            // pnlHeader
+            // 
+            this.pnlHeader.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.pnlHeader.Controls.Add(this.btnSave);
+            this.pnlHeader.Controls.Add(this.lblTitle);
+            this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlHeader.Location = new System.Drawing.Point(3, 3);
+            this.pnlHeader.Name = "pnlHeader";
+            this.pnlHeader.Size = new System.Drawing.Size(797, 35);
+            this.pnlHeader.TabIndex = 1;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Location = new System.Drawing.Point(710, 5);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 1;
+            this.btnSave.Text = "Lưu";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(10, 10);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(35, 13);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "label1";
             // 
             // Section
             // 
@@ -114,19 +162,19 @@
             this.contentsDataGridViewTextBoxColumn.HeaderText = "Nội dung";
             this.contentsDataGridViewTextBoxColumn.Name = "contentsDataGridViewTextBoxColumn";
             // 
-            // durationDataGridViewTextBoxColumn
-            // 
-            this.durationDataGridViewTextBoxColumn.DataPropertyName = "Duration";
-            this.durationDataGridViewTextBoxColumn.FillWeight = 43.52792F;
-            this.durationDataGridViewTextBoxColumn.HeaderText = "Thời lượng";
-            this.durationDataGridViewTextBoxColumn.Name = "durationDataGridViewTextBoxColumn";
-            // 
             // performByDataGridViewTextBoxColumn
             // 
             this.performByDataGridViewTextBoxColumn.DataPropertyName = "PerformBy";
             this.performByDataGridViewTextBoxColumn.FillWeight = 43.52792F;
             this.performByDataGridViewTextBoxColumn.HeaderText = "Thực hiện";
             this.performByDataGridViewTextBoxColumn.Name = "performByDataGridViewTextBoxColumn";
+            // 
+            // durationDataGridViewTextBoxColumn
+            // 
+            this.durationDataGridViewTextBoxColumn.DataPropertyName = "Duration";
+            this.durationDataGridViewTextBoxColumn.FillWeight = 43.52792F;
+            this.durationDataGridViewTextBoxColumn.HeaderText = "Thời lượng";
+            this.durationDataGridViewTextBoxColumn.Name = "durationDataGridViewTextBoxColumn";
             // 
             // noteDataGridViewTextBoxColumn
             // 
@@ -177,54 +225,6 @@
             this.isActiveDataGridViewCheckBoxColumn.Name = "isActiveDataGridViewCheckBoxColumn";
             this.isActiveDataGridViewCheckBoxColumn.Visible = false;
             // 
-            // scheduleTemplateDetailViewModelBindingSource
-            // 
-            this.scheduleTemplateDetailViewModelBindingSource.DataSource = typeof(ATV.ProgramDept.Service.ViewModel.ScheduleTemplateDetailViewModel);
-            // 
-            // flpScheduleTemplate
-            // 
-            this.flpScheduleTemplate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flpScheduleTemplate.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.flpScheduleTemplate.Controls.Add(this.pnlHeader);
-            this.flpScheduleTemplate.Controls.Add(this.dgvScheduleTemplateDetail);
-            this.flpScheduleTemplate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flpScheduleTemplate.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.flpScheduleTemplate.Location = new System.Drawing.Point(0, 0);
-            this.flpScheduleTemplate.Name = "flpScheduleTemplate";
-            this.flpScheduleTemplate.Size = new System.Drawing.Size(800, 450);
-            this.flpScheduleTemplate.TabIndex = 1;
-            // 
-            // pnlHeader
-            // 
-            this.pnlHeader.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.pnlHeader.Controls.Add(this.btnSave);
-            this.pnlHeader.Controls.Add(this.lblTitle);
-            this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHeader.Location = new System.Drawing.Point(3, 3);
-            this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(797, 35);
-            this.pnlHeader.TabIndex = 1;
-            // 
-            // btnSave
-            // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(710, 5);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 1;
-            this.btnSave.Text = "Lưu";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(10, 10);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(35, 13);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "label1";
-            // 
             // ScheduleTemplateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -258,8 +258,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn startTimeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn programNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn contentsDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn durationDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn performByDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn durationDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn noteDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn programIDDataGridViewTextBoxColumn;

@@ -1,5 +1,6 @@
 ﻿using ATV.ProgramDept.DesktopApp.Interface;
 using ATV.ProgramDept.Entity;
+using ATV.ProgramDept.Service.Constant;
 using ATV.ProgramDept.Service.Enum;
 using ATV.ProgramDept.Service.Implement;
 using ATV.ProgramDept.Service.Interface;
@@ -353,6 +354,63 @@ namespace ATV.ProgramDept.DesktopApp
             var source = new BindingSource(bindingList, null);
             dgvSchedule.DataSource = source;
             dgvSchedule.Update();
+        }
+
+        private void dgvSchedule_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == 1 && e.Value != null) // StartTime Columns 
+            {
+                var time = (TimeSpan)e.Value;
+                if (TimeFrame.Morning.StartTime <= time && time <= TimeFrame.Morning.EndTime)
+                {
+                    dgvSchedule[e.ColumnIndex - 1, e.RowIndex].Value = "Sáng";
+                }
+                if (TimeFrame.Noon.StartTime <= time && time <= TimeFrame.Noon.EndTime)
+                {
+                    dgvSchedule[e.ColumnIndex - 1, e.RowIndex].Value = "Trưa";
+                }
+                if (TimeFrame.AfternoonAndEvening.StartTime <= time && time <= TimeFrame.AfternoonAndEvening.EndTime)
+                {
+                    dgvSchedule[e.ColumnIndex - 1, e.RowIndex].Value = "Chiều tối";
+                }
+                if (TimeFrame.Dawn.StartTime <= time && time <= TimeFrame.Dawn.EndTime)
+                {
+                    dgvSchedule[e.ColumnIndex - 1, e.RowIndex].Value = "Rạng";
+                }
+            }
+
+            if (e.ColumnIndex == 0)
+            {
+                if (e.RowIndex == 0)
+                {
+                    return;
+                }
+
+                if (IsTheSameCellValue(e.ColumnIndex, e.RowIndex))
+                {
+                    e.Value = "";
+                    e.FormattingApplied = true;
+                }
+            }
+        }
+        private bool IsTheSameCellValue(int column, int row)
+        {
+            DataGridViewCell cell1 = dgvSchedule[column, row];
+            DataGridViewCell cell2 = dgvSchedule[column, row - 1];
+            if (cell1.Value == null || cell2.Value == null)
+            {
+                return false;
+            }
+            return cell1.Value.ToString() == cell2.Value.ToString();
+        }
+
+        private void dgvSchedule_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 5) // Duration Columns
+            {
+                ScheduleUlities.EstimateStartTime(viewList);
+                dgvSchedule.Refresh();
+            }
         }
     }
 }

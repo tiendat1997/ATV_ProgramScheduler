@@ -172,7 +172,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void dgvScheduleTemplateDetail_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 4) // Duration Columns
+            if (e.ColumnIndex == 5) // Duration Columns
             {
                 ScheduleUlities.EstimateStartTime(listTemplateDetails);
                 dgvScheduleTemplateDetail.Refresh();
