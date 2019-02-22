@@ -37,7 +37,9 @@ namespace ATV.ProgramDept.Service.Utilities
                 var scheduleDetail = schedules[i].Details;
 
                 GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH SÁNG", ref currentRow);
-                while (currentIndex < scheduleDetail.Count && scheduleDetail[currentIndex].StartTime <= TimeFrame.Morning.EndTime)
+                while (currentIndex < scheduleDetail.Count
+                    && scheduleDetail[currentIndex].StartTime >= TimeFrame.Morning.StartTime
+                    && scheduleDetail[currentIndex].StartTime <= TimeFrame.Morning.EndTime)
                 {
                     GenerateScheduleRow(currentSheet, currentRow, scheduleDetail[currentIndex]);
                     currentIndex++;
@@ -46,7 +48,9 @@ namespace ATV.ProgramDept.Service.Utilities
                 InsertEmptyRow(ref currentRow, 2);
 
                 GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH TRƯA", ref currentRow);
-                while (currentIndex < scheduleDetail.Count && scheduleDetail[currentIndex].StartTime <= TimeFrame.Noon.EndTime)
+                while (currentIndex < scheduleDetail.Count
+                    && scheduleDetail[currentIndex].StartTime >= TimeFrame.Noon.StartTime
+                    && scheduleDetail[currentIndex].StartTime <= TimeFrame.Noon.EndTime)
                 {
                     GenerateScheduleRow(currentSheet, currentRow, scheduleDetail[currentIndex]);
                     currentIndex++;
@@ -55,7 +59,9 @@ namespace ATV.ProgramDept.Service.Utilities
                 InsertEmptyRow(ref currentRow, 2);
 
                 GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH CHIỀU VÀ TỐI", ref currentRow);
-                while (currentIndex < scheduleDetail.Count && scheduleDetail[currentIndex].StartTime <= TimeFrame.AfternoonAndEvening.EndTime)
+                while (currentIndex < scheduleDetail.Count
+                    && scheduleDetail[currentIndex].StartTime >= TimeFrame.AfternoonAndEvening.StartTime
+                    && scheduleDetail[currentIndex].StartTime <= TimeFrame.AfternoonAndEvening.EndTime)
                 {
                     GenerateScheduleRow(currentSheet, currentRow, scheduleDetail[currentIndex]);
                     currentIndex++;
@@ -64,7 +70,9 @@ namespace ATV.ProgramDept.Service.Utilities
                 InsertEmptyRow(ref currentRow, 2);
 
                 GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH RẠNG SÁNG", ref currentRow);
-                while (currentIndex < scheduleDetail.Count && scheduleDetail[currentIndex].StartTime <= TimeFrame.Dawn.EndTime)
+                while (currentIndex < scheduleDetail.Count
+                    && scheduleDetail[currentIndex].StartTime >= TimeFrame.Dawn.StartTime
+                    && scheduleDetail[currentIndex].StartTime <= TimeFrame.Dawn.EndTime)
                 {
                     GenerateScheduleRow(currentSheet, currentRow, scheduleDetail[currentIndex]);
                     currentIndex++;
