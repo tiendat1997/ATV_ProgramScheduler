@@ -56,7 +56,7 @@ namespace ATV.ProgramDept.DesktopApp
             InitDataGridView();
         }
 
-        private void loadDataToGridView(int dayId)
+        private void LoadDataToGridView(int dayId)
         {
             currentSchedule = weekSchedules.Where(x => x.DateID == dayId).FirstOrDefault();
             viewList = currentSchedule.Details.OrderBy(x => x.Position).ToList();
@@ -72,7 +72,7 @@ namespace ATV.ProgramDept.DesktopApp
             weekId = weekRepository.GetWeekId(new DateTime(2019, 2, 7), new DateTime(2019, 2, 13));
             weekSchedules = _scheduleRepository.GetWeekSchedule(weekId).ToList();
 
-            loadDataToGridView((int)DayOfWeek.Monday);
+            LoadDataToGridView((int)DayOfWeek.Monday);
         }
 
         private void btnToAdmin_Click(object sender, EventArgs e)
@@ -187,7 +187,7 @@ namespace ATV.ProgramDept.DesktopApp
 
             dayScheduleHomeContainer.Parent = tabDays.SelectedTab;            
             currentTabPageIndex = tabDays.SelectedIndex;
-            loadDataToGridView(tabDays.SelectedIndex + 1);
+            LoadDataToGridView(tabDays.SelectedIndex + 1);
         }
 
 
