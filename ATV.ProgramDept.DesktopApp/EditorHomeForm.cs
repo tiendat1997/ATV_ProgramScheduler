@@ -273,13 +273,24 @@ namespace ATV.ProgramDept.DesktopApp
         }
         private void dgvSchedule_MouseUp(object sender, MouseEventArgs e)
         {
-            DataGridView.HitTestInfo hitTestInfo = dgvSchedule.HitTest(e.X, e.Y);
-            if (hitTestInfo.RowY != -1 && hitTestInfo.ColumnX != 1 && e.Button == MouseButtons.Right && isEdit)
+            DataGridView.HitTestInfo hit = dgvSchedule.HitTest(e.X, e.Y);
+            if (e.Button == MouseButtons.Right && isEdit)
             {
-                dgvSchedule.Rows[hitTestInfo.RowIndex].Selected = true;
-                contextMenuDgv.Show(dgvSchedule, new Point(e.X, e.Y));
-                currentRowIndex = hitTestInfo.RowIndex;
-                dgvSchedule.ClearSelection();
+                if ((hit.RowY != -1 && hit.ColumnX != -1) ||
+                    (hit.RowY == -1 && hit.ColumnX == -1 && hit.Type == DataGridViewHitTestType.None))
+                {
+                    if (hit.RowIndex != -1)
+                    {
+                        dgvSchedule.Rows[hit.RowIndex].Selected = true;
+                        currentRowIndex = hit.RowIndex;
+                    }
+                    else
+                    {
+                        currentRowIndex = 0;
+                    }
+                    contextMenuDgv.Show(dgvSchedule, new Point(e.X, e.Y));
+                    dgvSchedule.ClearSelection();
+                }
             }
         }
 
