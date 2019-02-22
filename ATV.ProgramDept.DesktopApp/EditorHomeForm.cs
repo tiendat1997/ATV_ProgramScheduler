@@ -28,7 +28,7 @@ namespace ATV.ProgramDept.DesktopApp
         private int currentTabPageIndex = 0;
         private ScheduleViewModel currentSchedule;
         //private List<ScheduleDetailViewModel> weekSchedules;
-        private List<ScheduleViewModel> weekSchedules; 
+        private List<ScheduleViewModel> weekSchedules;
         private List<ScheduleDetailViewModel> viewList;
         private IScheduleRepository scheduleRepository = new ScheduleRepository();
         private IScheduleDetailRepository scheduleDetailRepository = new ScheduleDetailRepository();
@@ -101,7 +101,7 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 MessageBox.Show("Hãy lưu những thay đổi trước khi xuất lịch");
             }
-            
+
         }
 
 
@@ -200,7 +200,7 @@ namespace ATV.ProgramDept.DesktopApp
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            dayScheduleHomeContainer.Parent = tabDays.SelectedTab;            
+            dayScheduleHomeContainer.Parent = tabDays.SelectedTab;
             currentTabPageIndex = tabDays.SelectedIndex;
             LoadDataToGridView(tabDays.SelectedIndex + 1);
         }
@@ -221,18 +221,29 @@ namespace ATV.ProgramDept.DesktopApp
         {
             if (IsInsertInDgv)
             {
-                ScheduleDetailViewModel scheduleDetail = _programRepository.Find(p => p.ID == ProgramID).
-               Select(p => new ScheduleDetailViewModel()
-               {
-                   Duration = p.Duration.Value,
-                   ProgramName = p.Name,
-                   PerformBy = p.PerformBy,
-                   ProgramID = p.ID,
-                   ScheduleID = currentSchedule.ID
-               }).FirstOrDefault();
+                ScheduleDetailViewModel scheduleDetail =
+                    _programRepository.Find(p => p.ID == ProgramID)
+                    .Select(p => new ScheduleDetailViewModel()
+                    {
+                        Duration = p.Duration.Value,
+                        ProgramName = p.Name,
+                        PerformBy = p.PerformBy,
+                        ProgramID = p.ID,
+                        ScheduleID = currentSchedule.ID
+                    }).FirstOrDefault();
+                var scheduleDuration = new TimeSpan(0,(int)scheduleDetail.Duration,0);
+                // check the last row if Dawn 
+                var lastItem = viewList[viewList.Count - 1];
+                if (lastItem.StartTime >= TimeFrame.Dawn.StartTime 
+                    && lastItem.StartTime <= TimeFrame.Dawn.EndTime
+                    && lastItem.StartTime.Add(scheduleDuration) >= TimeFrame.Morning.StartTime)
+                {
+                    MessageBox.Show("Không");
+                    return;
+                }
                 viewList.Insert(currentRowIndex, scheduleDetail);
-                ReorderPositionScheduler();
 
+                ReorderPositionScheduler();
                 ScheduleUlities.EstimateStartTime(viewList);
                 var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
                 var source = new BindingSource(bindingList, null);
@@ -393,6 +404,7 @@ namespace ATV.ProgramDept.DesktopApp
         {
             if (e.ColumnIndex == 5) // Duration Columns
             {
+                ReorderPositionScheduler();
                 ScheduleUlities.EstimateStartTime(viewList);
                 dgvSchedule.Refresh();
             }
@@ -400,6 +412,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void ReorderPositionScheduler()
         {
+            if (viewList == null) return;
             for (int i = 0; i < viewList.Count; i++)
             {
                 viewList[i].Position = i;
@@ -424,7 +437,7 @@ namespace ATV.ProgramDept.DesktopApp
                 currentSchedule = new ScheduleViewModel();
                 weekSchedules.Add(currentSchedule);
             }
-            currentSchedule.Details = viewList;            
+            currentSchedule.Details = viewList;
         }
     }
 }
