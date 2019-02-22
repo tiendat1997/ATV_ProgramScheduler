@@ -1,4 +1,5 @@
 ﻿using ATV.ProgramDept.DesktopApp.Interface;
+using ATV.ProgramDept.Entity;
 using ATV.ProgramDept.Service.Constant;
 using ATV.ProgramDept.Service.Enum;
 using ATV.ProgramDept.Service.Implement;
@@ -26,11 +27,13 @@ namespace ATV.ProgramDept.DesktopApp
         private int currentRowIndex; 
         private readonly IScheduleTemplateRepository _scheduleTemplateRepository;
         private readonly IProgramRepository _programRepository;
+        private IEditingHistoryRepository _editingHistoryRepository;
         public ScheduleTemplateForm(int dayOfWeek)
         {
             InitializeComponent();
             _scheduleTemplateRepository = new ScheduleTemplateRepository();
             _programRepository = new ProgramRepository();
+            _editingHistoryRepository = new EditingHistoryRepository();
             DayOfWeek = dayOfWeek;
             SetTitleDayOfWeek();
             InitSampleDataForDataGridView();
@@ -218,6 +221,14 @@ namespace ATV.ProgramDept.DesktopApp
         {
             ReorderPositionScheduler();
             EstimateAndBindSource();
+        }
+
+        private void ScheduleTemplateForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            EditingHistory LatestEditingHistory = _editingHistoryRepository.GetAll().OrderByDescending(p => p.Time).FirstOrDefault();
+            LatestEditingHistory.IsFinished = true;
+            _editingHistoryRepository.Update(LatestEditingHistory);
+            _editingHistoryRepository.Save();
         }
     }
 }

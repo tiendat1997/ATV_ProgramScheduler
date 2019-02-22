@@ -249,6 +249,11 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void tsmiInsertFlexProgram_Click(object sender, EventArgs e)
         {
+            if (!isEdit)
+            {
+                MessageBox.Show("Vui lòng nhấn vào nút 'Chỉnh sửa' để có thể chèn chương trình!");
+                return;
+            }
             InsertedProgramForm insertedProgramForm = new InsertedProgramForm(this);
             insertedProgramForm.ShowDialog();
         }
@@ -287,6 +292,11 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void tsmiInsertFixProgram_Click(object sender, EventArgs e)
         {
+            if (!isEdit)
+            {
+                MessageBox.Show("Vui lòng nhấn vào nút 'Chỉnh sửa' để có thể chèn chương trình!");
+                return;
+            }
             StaticProgramForm staticProgramForm = new StaticProgramForm(this);
             staticProgramForm.ShowDialog();
         }
