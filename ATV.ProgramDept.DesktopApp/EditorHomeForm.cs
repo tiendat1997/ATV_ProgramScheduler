@@ -333,6 +333,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void dgvSchedule_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
+            ReorderPositionScheduler();
             ScheduleUlities.EstimateStartTime(viewList);
             var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
