@@ -59,8 +59,15 @@ namespace ATV.ProgramDept.DesktopApp
         private void LoadDataToGridView(int dayId)
         {
             currentSchedule = weekSchedules.Where(x => x.DateID == dayId).FirstOrDefault();
-            viewList = currentSchedule.Details.OrderBy(x => x.Position).ToList();
-                         
+            if (currentSchedule == null)
+            {
+                viewList = new List<ScheduleDetailViewModel>();
+            }
+            else
+            {
+                viewList = currentSchedule.Details.OrderBy(x => x.Position).ToList();
+            }
+
             ScheduleUlities.EstimateStartTime(viewList);
             var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
@@ -85,8 +92,16 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void tsmiEditorExport_Click(object sender, EventArgs e)
         {
-            ExportForm adminHome = new ExportForm(viewList);
-            adminHome.ShowDialog();
+            if (!isEdit)
+            {
+                ExportForm adminHome = new ExportForm(weekSchedules);
+                adminHome.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Hãy lưu những thay đổi trước khi xuất lịch");
+            }
+            
         }
 
 
@@ -403,6 +418,11 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void UpdateDataCurrentInTabPageToList()
         {
+            if (currentSchedule == null)
+            {
+                currentSchedule = new ScheduleViewModel();
+                weekSchedules.Add(currentSchedule);
+            }
             currentSchedule.Details = viewList;            
         }
     }
