@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace ATV.ProgramDept.Service.Interface
 {
-    public interface IScheduleRepository
+    public interface IScheduleRepository : IRepository<Schedule>
     {
+        IEnumerable<ScheduleViewModel> GetWeekSchedule(int weekId);
     }
 }

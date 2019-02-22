@@ -26,7 +26,9 @@ namespace ATV.ProgramDept.DesktopApp
         private int currentRowIndex;
         private int weekId;
         private int currentTabPageIndex = 0;
-        private List<ScheduleDetailViewModel> weekSchedules;
+        private ScheduleViewModel currentSchedule;
+        //private List<ScheduleDetailViewModel> weekSchedules;
+        private List<ScheduleViewModel> weekSchedules; 
         private List<ScheduleDetailViewModel> viewList;
         private IScheduleRepository scheduleRepository = new ScheduleRepository();
         private IScheduleDetailRepository scheduleDetailRepository = new ScheduleDetailRepository();
@@ -35,6 +37,7 @@ namespace ATV.ProgramDept.DesktopApp
         private bool readyForInsert;
         private readonly IProgramRepository _programRepository;
         private IEditingHistoryRepository _editingHistoryRepository;
+        private readonly IScheduleRepository _scheduleRepository;
 
         private ContextMenu contextMenuDgv = new ContextMenu();
 
@@ -43,6 +46,8 @@ namespace ATV.ProgramDept.DesktopApp
             readyForInsert = false;
             _programRepository = new ProgramRepository();
             _editingHistoryRepository = new EditingHistoryRepository();
+            _scheduleRepository = new ScheduleRepository();
+
             InitializeComponent();
             if (!Program.User.Rolename.Equals("Admin"))
             {
@@ -53,7 +58,9 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void loadDataToGridView(int dayId)
         {
-            viewList = weekSchedules.Where(x => x.DateID == dayId).OrderBy(x => x.Position).ToList();
+            currentSchedule = weekSchedules.Where(x => x.DateID == dayId).FirstOrDefault();
+            viewList = currentSchedule.Details.OrderBy(x => x.Position).ToList();
+                         
             ScheduleUlities.EstimateStartTime(viewList);
             var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
@@ -63,7 +70,7 @@ namespace ATV.ProgramDept.DesktopApp
         private void InitDataGridView()
         {
             weekId = weekRepository.GetWeekId(new DateTime(2019, 2, 7), new DateTime(2019, 2, 13));
-            weekSchedules = scheduleDetailRepository.GetWeekSchedule(weekId).ToList();
+            weekSchedules = _scheduleRepository.GetWeekSchedule(weekId).ToList();
 
             loadDataToGridView((int)DayOfWeek.Monday);
         }
@@ -103,7 +110,7 @@ namespace ATV.ProgramDept.DesktopApp
                     ProgramName = p.Name,
                     PerformBy = p.PerformBy,
                     ProgramID = p.ID,
-                    ScheduleID = weekSchedules.Where(x => x.DateID == currentTabPageIndex + 1).FirstOrDefault().ScheduleID
+                    ScheduleID = currentSchedule.ID
                 }).FirstOrDefault();
             viewList.Insert(e.RowIndex, scheduleViewModel);
             ReorderPositionScheduler();
@@ -133,7 +140,7 @@ namespace ATV.ProgramDept.DesktopApp
 
                 //update data to db
                 UpdateDataCurrentInTabPageToList();
-                scheduleDetailRepository.UpdateWeekSchedule(weekId, weekSchedules);
+                scheduleDetailRepository.UpdateWeekSchedule(weekId, currentSchedule.Details);
             }
             else
             {
@@ -178,8 +185,7 @@ namespace ATV.ProgramDept.DesktopApp
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            dayScheduleHomeContainer.Parent = tabDays.SelectedTab;
-
+            dayScheduleHomeContainer.Parent = tabDays.SelectedTab;            
             currentTabPageIndex = tabDays.SelectedIndex;
             loadDataToGridView(tabDays.SelectedIndex + 1);
         }
@@ -207,7 +213,7 @@ namespace ATV.ProgramDept.DesktopApp
                    ProgramName = p.Name,
                    PerformBy = p.PerformBy,
                    ProgramID = p.ID,
-                   ScheduleID = weekSchedules.Where(x => x.DateID == currentTabPageIndex + 1).FirstOrDefault().ScheduleID
+                   ScheduleID = currentSchedule.ID
                }).FirstOrDefault();
                 viewList.Insert(currentRowIndex, scheduleDetail);
                 ReorderPositionScheduler();
@@ -397,8 +403,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void UpdateDataCurrentInTabPageToList()
         {
-            weekSchedules.RemoveAll(x => x.DateID == currentTabPageIndex + 1);
-            weekSchedules.AddRange(viewList);
+            currentSchedule.Details = viewList;            
         }
     }
 }
