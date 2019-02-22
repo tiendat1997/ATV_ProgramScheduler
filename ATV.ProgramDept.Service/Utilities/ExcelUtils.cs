@@ -34,49 +34,41 @@ namespace ATV.ProgramDept.Service.Utilities
             {
                 int currentRow = 0;
                 ISheet currentSheet = workbook.GetSheetAt(schedules[i].DateID - 1);
-                int currentIndex = 0;
-                var scheduleDetail = schedules[i].Details.OrderBy(x => x.StartTime).ToList();
+                var scheduleDetail = schedules[i].Details;
+
+                var morningList = scheduleDetail.Where(x => x.StartTime >= TimeFrame.Morning.StartTime && x.StartTime <= TimeFrame.Morning.EndTime);
+                var noonList = scheduleDetail.Where(x => x.StartTime >= TimeFrame.Noon.StartTime && x.StartTime <= TimeFrame.Noon.EndTime);
+                var afternoonList = scheduleDetail.Where(x => x.StartTime >= TimeFrame.AfternoonAndEvening.StartTime && x.StartTime <= TimeFrame.AfternoonAndEvening.EndTime);
+                var dawn = scheduleDetail.Where(x => x.StartTime >= TimeFrame.Dawn.StartTime && x.StartTime <= TimeFrame.Dawn.EndTime);
 
                 GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH SÁNG", ref currentRow);
-                while (currentIndex < scheduleDetail.Count
-                    && scheduleDetail[currentIndex].StartTime >= TimeFrame.Morning.StartTime
-                    && scheduleDetail[currentIndex].StartTime <= TimeFrame.Morning.EndTime)
+                foreach (var item in morningList)
                 {
-                    GenerateScheduleRow(currentSheet, currentRow, scheduleDetail[currentIndex]);
-                    currentIndex++;
+                    GenerateScheduleRow(currentSheet, currentRow, item);
                     currentRow++;
                 }
                 InsertEmptyRow(ref currentRow, 2);
 
                 GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH TRƯA", ref currentRow);
-                while (currentIndex < scheduleDetail.Count
-                    && scheduleDetail[currentIndex].StartTime >= TimeFrame.Noon.StartTime
-                    && scheduleDetail[currentIndex].StartTime <= TimeFrame.Noon.EndTime)
+                foreach (var item in noonList)
                 {
-                    GenerateScheduleRow(currentSheet, currentRow, scheduleDetail[currentIndex]);
-                    currentIndex++;
+                    GenerateScheduleRow(currentSheet, currentRow, item);
                     currentRow++;
                 }
                 InsertEmptyRow(ref currentRow, 2);
 
                 GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH CHIỀU VÀ TỐI", ref currentRow);
-                while (currentIndex < scheduleDetail.Count
-                    && scheduleDetail[currentIndex].StartTime >= TimeFrame.AfternoonAndEvening.StartTime
-                    && scheduleDetail[currentIndex].StartTime <= TimeFrame.AfternoonAndEvening.EndTime)
+                foreach (var item in afternoonList)
                 {
-                    GenerateScheduleRow(currentSheet, currentRow, scheduleDetail[currentIndex]);
-                    currentIndex++;
+                    GenerateScheduleRow(currentSheet, currentRow, item);
                     currentRow++;
                 }
                 InsertEmptyRow(ref currentRow, 2);
 
                 GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH RẠNG SÁNG", ref currentRow);
-                while (currentIndex < scheduleDetail.Count
-                    && scheduleDetail[currentIndex].StartTime >= TimeFrame.Dawn.StartTime
-                    && scheduleDetail[currentIndex].StartTime <= TimeFrame.Dawn.EndTime)
+                foreach (var item in dawn)
                 {
-                    GenerateScheduleRow(currentSheet, currentRow, scheduleDetail[currentIndex]);
-                    currentIndex++;
+                    GenerateScheduleRow(currentSheet, currentRow, item);
                     currentRow++;
                 }
                 InsertEmptyRow(ref currentRow, 2);
