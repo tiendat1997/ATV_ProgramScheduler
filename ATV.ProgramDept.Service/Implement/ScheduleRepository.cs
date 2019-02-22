@@ -21,7 +21,7 @@ namespace ATV.ProgramDept.Service.Implement
             var dateIds = _dateRepository.Find(d => d.WeekID == weekId).Select(s => s.ID).ToList();
 
 
-            var list = Find(s => dateIds.Contains(s.DateID ?? -1) && s.IsActive == true)
+            var list = Find(s => dateIds.Contains(s.DateID ?? -1) && s.IsActive == true)                
                 .Select(s => new ScheduleViewModel
                 {
                     ID = s.ID,
