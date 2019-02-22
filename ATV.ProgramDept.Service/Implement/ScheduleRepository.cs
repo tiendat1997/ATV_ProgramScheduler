@@ -11,12 +11,5 @@ namespace ATV.ProgramDept.Service.Implement
 {
     public class ScheduleRepository :Repository<Schedule>, IScheduleRepository
     {
-        public IEnumerable<Schedule> GetWeekSchedule(int weekId)
-        {
-            var schedules = this.GetAll()
-                .Where(s => s.Date.WeekID == weekId);
-
-            return schedules;
-        }
     }
 }

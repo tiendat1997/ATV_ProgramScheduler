@@ -11,6 +11,5 @@ namespace ATV.ProgramDept.Service.Interface
 {
     public interface IScheduleRepository
     {
-        IEnumerable<Schedule> GetWeekSchedule(int weekId);
     }
 }
