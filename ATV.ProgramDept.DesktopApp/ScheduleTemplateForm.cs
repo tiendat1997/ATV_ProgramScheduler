@@ -50,7 +50,7 @@ namespace ATV.ProgramDept.DesktopApp
             pnlHeader.Width = flpScheduleTemplate.Width;
 
             dgvScheduleTemplateDetail.Width = flpScheduleTemplate.Width;
-            dgvScheduleTemplateDetail.Height = flpScheduleTemplate.Height;
+            dgvScheduleTemplateDetail.Height = flpScheduleTemplate.Height - 50;
         }
 
         private void SetTitleDayOfWeek()
@@ -86,6 +86,7 @@ namespace ATV.ProgramDept.DesktopApp
         private void ScheduleTemplateForm_Load(object sender, EventArgs e)
         {
             dgvScheduleTemplateDetail.AutoGenerateColumns = false;
+            dgvScheduleTemplateDetail.ScrollBars = ScrollBars.Both;
             contextMenuDgv.MenuItems.Add("Chèn CT cố định", new EventHandler(InsertFixProgramEvent));
             contextMenuDgv.MenuItems.Add("Chèn CT chen giờ", new EventHandler(InsertFlexProgramEvent));            
         }

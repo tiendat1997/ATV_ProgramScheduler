@@ -24,6 +24,10 @@ namespace ATV.ProgramDept.Service.Utilities
                 foreach (ScheduleBase schedule in schedules)
                 {
                     schedule.StartTime = prev.Add(new TimeSpan(hours,minutes,(int)seconds));
+                    if (schedule.StartTime.Days > 0)
+                    {
+                        schedule.StartTime = schedule.StartTime.Subtract(new TimeSpan(1, 0, 0, 0));
+                    }
 
                     seconds = (int)((schedule.Duration - (int)schedule.Duration) * 100);
                     hours = (int)schedule.Duration / 60;

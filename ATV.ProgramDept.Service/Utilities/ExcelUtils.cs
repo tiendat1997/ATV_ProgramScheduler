@@ -1,4 +1,6 @@
-﻿using ATV.ProgramDept.Service.ViewModel;
+﻿using ATV.ProgramDept.Service.Constant;
+using ATV.ProgramDept.Service.Enum;
+using ATV.ProgramDept.Service.ViewModel;
 using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
 using NPOI.HSSF.Util;
@@ -6,6 +8,7 @@ using NPOI.SS.UserModel;
 using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ATV.ProgramDept.Service.Utilities
 {
@@ -14,7 +17,7 @@ namespace ATV.ProgramDept.Service.Utilities
         public static readonly byte TYPE_XLS = 1;
         public static readonly byte TYPE_XLSX = 2;
 
-        public static IWorkbook ExportWeeklySchedule(List<ScheduleDetailViewModel> schedules, int type)
+        public static IWorkbook ExportWeeklySchedule(List<ScheduleViewModel> schedules, int type)
         {
             IWorkbook workbook;
             if (type == TYPE_XLS)
@@ -25,57 +28,164 @@ namespace ATV.ProgramDept.Service.Utilities
             {
                 workbook = InitWorkbook(TYPE_XLSX);
             }
-            CreateListSheet(workbook, new string[] { "Thứ 2", "Thứ 3", "Thứ 4","Thứ 5","Thứ 6","Thứ 7","CN"});
+            CreateListSheet(workbook, new string[] { "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "CN" });
             int numberOfSheet = workbook.NumberOfSheets;
-            for (int i = 0; i < numberOfSheet; i++)
+            for (int i = 0; i < schedules.Count; i++)
             {
+                int currentRow = 0;
+                ISheet currentSheet = workbook.GetSheetAt(schedules[i].DateID - 1);
+                var scheduleDetail = schedules[i].Details;
 
-                ISheet currentSheet = workbook.GetSheetAt(i);
-                #region first row
-                MergeCell(currentSheet, 0, 0, 0, 5);
-                ICell labelCell = currentSheet.CreateRow(0).CreateCell(0);
-                labelCell.SetCellValue($"CHƯƠNG TRÌNH TRUYỀN HÌNH SÁNG                       {currentSheet.SheetName}: ");
-                ICellStyle labelCellStyle = workbook.CreateCellStyle();
-                labelCellStyle.FillBackgroundColor = HSSFColor.LightGreen.Index;
-                labelCell.CellStyle = labelCellStyle;
-                #endregion
+                var morningList = scheduleDetail.Where(x => x.StartTime >= TimeFrame.Morning.StartTime && x.StartTime <= TimeFrame.Morning.EndTime);
+                var noonList = scheduleDetail.Where(x => x.StartTime >= TimeFrame.Noon.StartTime && x.StartTime <= TimeFrame.Noon.EndTime);
+                var afternoonList = scheduleDetail.Where(x => x.StartTime >= TimeFrame.AfternoonAndEvening.StartTime && x.StartTime <= TimeFrame.AfternoonAndEvening.EndTime);
+                var dawn = scheduleDetail.Where(x => x.StartTime >= TimeFrame.Dawn.StartTime && x.StartTime <= TimeFrame.Dawn.EndTime);
 
-                #region table head
-                //content
-                IRow titleRow = currentSheet.CreateRow(1);
-                titleRow.CreateCell(0).SetCellValue("Giờ");
-                titleRow.CreateCell(1).SetCellValue("Tiết mục");
-                titleRow.CreateCell(2).SetCellValue("Nội dung");
-                titleRow.CreateCell(3).SetCellValue("Thực hiện");
-                titleRow.CreateCell(4).SetCellValue("Th.lượng");
-                titleRow.CreateCell(5).SetCellValue("Ghi chú");
-
-                #endregion
-
-                #region body
-                int currentRowIndex = 2;
-                foreach (var schedule in schedules)
+                GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH SÁNG", ref currentRow);
+                foreach (var item in morningList)
                 {
-                    IRow currentRow = currentSheet.CreateRow(currentRowIndex);
-                    currentRow.CreateCell(0).SetCellValue(schedule.StartTime.ToString());
-                    currentRow.CreateCell(1).SetCellValue(schedule.ProgramName);
-                    currentRow.CreateCell(2).SetCellValue(schedule.Contents);
-                    currentRow.CreateCell(3).SetCellValue(schedule.PerformBy);
-                    currentRow.CreateCell(4).SetCellValue(schedule.Duration + "");
-                    currentRow.CreateCell(5).SetCellValue(schedule.Note);
-
-                    //style cell
-                   
-                    currentRowIndex++;
+                    GenerateScheduleRow(currentSheet, currentRow, item);
+                    currentRow++;
                 }
+                InsertEmptyRow(ref currentRow, 2);
 
-                #endregion
+                GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH TRƯA", ref currentRow);
+                foreach (var item in noonList)
+                {
+                    GenerateScheduleRow(currentSheet, currentRow, item);
+                    currentRow++;
+                }
+                InsertEmptyRow(ref currentRow, 2);
+
+                GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH CHIỀU VÀ TỐI", ref currentRow);
+                foreach (var item in afternoonList)
+                {
+                    GenerateScheduleRow(currentSheet, currentRow, item);
+                    currentRow++;
+                }
+                InsertEmptyRow(ref currentRow, 2);
+
+                GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH RẠNG SÁNG", ref currentRow);
+                foreach (var item in dawn)
+                {
+                    GenerateScheduleRow(currentSheet, currentRow, item);
+                    currentRow++;
+                }
+                InsertEmptyRow(ref currentRow, 2);
+
+                AutoWidthColumn(currentSheet, 6);
             }
-
 
             return workbook;
         }
 
+        private static void InsertEmptyRow(ref int currentRow, int totalRow)
+        {
+            currentRow = currentRow + totalRow;
+        }
+
+        private static IFont GetTitleFont(IWorkbook workbook)
+        {
+            IFont font = workbook.CreateFont();
+            font.IsBold = true;
+            font.FontHeightInPoints = 12;
+
+            return font;
+        }
+
+        private static IFont GetHeaderFont(IWorkbook workbook)
+        {
+            IFont font = workbook.CreateFont();
+            font.IsItalic = true;
+            font.FontHeightInPoints = 10;
+            return font;
+        }
+
+        private static void GenerateScheduleHeader(IWorkbook workbook, ISheet currentSheet, string label, ref int row)
+        {
+            #region first row
+            MergeCell(currentSheet, row, 0, row, 5);
+            ICell labelCell = currentSheet.CreateRow(row).CreateCell(0);
+            labelCell.SetCellValue($"{label}                       {currentSheet.SheetName}: ");
+            ICellStyle labelCellStyle = workbook.CreateCellStyle();
+            labelCellStyle.SetFont(GetTitleFont(workbook));
+            labelCell.CellStyle = labelCellStyle;
+            #endregion
+
+            #region table head
+            //content
+            row++;
+            IRow titleRow = currentSheet.CreateRow(row);
+            ICell cell = null;
+            ICellStyle cellStyle = workbook.CreateCellStyle();
+            cellStyle.SetFont(GetHeaderFont(workbook));
+
+            int col = 0;
+            cell = titleRow.CreateCell(col);
+            cell.SetCellValue("Giờ");
+            cell.CellStyle = cellStyle;
+
+            col++;
+            cell = titleRow.CreateCell(col);
+            cell.SetCellValue("Tiết mục");
+            cell.CellStyle = cellStyle;
+
+            col++;
+            cell = titleRow.CreateCell(col);
+            cell.SetCellValue("Nội dung");
+            cell.CellStyle = cellStyle;
+
+            col++;
+            cell = titleRow.CreateCell(col);
+            cell.SetCellValue("Thực hiện");
+            cell.CellStyle = cellStyle;
+
+            col++;
+            cell = titleRow.CreateCell(col);
+            cell.SetCellValue("Th.lượng");
+            cell.CellStyle = cellStyle;
+
+            col++;
+            cell = titleRow.CreateCell(col);
+            cell.SetCellValue("Ghi chú");
+            cell.CellStyle = cellStyle;
+
+            #endregion
+
+            row++;
+        }
+
+        private static void AutoWidthColumn(ISheet sheet, int totalCollumns)
+        {
+            for (int i = 0; i < totalCollumns; i++)
+            {
+                sheet.AutoSizeColumn(i);
+            }
+        }
+
+        private static void GenerateScheduleRow(ISheet sheet, int rowIndex, ScheduleDetailViewModel schedule)
+        {
+            IRow currentRow = sheet.CreateRow(rowIndex);
+
+            int col = 0;
+            currentRow.CreateCell(col).SetCellValue(schedule.StartTime.ToString());
+
+            col++;
+            currentRow.CreateCell(col).SetCellValue(schedule.ProgramName);
+
+            col++;
+            currentRow.CreateCell(col).SetCellValue(schedule.Contents);
+
+            col++;
+            currentRow.CreateCell(col).SetCellValue(schedule.PerformBy);
+
+            col++;
+            currentRow.CreateCell(col).SetCellValue(schedule.Duration + "");
+
+            col++;
+            currentRow.CreateCell(col).SetCellValue(schedule.Note);
+
+        }
         private static void MergeCell(ISheet sheet, int startRow, int startCol, int endRow, int endCol)
         {
             sheet.AddMergedRegion(new CellRangeAddress(startRow, endRow, startCol, endCol));
@@ -83,7 +193,7 @@ namespace ATV.ProgramDept.Service.Utilities
 
         private static void CreateListSheet(IWorkbook workbook, string[] sheetNames)
         {
-            if (workbook == null || 
+            if (workbook == null ||
                 sheetNames == null ||
                 sheetNames.Length == 0)
             {
@@ -104,7 +214,7 @@ namespace ATV.ProgramDept.Service.Utilities
                 workbook = new HSSFWorkbook();
                 DocumentSummaryInformation dsi = PropertySetFactory.CreateDocumentSummaryInformation();
                 dsi.Company = company;
-                ((HSSFWorkbook) workbook).DocumentSummaryInformation = dsi;
+                ((HSSFWorkbook)workbook).DocumentSummaryInformation = dsi;
 
                 SummaryInformation si = PropertySetFactory.CreateSummaryInformation();
                 si.Subject = subject;

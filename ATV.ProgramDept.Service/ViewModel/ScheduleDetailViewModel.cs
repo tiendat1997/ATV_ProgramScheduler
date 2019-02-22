@@ -24,5 +24,6 @@ namespace ATV.ProgramDept.Service.ViewModel
         public bool IsNoted { get; set; }
 
         public bool IsActive { get; set; }
+        public int DateID { get; set; }
     }
 }

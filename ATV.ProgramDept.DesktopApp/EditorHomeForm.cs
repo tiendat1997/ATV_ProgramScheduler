@@ -24,14 +24,20 @@ namespace ATV.ProgramDept.DesktopApp
         private bool isEdit = false;
         private bool IsInsertInDgv = false;
         private int currentRowIndex;
-        private List<Schedule> weekSchedules;
+        private int weekId;
+        private int currentTabPageIndex = 0;
+        private ScheduleViewModel currentSchedule;
+        //private List<ScheduleDetailViewModel> weekSchedules;
+        private List<ScheduleViewModel> weekSchedules;
         private List<ScheduleDetailViewModel> viewList;
         private IScheduleRepository scheduleRepository = new ScheduleRepository();
+        private IScheduleDetailRepository scheduleDetailRepository = new ScheduleDetailRepository();
         private IWeekRepository weekRepository = new WeekRepository();
         private int programIDToInsert;
         private bool readyForInsert;
         private readonly IProgramRepository _programRepository;
         private IEditingHistoryRepository _editingHistoryRepository;
+        private readonly IScheduleRepository _scheduleRepository;
 
         private ContextMenu contextMenuDgv = new ContextMenu();
 
@@ -40,6 +46,8 @@ namespace ATV.ProgramDept.DesktopApp
             readyForInsert = false;
             _programRepository = new ProgramRepository();
             _editingHistoryRepository = new EditingHistoryRepository();
+            _scheduleRepository = new ScheduleRepository();
+
             InitializeComponent();
             if (!Program.User.Rolename.Equals("Admin"))
             {
@@ -48,90 +56,30 @@ namespace ATV.ProgramDept.DesktopApp
             InitDataGridView();
         }
 
-        private void loadDataToGridView(int dayId)
+        private void LoadDataToGridView(int dayId)
         {
-            var schedule = weekSchedules.Where(s => s.DateID.HasValue && s.DateID == dayId)
-                .FirstOrDefault(); ;
-            
-            if (schedule != null)
-            {
-                var scheduleDetail = schedule.ScheduleDetail.ToList();
-                viewList = scheduleDetail.Select(x => new ScheduleDetailViewModel
-                {
-                    StartTime = new TimeSpan(5, 0, 0),
-                    ProgramName = x.Program.Name,
-                    Contents = x.Contents,
-                    PerformBy = x.PerformBy,
-                    Duration = x.Duration,
-                    Note = x.Note
-                }).ToList();
-
-                ScheduleUlities.EstimateStartTime(viewList);
-
-
-            }
-            else
+            currentSchedule = weekSchedules.Where(x => x.DateID == dayId).FirstOrDefault();
+            if (currentSchedule == null)
             {
                 viewList = new List<ScheduleDetailViewModel>();
             }
+            else
+            {
+                viewList = currentSchedule.Details.OrderBy(x => x.Position).ToList();
+            }
 
+            ScheduleUlities.EstimateStartTime(viewList);
             var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
             dgvSchedule.DataSource = source;
-
-
         }
 
         private void InitDataGridView()
         {
-            #region sample data
-            //List<ScheduleDetail> schedules = new List<ScheduleDetail>();
-            //schedules.Add(new ScheduleDetail
-            //{
-            //    Program = new Entity.Program
-            //    {
-            //        Name = "Thể dục buổi sáng"
-            //    },
-            //    Contents = "",
-            //    Duration = 5,
-            //    Note = "Yoga 7: Khởi động khớp gối căng cơ liên sườn"
-            //});
-            //schedules.Add(new ScheduleDetail
-            //{
-            //    Program = new Entity.Program
-            //    {
-            //        Name = "Ca nhạc"
-            //    },
-            //    Contents = "",
-            //    Duration = 25.28,
-            //    Note = "CaNhan\\20-10 CaNhacSang"
-            //});
-            //schedules.Add(new ScheduleDetail
-            //{
-            //    Program = new Entity.Program
-            //    {
-            //        Name = "Thế giới tuần qua"
-            //    },
-            //    Contents = "",
-            //    Duration = 10.36,
-            //    Note = "(Vệ tinh)"
-            //});
-            //schedules.Add(new ScheduleDetail
-            //{
-            //    Program = new Entity.Program
-            //    {
-            //        Name = "An Giang địa danh và sự kiện"
-            //    },
-            //    Contents = "",
-            //    Duration = 10.00,
-            //    Note = "Phát lại của chủ nhật 7/10"
-            //});
-            #endregion
+            weekId = weekRepository.GetWeekId(new DateTime(2019, 2, 7), new DateTime(2019, 2, 13));
+            weekSchedules = _scheduleRepository.GetWeekSchedule(weekId).ToList();
 
-            int weekId = weekRepository.GetWeekId(new DateTime(2019, 2, 7), new DateTime(2019,2,13));
-            weekSchedules = scheduleRepository.GetWeekSchedule(weekId).ToList();
-
-            loadDataToGridView((int)DayOfWeek.Monday);
+            LoadDataToGridView((int)DayOfWeek.Monday);
         }
 
         private void btnToAdmin_Click(object sender, EventArgs e)
@@ -144,8 +92,16 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void tsmiEditorExport_Click(object sender, EventArgs e)
         {
-            ExportForm adminHome = new ExportForm(viewList);
-            adminHome.ShowDialog();
+            if (!isEdit)
+            {
+                ExportForm adminHome = new ExportForm(weekSchedules);
+                adminHome.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Hãy lưu những thay đổi trước khi xuất lịch");
+            }
+
         }
 
 
@@ -168,9 +124,11 @@ namespace ATV.ProgramDept.DesktopApp
                     Duration = p.Duration.Value,
                     ProgramName = p.Name,
                     PerformBy = p.PerformBy,
-                    
+                    ProgramID = p.ID,
+                    ScheduleID = currentSchedule.ID
                 }).FirstOrDefault();
             viewList.Insert(e.RowIndex, scheduleViewModel);
+            ReorderPositionScheduler();
             ScheduleUlities.EstimateStartTime(viewList);
             readyForInsert = false;
             dgvSchedule.Cursor = System.Windows.Forms.Cursors.Default;
@@ -187,15 +145,28 @@ namespace ATV.ProgramDept.DesktopApp
             if (isEdit)
             {
                 isEdit = !isEdit;
+                //change button text
                 btnSaveSchedule.Text = "Chỉnh sửa";
+
+                //update finish editing block
                 LatestEditingHistory.IsFinished = true;
                 _editingHistoryRepository.Update(LatestEditingHistory);
                 _editingHistoryRepository.Save();
+
+                //update data to db
+                UpdateDataCurrentInTabPageToList();
+                scheduleDetailRepository.UpdateWeekSchedule(weekId, currentSchedule.Details);
             }
             else
             {
                 if (LatestEditingHistory.IsFinished)
                 {
+                    isEdit = !isEdit;
+
+                    //change button text
+                    btnSaveSchedule.Text = "Lưu";
+
+                    //update start editing block
                     EditingHistory editingHistory = new EditingHistory()
                     {
                         UserID = Program.User.ID,
@@ -205,24 +176,13 @@ namespace ATV.ProgramDept.DesktopApp
                     };
                     _editingHistoryRepository.Create(editingHistory);
                     _editingHistoryRepository.Save();
-                    isEdit = !isEdit;
-                    btnSaveSchedule.Text = "Lưu";
+
                 }
                 else
                 {
                     MessageBox.Show("Hiện tại " + LatestEditingHistory.User.Username + " đang thực hiện công việc chỉnh sửa, vui lòng quay lại sau!");
                 }
             }
-            //isEdit = !isEdit;
-            //if (isEdit)
-            //{
-            //    btnSaveSchedule.Text = "Lưu";
-            //}
-            //else
-            //{
-            //    btnSaveSchedule.Text = "Chỉnh sửa";
-            //}
-            var test = dgvSchedule.DataBindings.SyncRoot;
         }
 
         private void dgvSchedule_CellEnter(object sender, DataGridViewCellEventArgs e)
@@ -239,13 +199,13 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dayScheduleHomeContainer.Parent = tabDays.SelectedTab;
-            //lblScheduleDate.Text = tabControl1.SelectedTab.Text + ": " + DateTime.Now.ToShortDateString();
 
-            loadDataToGridView(tabDays.SelectedIndex + 1);
+            dayScheduleHomeContainer.Parent = tabDays.SelectedTab;
+            currentTabPageIndex = tabDays.SelectedIndex;
+            LoadDataToGridView(tabDays.SelectedIndex + 1);
         }
 
-      
+
 
         private void tsmiInsertFlexProgram_Click(object sender, EventArgs e)
         {
@@ -258,23 +218,41 @@ namespace ATV.ProgramDept.DesktopApp
             insertedProgramForm.ShowDialog();
         }
 
+        }
+
         public void ReadyForInsertProgram(int ProgramID)
         {
             if (IsInsertInDgv)
             {
-                ScheduleDetailViewModel scheduleDetail = _programRepository.Find(p => p.ID == ProgramID).
-               Select(p => new ScheduleDetailViewModel()
-               {
-                   Duration = p.Duration.Value,
-                   ProgramName = p.Name,                   
-                   PerformBy = p.PerformBy,
-               }).FirstOrDefault();
+                ScheduleDetailViewModel scheduleDetail =
+                    _programRepository.Find(p => p.ID == ProgramID)
+                    .Select(p => new ScheduleDetailViewModel()
+                    {
+                        Duration = p.Duration.Value,
+                        ProgramName = p.Name,
+                        PerformBy = p.PerformBy,
+                        ProgramID = p.ID,
+                        ScheduleID = currentSchedule.ID
+                    }).FirstOrDefault();
+                var scheduleDuration = new TimeSpan(0,(int)scheduleDetail.Duration,0);
+                // check the last row if Dawn 
+                var lastItem = viewList[viewList.Count - 1];
+                if (lastItem.StartTime >= TimeFrame.Dawn.StartTime 
+                    && lastItem.StartTime <= TimeFrame.Dawn.EndTime
+                    && lastItem.StartTime.Add(scheduleDuration) >= TimeFrame.Morning.StartTime)
+                {
+                    MessageBox.Show("Không");
+                    return;
+                }
                 viewList.Insert(currentRowIndex, scheduleDetail);
+
+                ReorderPositionScheduler();
                 ScheduleUlities.EstimateStartTime(viewList);
                 var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
                 var source = new BindingSource(bindingList, null);
                 dgvSchedule.DataSource = source;
                 dgvSchedule.Update();
+
                 IsInsertInDgv = false;
             }
             else
@@ -282,12 +260,7 @@ namespace ATV.ProgramDept.DesktopApp
                 dgvSchedule.Cursor = System.Windows.Forms.Cursors.Cross;
                 programIDToInsert = ProgramID;
                 readyForInsert = true;
-            }            
-        }
-
-        private void dgvSchedule_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
+            }
         }
 
         private void tsmiInsertFixProgram_Click(object sender, EventArgs e)
@@ -301,9 +274,12 @@ namespace ATV.ProgramDept.DesktopApp
             staticProgramForm.ShowDialog();
         }
 
+        }
+
         private void EditorHomeForm_Load(object sender, EventArgs e)
         {
             dgvSchedule.AutoGenerateColumns = false;
+            dgvSchedule.ScrollBars = ScrollBars.Both;
             contextMenuDgv.MenuItems.Add("Chèn CT cố định", new EventHandler(InsertFixProgramEvent));
             contextMenuDgv.MenuItems.Add("Chèn CT chen giờ", new EventHandler(InsertFlexProgramEvent));
             contextMenuDgv.MenuItems.Add("Xóa CT", new EventHandler(DeleteProgramEvent));
@@ -326,6 +302,7 @@ namespace ATV.ProgramDept.DesktopApp
         private void DeleteProgramEvent(object sender, EventArgs eventArgs)
         {
             dgvSchedule.Rows.RemoveAt(currentRowIndex);
+            ReorderPositionScheduler();
             ScheduleUlities.EstimateStartTime(viewList);
             var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
@@ -334,13 +311,24 @@ namespace ATV.ProgramDept.DesktopApp
         }
         private void dgvSchedule_MouseUp(object sender, MouseEventArgs e)
         {
-            DataGridView.HitTestInfo hitTestInfo = dgvSchedule.HitTest(e.X, e.Y);
-            if (hitTestInfo.RowY != -1 && hitTestInfo.ColumnX != 1 && e.Button == MouseButtons.Right && isEdit)
+            DataGridView.HitTestInfo hit = dgvSchedule.HitTest(e.X, e.Y);
+            if (e.Button == MouseButtons.Right && isEdit)
             {
-                dgvSchedule.Rows[hitTestInfo.RowIndex].Selected = true;
-                contextMenuDgv.Show(dgvSchedule, new Point(e.X, e.Y));
-                currentRowIndex = hitTestInfo.RowIndex;
-                dgvSchedule.ClearSelection();
+                if ((hit.RowY != -1 && hit.ColumnX != -1) ||
+                    (hit.RowY == -1 && hit.ColumnX == -1 && hit.Type == DataGridViewHitTestType.None))
+                {
+                    if (hit.RowIndex != -1)
+                    {
+                        dgvSchedule.Rows[hit.RowIndex].Selected = true;
+                        currentRowIndex = hit.RowIndex;
+                    }
+                    else
+                    {
+                        currentRowIndex = 0;
+                    }
+                    contextMenuDgv.Show(dgvSchedule, new Point(e.X, e.Y));
+                    dgvSchedule.ClearSelection();
+                }
             }
         }
 
@@ -362,6 +350,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void dgvSchedule_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
+            ReorderPositionScheduler();
             ScheduleUlities.EstimateStartTime(viewList);
             var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
@@ -421,6 +410,7 @@ namespace ATV.ProgramDept.DesktopApp
         {
             if (e.ColumnIndex == 5) // Duration Columns
             {
+                ReorderPositionScheduler();
                 ScheduleUlities.EstimateStartTime(viewList);
                 dgvSchedule.Refresh();
             }
@@ -428,6 +418,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void ReorderPositionScheduler()
         {
+            if (viewList == null) return;
             for (int i = 0; i < viewList.Count; i++)
             {
                 viewList[i].Position = i;
@@ -437,7 +428,22 @@ namespace ATV.ProgramDept.DesktopApp
         private void EditorHomeForm_Resize(object sender, EventArgs e)
         {
             dgvSchedule.Width = dayScheduleHomeContainer.Width;
-            dgvSchedule.Height = dayScheduleHomeContainer.Height;
+            dgvSchedule.Height = dayScheduleHomeContainer.Height - 20;
+        }
+
+        private void tabDays_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            UpdateDataCurrentInTabPageToList();
+        }
+
+        private void UpdateDataCurrentInTabPageToList()
+        {
+            if (currentSchedule == null)
+            {
+                currentSchedule = new ScheduleViewModel();
+                weekSchedules.Add(currentSchedule);
+            }
+            currentSchedule.Details = viewList;
         }
     }
 }
