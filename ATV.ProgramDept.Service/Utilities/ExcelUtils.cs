@@ -8,6 +8,7 @@ using NPOI.SS.UserModel;
 using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ATV.ProgramDept.Service.Utilities
 {
@@ -34,7 +35,7 @@ namespace ATV.ProgramDept.Service.Utilities
                 int currentRow = 0;
                 ISheet currentSheet = workbook.GetSheetAt(schedules[i].DateID - 1);
                 int currentIndex = 0;
-                var scheduleDetail = schedules[i].Details;
+                var scheduleDetail = schedules[i].Details.OrderBy(x => x.StartTime).ToList();
 
                 GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH SÁNG", ref currentRow);
                 while (currentIndex < scheduleDetail.Count
