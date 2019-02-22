@@ -36,10 +36,10 @@ namespace ATV.ProgramDept.Service.Utilities
                 ISheet currentSheet = workbook.GetSheetAt(schedules[i].DateID - 1);
                 var scheduleDetail = schedules[i].Details;
 
-                var morningList = scheduleDetail.Where(x => x.StartTime >= TimeFrame.Morning.StartTime && x.StartTime <= TimeFrame.Morning.EndTime);
-                var noonList = scheduleDetail.Where(x => x.StartTime >= TimeFrame.Noon.StartTime && x.StartTime <= TimeFrame.Noon.EndTime);
-                var afternoonList = scheduleDetail.Where(x => x.StartTime >= TimeFrame.AfternoonAndEvening.StartTime && x.StartTime <= TimeFrame.AfternoonAndEvening.EndTime);
-                var dawn = scheduleDetail.Where(x => x.StartTime >= TimeFrame.Dawn.StartTime && x.StartTime <= TimeFrame.Dawn.EndTime);
+                var morningList = scheduleDetail.Where(x => x.StartTime >= TimeFrame.Morning.StartTime && x.StartTime <= TimeFrame.Morning.EndTime).OrderBy(x => x.StartTime);
+                var noonList = scheduleDetail.Where(x => x.StartTime >= TimeFrame.Noon.StartTime && x.StartTime <= TimeFrame.Noon.EndTime).OrderBy(x => x.StartTime);
+                var afternoonList = scheduleDetail.Where(x => x.StartTime >= TimeFrame.AfternoonAndEvening.StartTime && x.StartTime <= TimeFrame.AfternoonAndEvening.EndTime).OrderBy(x => x.StartTime);
+                var dawn = scheduleDetail.Where(x => x.StartTime >= TimeFrame.Dawn.StartTime && x.StartTime <= TimeFrame.Dawn.EndTime).OrderBy(x => x.StartTime);
 
                 GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH SÁNG", ref currentRow);
                 foreach (var item in morningList)
