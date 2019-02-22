@@ -216,9 +216,7 @@ namespace ATV.ProgramDept.DesktopApp
             }
             InsertedProgramForm insertedProgramForm = new InsertedProgramForm(this);
             insertedProgramForm.ShowDialog();
-        }
-
-        }
+        }        
 
         public void ReadyForInsertProgram(int ProgramID)
         {
@@ -234,14 +232,15 @@ namespace ATV.ProgramDept.DesktopApp
                         ProgramID = p.ID,
                         ScheduleID = currentSchedule.ID
                     }).FirstOrDefault();
-                var scheduleDuration = new TimeSpan(0,(int)scheduleDetail.Duration,0);
+                
                 // check the last row if Dawn 
                 var lastItem = viewList[viewList.Count - 1];
+                var addDuration = new TimeSpan(0, (int)(scheduleDetail.Duration + lastItem.Duration), 0);
                 if (lastItem.StartTime >= TimeFrame.Dawn.StartTime 
                     && lastItem.StartTime <= TimeFrame.Dawn.EndTime
-                    && lastItem.StartTime.Add(scheduleDuration) >= TimeFrame.Morning.StartTime)
+                    && lastItem.StartTime.Add(addDuration) >= TimeFrame.Morning.StartTime)
                 {
-                    MessageBox.Show("Không");
+                    MessageBox.Show("Không thêm được vì lịch đã đầy!");
                     return;
                 }
                 viewList.Insert(currentRowIndex, scheduleDetail);
@@ -273,9 +272,7 @@ namespace ATV.ProgramDept.DesktopApp
             StaticProgramForm staticProgramForm = new StaticProgramForm(this);
             staticProgramForm.ShowDialog();
         }
-
-        }
-
+        
         private void EditorHomeForm_Load(object sender, EventArgs e)
         {
             dgvSchedule.AutoGenerateColumns = false;
@@ -409,8 +406,7 @@ namespace ATV.ProgramDept.DesktopApp
         private void dgvSchedule_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 5) // Duration Columns
-            {
-                ReorderPositionScheduler();
+            {                
                 ScheduleUlities.EstimateStartTime(viewList);
                 dgvSchedule.Refresh();
             }

@@ -192,7 +192,17 @@ namespace ATV.ProgramDept.DesktopApp
                     ProgramName = p.Name,
                     ProgramID = p.ID,
                     PerformBy = p.PerformBy,                           
-                }).FirstOrDefault();
+                }).FirstOrDefault();            
+            // check the last row if Dawn 
+            var lastItem = listTemplateDetails[listTemplateDetails.Count - 1];
+            var addDuration = new TimeSpan(0, (int)(scheduleDetail.Duration + lastItem.Duration), 0);
+            if (lastItem.StartTime >= TimeFrame.Dawn.StartTime
+                && lastItem.StartTime <= TimeFrame.Dawn.EndTime
+                && lastItem.StartTime.Add(addDuration) >= TimeFrame.Morning.StartTime)
+            {
+                MessageBox.Show("Không thêm được vì lịch đã đầy!");
+                return;
+            }
             listTemplateDetails.Insert(currentRowIndex, scheduleDetail);
             ReorderPositionScheduler();
             EstimateAndBindSource();

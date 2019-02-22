@@ -75,10 +75,9 @@
             this.isNotedDataGridViewCheckBoxColumn,
             this.isActiveDataGridViewCheckBoxColumn});
             this.dgvScheduleTemplateDetail.DataSource = this.scheduleTemplateDetailViewModelBindingSource;
-            this.dgvScheduleTemplateDetail.Location = new System.Drawing.Point(4, 55);
-            this.dgvScheduleTemplateDetail.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvScheduleTemplateDetail.Location = new System.Drawing.Point(3, 44);
             this.dgvScheduleTemplateDetail.Name = "dgvScheduleTemplateDetail";
-            this.dgvScheduleTemplateDetail.Size = new System.Drawing.Size(1063, 500);
+            this.dgvScheduleTemplateDetail.Size = new System.Drawing.Size(797, 406);
             this.dgvScheduleTemplateDetail.TabIndex = 0;
             this.dgvScheduleTemplateDetail.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvScheduleTemplateDetail_CellFormatting);
             this.dgvScheduleTemplateDetail.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvScheduleTemplateDetail_CellValueChanged);
@@ -191,9 +190,8 @@
             this.flpScheduleTemplate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpScheduleTemplate.ForeColor = System.Drawing.SystemColors.ControlText;
             this.flpScheduleTemplate.Location = new System.Drawing.Point(0, 0);
-            this.flpScheduleTemplate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.flpScheduleTemplate.Name = "flpScheduleTemplate";
-            this.flpScheduleTemplate.Size = new System.Drawing.Size(1067, 554);
+            this.flpScheduleTemplate.Size = new System.Drawing.Size(800, 450);
             this.flpScheduleTemplate.TabIndex = 1;
             // 
             // pnlHeader
@@ -202,43 +200,40 @@
             this.pnlHeader.Controls.Add(this.btnSave);
             this.pnlHeader.Controls.Add(this.lblTitle);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHeader.Location = new System.Drawing.Point(4, 4);
-            this.pnlHeader.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlHeader.Location = new System.Drawing.Point(3, 3);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1063, 43);
+            this.pnlHeader.Size = new System.Drawing.Size(797, 35);
             this.pnlHeader.TabIndex = 1;
             // 
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(947, 6);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSave.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnSave.Location = new System.Drawing.Point(710, 5);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(100, 28);
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Lưu";
-            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(13, 12);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTitle.Location = new System.Drawing.Point(10, 10);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(46, 17);
+            this.lblTitle.Size = new System.Drawing.Size(35, 13);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "label1";
             // 
             // ScheduleTemplateForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.flpScheduleTemplate);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ScheduleTemplateForm";
             this.Text = "ScheduleTemplateForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ScheduleTemplateForm_FormClosing);

@@ -15,6 +15,7 @@ namespace ATV.ProgramDept.DesktopApp
         public AdminHomeForm()
         {
             InitializeComponent();
+            tsmiTemplateMon_Click(this, null);
         }
 
         private void btnToEditor_Click(object sender, EventArgs e)
