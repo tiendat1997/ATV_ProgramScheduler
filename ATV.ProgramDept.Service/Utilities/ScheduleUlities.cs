@@ -23,10 +23,18 @@ namespace ATV.ProgramDept.Service.Utilities
                 int minutes = 0;
                 foreach (ScheduleBase schedule in schedules)
                 {
+                    if (prev.Hours + hours > 23)
+                    {
+                        hours = hours - 24;
+                    }
                     schedule.StartTime = prev.Add(new TimeSpan(hours,minutes,(int)seconds));
-
+                    
                     seconds = (int)((schedule.Duration - (int)schedule.Duration) * 100);
                     hours = (int)schedule.Duration / 60;
+                    if (hours > 23)
+                    {
+                        hours = hours - 24;
+                    }
                     minutes = (int)schedule.Duration % 60;
 
                     prev = schedule.StartTime;
