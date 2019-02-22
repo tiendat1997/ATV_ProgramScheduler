@@ -294,6 +294,7 @@ namespace ATV.ProgramDept.DesktopApp
         private void EditorHomeForm_Load(object sender, EventArgs e)
         {
             dgvSchedule.AutoGenerateColumns = false;
+            dgvSchedule.ScrollBars = ScrollBars.Both;
             contextMenuDgv.MenuItems.Add("Chèn CT cố định", new EventHandler(InsertFixProgramEvent));
             contextMenuDgv.MenuItems.Add("Chèn CT chen giờ", new EventHandler(InsertFlexProgramEvent));
             contextMenuDgv.MenuItems.Add("Xóa CT", new EventHandler(DeleteProgramEvent));
@@ -427,7 +428,7 @@ namespace ATV.ProgramDept.DesktopApp
         private void EditorHomeForm_Resize(object sender, EventArgs e)
         {
             dgvSchedule.Width = dayScheduleHomeContainer.Width;
-            dgvSchedule.Height = dayScheduleHomeContainer.Height;
+            dgvSchedule.Height = dayScheduleHomeContainer.Height - 20;
         }
     }
 }
