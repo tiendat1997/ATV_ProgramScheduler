@@ -14,5 +14,22 @@ namespace ATV.ProgramDept.Service.Implement
         {
 
         }
+
+        public EditingHistory GetLastEditing()
+        {
+            var lastOne = dbSet
+               .OrderByDescending(p => p.Time)
+               .FirstOrDefault();
+            return lastOne;
+        }
+
+        public EditingHistory GetLastEditingAsNoTracking()
+        {
+            var lastOne = dbSet
+                .AsNoTracking()
+                .OrderByDescending(p => p.Time)
+                .FirstOrDefault();
+            return lastOne;
+        }
     }
 }

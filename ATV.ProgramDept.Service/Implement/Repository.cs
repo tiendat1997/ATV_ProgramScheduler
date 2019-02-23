@@ -42,7 +42,7 @@ namespace ATV.ProgramDept.Service.Implement
         public T FindById(int id)
         {
             return _context.Set<T>().Find(id);
-        }
+        }        
 
         public IEnumerable<T> GetAll()
         {
@@ -52,6 +52,7 @@ namespace ATV.ProgramDept.Service.Implement
         public void Update(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
+            //dbSet.Attach(entity);
         }
 
         public void Save()

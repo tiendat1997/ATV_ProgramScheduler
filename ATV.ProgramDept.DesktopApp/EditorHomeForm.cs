@@ -59,7 +59,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void LoadDataToGridView(int dayId)
         {
-            
+
             currentSchedule = weekSchedules.Where(x => x.DateID == dayId).FirstOrDefault();
             if (currentSchedule == null)
             {
@@ -78,7 +78,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void InitDataGridView()
         {
-            _scheduleRepository = new ScheduleRepository();
+            //_scheduleRepository = new ScheduleRepository();
             weekId = weekRepository.GetWeekId(new DateTime(2019, 2, 7), new DateTime(2019, 2, 13));
             weekSchedules = _scheduleRepository.GetWeekSchedule(weekId).ToList();
 
@@ -149,10 +149,11 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void btnSaveSchedule_Click(object sender, EventArgs e)
         {
-            _editingHistoryRepository = new EditingHistoryRepository();
-            EditingHistory LatestEditingHistory = _editingHistoryRepository.GetAll().OrderByDescending(p => p.Time).FirstOrDefault();
+            //_editingHistoryRepository = new EditingHistoryRepository();
+            EditingHistory LatestEditingHistory;
             if (isEdit)
             {
+                LatestEditingHistory = _editingHistoryRepository.GetLastEditing(); 
                 isEdit = !isEdit;
                 //change button text
                 btnSaveSchedule.Text = "Chỉnh sửa";
@@ -168,6 +169,7 @@ namespace ATV.ProgramDept.DesktopApp
             }
             else
             {
+                LatestEditingHistory = _editingHistoryRepository.GetLastEditingAsNoTracking();
                 if (LatestEditingHistory.IsFinished)
                 {
                     isEdit = !isEdit;
@@ -226,9 +228,9 @@ namespace ATV.ProgramDept.DesktopApp
             }
             InsertedProgramForm insertedProgramForm = new InsertedProgramForm(this);
             insertedProgramForm.ShowDialog();
-        }        
+        }
 
-        
+
 
         public void ReadyForInsertProgram(int ProgramID)
         {
@@ -244,11 +246,11 @@ namespace ATV.ProgramDept.DesktopApp
                         ProgramID = p.ID,
                         ScheduleID = currentSchedule.ID
                     }).FirstOrDefault();
-                
+
                 // check the last row if Dawn 
                 var lastItem = viewList[viewList.Count - 1];
                 var addDuration = new TimeSpan(0, (int)(scheduleDetail.Duration + lastItem.Duration), 0);
-                if (lastItem.StartTime >= TimeFrame.Dawn.StartTime 
+                if (lastItem.StartTime >= TimeFrame.Dawn.StartTime
                     && lastItem.StartTime <= TimeFrame.Dawn.EndTime
                     && lastItem.StartTime.Add(addDuration) >= TimeFrame.Morning.StartTime)
                 {
@@ -292,7 +294,7 @@ namespace ATV.ProgramDept.DesktopApp
             staticProgramForm.ShowDialog();
         }
 
-        
+
 
         private void EditorHomeForm_Load(object sender, EventArgs e)
         {

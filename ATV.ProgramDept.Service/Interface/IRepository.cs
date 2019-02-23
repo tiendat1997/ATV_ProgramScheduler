@@ -9,7 +9,7 @@ namespace ATV.ProgramDept.Service.Interface
 {
     public interface IRepository<T> where T : class
     {
-        IEnumerable<T> GetAll();
+        IEnumerable<T> GetAll();        
         IEnumerable<T> Find(Func<T, bool> predicate);
         T FindById(int id);
         void Create(T entity);

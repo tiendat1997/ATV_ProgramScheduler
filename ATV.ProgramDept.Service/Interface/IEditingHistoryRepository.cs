@@ -9,5 +9,7 @@ namespace ATV.ProgramDept.Service.Interface
 {
     public interface IEditingHistoryRepository: IRepository<EditingHistory>
     {
+        EditingHistory GetLastEditingAsNoTracking();
+        EditingHistory GetLastEditing();
     }
 }

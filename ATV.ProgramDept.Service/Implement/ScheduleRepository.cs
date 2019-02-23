@@ -19,9 +19,10 @@ namespace ATV.ProgramDept.Service.Implement
         public IEnumerable<ScheduleViewModel> GetWeekSchedule(int weekId)
         {
             var dateIds = _dateRepository.Find(d => d.WeekID == weekId).Select(s => s.ID).ToList();
-
-
-            var list = Find(s => dateIds.Contains(s.DateID ?? -1) && s.IsActive == true)                
+            //var list = Find(s => dateIds.Contains(s.DateID ?? -1) && s.IsActive == true)
+            var list = dbSet
+                .AsNoTracking()
+                .Where(s => dateIds.Contains(s.DateID ?? -1) && s.IsActive == true)                
                 .Select(s => new ScheduleViewModel
                 {
                     ID = s.ID,
@@ -29,7 +30,7 @@ namespace ATV.ProgramDept.Service.Implement
                     CreatedBy = s.CreatedBy,
                     IsActive = s.IsActive ?? false,
                     Details = s.ScheduleDetail
-                    .Where(x => x.IsActive.HasValue && x.IsActive.Value)
+                    .Where(x => x.IsActive.HasValue && x.IsActive.Value)                    
                     .Select(x => new ScheduleDetailViewModel
                     {
                         ID = x.ID,
@@ -43,10 +44,11 @@ namespace ATV.ProgramDept.Service.Implement
                         ProgramID = x.ProgramID,
                         ScheduleID = x.ScheduleID.Value,
                         Position = x.Position
-                    })
+                    })                    
                     .OrderBy(q => q.Position)
-                    .ToList()
-                }).ToList();
+                    .ToList()                   
+                }).ToList();            
+            
             return list;
         }
     }
