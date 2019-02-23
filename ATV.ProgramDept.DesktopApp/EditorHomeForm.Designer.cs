@@ -236,6 +236,7 @@
             this.dgvSchedule.Size = new System.Drawing.Size(792, 375);
             this.dgvSchedule.TabIndex = 3;
             this.dgvSchedule.TabStop = false;
+            this.dgvSchedule.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvSchedule_CellBeginEdit);
             this.dgvSchedule.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSchedule_CellClick);
             this.dgvSchedule.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSchedule_CellEnter);
             this.dgvSchedule.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvSchedule_CellFormatting);

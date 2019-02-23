@@ -26,6 +26,7 @@ namespace ATV.ProgramDept.DesktopApp
         private int currentRowIndex;
         private int weekId;
         private int currentTabPageIndex = 0;
+        private double oldDurationValue = 0;
         private ScheduleViewModel currentSchedule;
         //private List<ScheduleDetailViewModel> weekSchedules;
         private List<ScheduleViewModel> weekSchedules; 
@@ -129,7 +130,13 @@ namespace ATV.ProgramDept.DesktopApp
                 }).FirstOrDefault();
             viewList.Insert(e.RowIndex, scheduleViewModel);
             ReorderPositionScheduler();
-            ScheduleUlities.EstimateStartTime(viewList);
+            var result = ScheduleUlities.EstimateStartTime(viewList);
+            if (!result)
+            {
+                viewList.RemoveAt(e.RowIndex);
+                MessageBox.Show("Lịch ngày hiện tại đã đầy, không thể thêm chương trình");
+                ScheduleUlities.EstimateStartTime(viewList);
+            }
             readyForInsert = false;
             dgvSchedule.Cursor = System.Windows.Forms.Cursors.Default;
             var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
@@ -233,7 +240,13 @@ namespace ATV.ProgramDept.DesktopApp
                 viewList.Insert(currentRowIndex, scheduleDetail);
                 ReorderPositionScheduler();
 
-                ScheduleUlities.EstimateStartTime(viewList);
+                var result = ScheduleUlities.EstimateStartTime(viewList);
+                if (!result)
+                {
+                    viewList.RemoveAt(currentRowIndex);
+                    MessageBox.Show("Lịch ngày hiện tại đã đầy, không thể thêm chương trình");
+                    ScheduleUlities.EstimateStartTime(viewList);
+                }
                 var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
                 var source = new BindingSource(bindingList, null);
                 dgvSchedule.DataSource = source;
@@ -393,6 +406,13 @@ namespace ATV.ProgramDept.DesktopApp
             if (e.ColumnIndex == 5) // Duration Columns
             {
                 ScheduleUlities.EstimateStartTime(viewList);
+                var result = ScheduleUlities.EstimateStartTime(viewList);
+                if (!result)
+                {
+                    MessageBox.Show("Lịch ngày hiện tại đã đầy");
+                    viewList[e.RowIndex].Duration = oldDurationValue;
+                    ScheduleUlities.EstimateStartTime(viewList);
+                }
                 dgvSchedule.Refresh();
             }
         }
@@ -424,6 +444,11 @@ namespace ATV.ProgramDept.DesktopApp
                 weekSchedules.Add(currentSchedule);
             }
             currentSchedule.Details = viewList;            
+        }
+
+        private void dgvSchedule_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            oldDurationValue = viewList[e.RowIndex].Duration;
         }
     }
 }
