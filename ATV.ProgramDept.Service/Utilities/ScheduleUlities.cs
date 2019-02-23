@@ -22,11 +22,13 @@ namespace ATV.ProgramDept.Service.Utilities
                 int seconds = 0;
                 int hours = 0;
                 int minutes = 0;
+                bool isDawn = false;
                 foreach (ScheduleBase schedule in schedules)
                 {
                     schedule.StartTime = prev.Add(new TimeSpan(hours,minutes,(int)seconds));
                     if (schedule.StartTime.Days > 0)
                     {
+                        isDawn = true;
                         schedule.StartTime = schedule.StartTime.Subtract(new TimeSpan(1, 0, 0, 0));
                     }
 
@@ -36,7 +38,7 @@ namespace ATV.ProgramDept.Service.Utilities
 
                     prev = schedule.StartTime;
                 }
-                if (prev.Add(new TimeSpan(hours, minutes, seconds)) > TimeFrame.Dawn.EndTime ){
+                if (isDawn && prev.Add(new TimeSpan(hours, minutes, seconds)) > TimeFrame.Dawn.EndTime ){
                     return false;
                 }
             }
