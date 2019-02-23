@@ -343,6 +343,7 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 e.Cancel = true;
             }
+            currentRowIndex = e.Row.Index;
         }
 
         private void dgvSchedule_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
