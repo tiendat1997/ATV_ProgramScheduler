@@ -80,7 +80,6 @@ namespace ATV.ProgramDept.DesktopApp
             _scheduleRepository = new ScheduleRepository();
             weekId = weekRepository.GetWeekId(new DateTime(2019, 2, 7), new DateTime(2019, 2, 13));
             weekSchedules = _scheduleRepository.GetWeekSchedule(weekId).ToList();
-
             LoadDataToGridView((int)DayOfWeek.Monday);
         }
 
@@ -311,6 +310,21 @@ namespace ATV.ProgramDept.DesktopApp
             var source = new BindingSource(bindingList, null);
             dgvSchedule.DataSource = source;
             dgvSchedule.Update();
+            dgvSchedule.ClearSelection();
+            if (dgvSchedule.Rows.Count > currentRowIndex)
+            {
+                dgvSchedule.Rows[currentRowIndex].Selected = true;
+            }
+            else if (dgvSchedule.Rows.Count > 0)
+            {
+                dgvSchedule.Rows[currentRowIndex - 1].Selected = true;
+            }
+            //dgvSchedule.ClearSelection();
+            //if (currentRowIndex >= 0)
+            //{
+            //    dgvSchedule.Rows[currentRowIndex].Selected = true;
+            //}
+
         }
         private void dgvSchedule_MouseUp(object sender, MouseEventArgs e)
         {
@@ -345,6 +359,18 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void dgvSchedule_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
+            if (e.Row.Index < dgvSchedule.Rows.Count - 1)
+            {
+                currentRowIndex = e.Row.Index;
+            }
+            else if (dgvSchedule.Rows.Count > 0)
+            {
+                currentRowIndex = e.Row.Index - 1;
+            }
+            else
+            {
+                currentRowIndex = -1;
+            }
             if (!isEdit)
             {
                 e.Cancel = true;
@@ -359,6 +385,11 @@ namespace ATV.ProgramDept.DesktopApp
             var source = new BindingSource(bindingList, null);
             dgvSchedule.DataSource = source;
             dgvSchedule.Update();
+            dgvSchedule.ClearSelection();
+            if (currentRowIndex >= 0)
+            {
+                dgvSchedule.Rows[currentRowIndex].Selected = true;
+            }
         }
 
         private void dgvSchedule_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
