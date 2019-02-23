@@ -1,4 +1,5 @@
 ﻿using ATV.ProgramDept.Entity;
+using ATV.ProgramDept.Service.Constant;
 using ATV.ProgramDept.Service.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace ATV.ProgramDept.Service.Utilities
     {
         private static readonly TimeSpan DEFAULT_START_TIME = new TimeSpan(5, 0, 0);
 
-        public static void EstimateStartTime<T>(List<T> schedules) where T:ScheduleBase
+        public static bool EstimateStartTime<T>(List<T> schedules) where T:ScheduleBase
         {
             TimeSpan startTime = DEFAULT_START_TIME;
             if (schedules != null && schedules.Count > 0)
@@ -35,7 +36,12 @@ namespace ATV.ProgramDept.Service.Utilities
 
                     prev = schedule.StartTime;
                 }
+                if (prev.Add(new TimeSpan(hours, minutes, seconds)) > TimeFrame.Dawn.EndTime ){
+                    return false;
+                }
             }
+
+            return true;
         }
     }
 }
