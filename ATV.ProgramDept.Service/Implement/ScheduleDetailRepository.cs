@@ -14,7 +14,8 @@ namespace ATV.ProgramDept.Service.Implement
         public IEnumerable<ScheduleDetailViewModel> GetWeekSchedule(int weekId)
         {
             var list = this.Find(x => x.Schedule.Date.WeekID == weekId && x.IsActive.HasValue && x.IsActive.Value)
-                            .Select(x => new ScheduleDetailViewModel {
+                            .Select(x => new ScheduleDetailViewModel
+                            {
                                 ID = x.ID,
                                 StartTime = new TimeSpan(5, 0, 0), //change StartAt to time in db
                                 ProgramName = String.IsNullOrEmpty(x.ProgramName) ? x.Program.Name : x.ProgramName,
@@ -48,7 +49,6 @@ namespace ATV.ProgramDept.Service.Implement
                     item.Contents = schedule.Contents;
                     item.Position = schedule.Position;
                     this.Update(item);
-                    this.Save();
                 }
                 else
                 {
@@ -65,11 +65,11 @@ namespace ATV.ProgramDept.Service.Implement
                         ScheduleID = schedule.ScheduleID
                     };
                     this.Create(item);
-                    this.Save();
                 }
             }
             // update new list
-            
+            this.Save();
+
         }
     }
 }
