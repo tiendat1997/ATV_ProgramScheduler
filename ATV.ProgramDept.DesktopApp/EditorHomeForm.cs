@@ -37,7 +37,7 @@ namespace ATV.ProgramDept.DesktopApp
         private bool readyForInsert;
         private readonly IProgramRepository _programRepository;
         private IEditingHistoryRepository _editingHistoryRepository;
-        private readonly IScheduleRepository _scheduleRepository;
+        private IScheduleRepository _scheduleRepository;
 
         private ContextMenu contextMenuDgv = new ContextMenu();
 
@@ -58,6 +58,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void LoadDataToGridView(int dayId)
         {
+            
             currentSchedule = weekSchedules.Where(x => x.DateID == dayId).FirstOrDefault();
             if (currentSchedule == null)
             {
@@ -76,6 +77,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void InitDataGridView()
         {
+            _scheduleRepository = new ScheduleRepository();
             weekId = weekRepository.GetWeekId(new DateTime(2019, 2, 7), new DateTime(2019, 2, 13));
             weekSchedules = _scheduleRepository.GetWeekSchedule(weekId).ToList();
 
@@ -176,7 +178,8 @@ namespace ATV.ProgramDept.DesktopApp
                     };
                     _editingHistoryRepository.Create(editingHistory);
                     _editingHistoryRepository.Save();
-
+                    //update data from db
+                    InitDataGridView();
                 }
                 else
                 {
@@ -218,7 +221,7 @@ namespace ATV.ProgramDept.DesktopApp
             insertedProgramForm.ShowDialog();
         }
 
-        }
+        
 
         public void ReadyForInsertProgram(int ProgramID)
         {
@@ -274,7 +277,7 @@ namespace ATV.ProgramDept.DesktopApp
             staticProgramForm.ShowDialog();
         }
 
-        }
+        
 
         private void EditorHomeForm_Load(object sender, EventArgs e)
         {
