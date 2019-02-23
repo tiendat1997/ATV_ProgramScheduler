@@ -54,7 +54,7 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 this.btnToAdmin.Hide();
             }
-            InitDataGridView();
+            InitDataGridView((int)DayOfWeekEnum.Mon);
         }
 
         private void LoadDataToGridView(int dayId)
@@ -76,12 +76,12 @@ namespace ATV.ProgramDept.DesktopApp
             dgvSchedule.DataSource = source;
         }
 
-        private void InitDataGridView()
+        private void InitDataGridView(int dayOfWeek)
         {
             //_scheduleRepository = new ScheduleRepository();
             weekId = weekRepository.GetWeekId(new DateTime(2019, 2, 7), new DateTime(2019, 2, 13));
             weekSchedules = _scheduleRepository.GetWeekSchedule(weekId).ToList();
-            LoadDataToGridView((int)DayOfWeek.Monday);
+            LoadDataToGridView(dayOfWeek);
         }
 
         private void btnToAdmin_Click(object sender, EventArgs e)
@@ -187,7 +187,7 @@ namespace ATV.ProgramDept.DesktopApp
                     _editingHistoryRepository.Create(editingHistory);
                     _editingHistoryRepository.Save();
                     //update data from db
-                    InitDataGridView();
+                    InitDataGridView(tabDays.SelectedIndex + 1);
                 }
                 else
                 {
@@ -255,17 +255,7 @@ namespace ATV.ProgramDept.DesktopApp
                         ProgramID = p.ID,
                         ScheduleID = currentSchedule.ID
                     }).FirstOrDefault();
-
-                // check the last row if Dawn 
-                var lastItem = viewList[viewList.Count - 1];
-                var addDuration = new TimeSpan(0, (int)(scheduleDetail.Duration + lastItem.Duration), 0);
-                if (lastItem.StartTime >= TimeFrame.Dawn.StartTime
-                    && lastItem.StartTime <= TimeFrame.Dawn.EndTime
-                    && lastItem.StartTime.Add(addDuration) >= TimeFrame.Morning.StartTime)
-                {
-                    MessageBox.Show("Không thêm được vì lịch đã đầy!");
-                    return;
-                }
+                                
                 viewList.Insert(currentRowIndex, scheduleDetail);
 
                 ReorderPositionScheduler();
