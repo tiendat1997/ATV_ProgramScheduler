@@ -162,7 +162,7 @@ namespace ATV.ProgramDept.DesktopApp
 
                 //update data to db
                 UpdateDataCurrentInTabPageToList();
-                scheduleDetailRepository.UpdateWeekSchedule(weekId, currentSchedule.Details);
+                scheduleDetailRepository.UpdateWeekSchedule(weekId, TransformToDetailList(weekSchedules));
             }
             else
             {
@@ -192,6 +192,15 @@ namespace ATV.ProgramDept.DesktopApp
             }
         }
 
+        private List<ScheduleDetailViewModel> TransformToDetailList(List<ScheduleViewModel> weekSchedule)
+        {
+            var detailList = new List<ScheduleDetailViewModel>();
+
+            weekSchedules.ForEach(x => detailList.AddRange(x.Details));
+
+            return detailList;
+        }
+
         private void dgvSchedule_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (isEdit)
@@ -206,6 +215,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            UpdateDataCurrentInTabPageToList();
 
             dayScheduleHomeContainer.Parent = tabDays.SelectedTab;            
             currentTabPageIndex = tabDays.SelectedIndex;
@@ -431,10 +441,6 @@ namespace ATV.ProgramDept.DesktopApp
             dgvSchedule.Height = dayScheduleHomeContainer.Height - 20;
         }
 
-        private void tabDays_Selecting(object sender, TabControlCancelEventArgs e)
-        {
-            UpdateDataCurrentInTabPageToList();
-        }
 
         private void UpdateDataCurrentInTabPageToList()
         {
