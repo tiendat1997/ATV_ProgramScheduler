@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ATV.ProgramDept.Entity;
+using ATV.ProgramDept.Service.Implement;
+using ATV.ProgramDept.Service.Interface;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +15,10 @@ namespace ATV.ProgramDept.DesktopApp
 {
     public partial class AdminHomeForm : Form
     {
+        private IEditingHistoryRepository _editingHistoryRepository;
         public AdminHomeForm()
         {
+            _editingHistoryRepository = new EditingHistoryRepository();
             InitializeComponent();
             tsmiTemplateMon_Click(this, null);
         }
@@ -109,5 +114,13 @@ namespace ATV.ProgramDept.DesktopApp
             Navigate(form, pnlContent);
         }
         #endregion
+
+        private void AdminHomeForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            EditingHistory LatestEditingHistory = _editingHistoryRepository.GetAll().OrderByDescending(p => p.Time).FirstOrDefault();
+            LatestEditingHistory.IsFinished = true;
+            _editingHistoryRepository.Update(LatestEditingHistory);
+            _editingHistoryRepository.Save();
+        }
     }
 }

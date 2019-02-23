@@ -241,5 +241,13 @@ namespace ATV.ProgramDept.DesktopApp
             _editingHistoryRepository.Update(LatestEditingHistory);
             _editingHistoryRepository.Save();
         }
+
+        private void ScheduleTemplateForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            EditingHistory LatestEditingHistory = _editingHistoryRepository.GetAll().OrderByDescending(p => p.Time).FirstOrDefault();
+            LatestEditingHistory.IsFinished = true;
+            _editingHistoryRepository.Update(LatestEditingHistory);
+            _editingHistoryRepository.Save();
+        }
     }
 }
