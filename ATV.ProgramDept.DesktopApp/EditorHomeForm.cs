@@ -404,7 +404,7 @@ namespace ATV.ProgramDept.DesktopApp
             dgvSchedule.DataSource = source;
             dgvSchedule.Update();
             dgvSchedule.ClearSelection();
-            if (currentRowIndex >= 0)
+            if (currentRowIndex >= 0 && dgvSchedule.RowCount > 0)
             {
                 dgvSchedule.Rows[currentRowIndex].Selected = true;
             }

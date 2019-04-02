@@ -31,18 +31,16 @@
             this.components = new System.ComponentModel.Container();
             this.btnAdd = new System.Windows.Forms.Button();
             this.dgvFlexProgram = new System.Windows.Forms.DataGridView();
-            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.durationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.performByDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.programTypeIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isActiveDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.programTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.schedulesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.scheduleTemplatesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Remove = new System.Windows.Forms.DataGridViewButtonColumn();
             this.programBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.Remove = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.programTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isActiveDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.programTypeIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.performByDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.durationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFlexProgram)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.programBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -70,56 +68,40 @@
             this.programTypeIDDataGridViewTextBoxColumn,
             this.isActiveDataGridViewTextBoxColumn,
             this.programTypeDataGridViewTextBoxColumn,
-            this.schedulesDataGridViewTextBoxColumn,
-            this.scheduleTemplatesDataGridViewTextBoxColumn,
             this.Edit,
             this.Remove});
             this.dgvFlexProgram.DataSource = this.programBindingSource;
-            this.dgvFlexProgram.Location = new System.Drawing.Point(13, 63);
+            this.dgvFlexProgram.Location = new System.Drawing.Point(13, 42);
             this.dgvFlexProgram.Name = "dgvFlexProgram";
-            this.dgvFlexProgram.Size = new System.Drawing.Size(643, 150);
+            this.dgvFlexProgram.Size = new System.Drawing.Size(775, 380);
             this.dgvFlexProgram.TabIndex = 1;
             this.dgvFlexProgram.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFlexProgram_CellContentClick);
             // 
-            // iDDataGridViewTextBoxColumn
+            // programBindingSource
             // 
-            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
-            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
-            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
-            this.iDDataGridViewTextBoxColumn.Visible = false;
+            this.programBindingSource.DataSource = typeof(ATV.ProgramDept.Entity.Program);
             // 
-            // nameDataGridViewTextBoxColumn
+            // Remove
             // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Tên CT";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.Width = 200;
+            this.Remove.FillWeight = 106.168F;
+            this.Remove.HeaderText = "Xóa";
+            this.Remove.Name = "Remove";
+            this.Remove.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Remove.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Remove.Text = "Xóa";
+            this.Remove.UseColumnTextForButtonValue = true;
+            this.Remove.Width = 153;
             // 
-            // durationDataGridViewTextBoxColumn
+            // Edit
             // 
-            this.durationDataGridViewTextBoxColumn.DataPropertyName = "Duration";
-            this.durationDataGridViewTextBoxColumn.HeaderText = "Thời lượng";
-            this.durationDataGridViewTextBoxColumn.Name = "durationDataGridViewTextBoxColumn";
-            // 
-            // performByDataGridViewTextBoxColumn
-            // 
-            this.performByDataGridViewTextBoxColumn.DataPropertyName = "PerformBy";
-            this.performByDataGridViewTextBoxColumn.HeaderText = "Thực hiện";
-            this.performByDataGridViewTextBoxColumn.Name = "performByDataGridViewTextBoxColumn";
-            // 
-            // programTypeIDDataGridViewTextBoxColumn
-            // 
-            this.programTypeIDDataGridViewTextBoxColumn.DataPropertyName = "ProgramTypeID";
-            this.programTypeIDDataGridViewTextBoxColumn.HeaderText = "ProgramTypeID";
-            this.programTypeIDDataGridViewTextBoxColumn.Name = "programTypeIDDataGridViewTextBoxColumn";
-            this.programTypeIDDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // isActiveDataGridViewTextBoxColumn
-            // 
-            this.isActiveDataGridViewTextBoxColumn.DataPropertyName = "IsActive";
-            this.isActiveDataGridViewTextBoxColumn.HeaderText = "IsActive";
-            this.isActiveDataGridViewTextBoxColumn.Name = "isActiveDataGridViewTextBoxColumn";
-            this.isActiveDataGridViewTextBoxColumn.Visible = false;
+            this.Edit.FillWeight = 96.6948F;
+            this.Edit.HeaderText = "Thay đổi";
+            this.Edit.Name = "Edit";
+            this.Edit.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Edit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Edit.Text = "Lưu";
+            this.Edit.UseColumnTextForButtonValue = true;
+            this.Edit.Width = 140;
             // 
             // programTypeDataGridViewTextBoxColumn
             // 
@@ -128,41 +110,50 @@
             this.programTypeDataGridViewTextBoxColumn.Name = "programTypeDataGridViewTextBoxColumn";
             this.programTypeDataGridViewTextBoxColumn.Visible = false;
             // 
-            // schedulesDataGridViewTextBoxColumn
+            // isActiveDataGridViewTextBoxColumn
             // 
-            this.schedulesDataGridViewTextBoxColumn.DataPropertyName = "Schedules";
-            this.schedulesDataGridViewTextBoxColumn.HeaderText = "Schedules";
-            this.schedulesDataGridViewTextBoxColumn.Name = "schedulesDataGridViewTextBoxColumn";
-            this.schedulesDataGridViewTextBoxColumn.Visible = false;
+            this.isActiveDataGridViewTextBoxColumn.DataPropertyName = "IsActive";
+            this.isActiveDataGridViewTextBoxColumn.HeaderText = "IsActive";
+            this.isActiveDataGridViewTextBoxColumn.Name = "isActiveDataGridViewTextBoxColumn";
+            this.isActiveDataGridViewTextBoxColumn.Visible = false;
             // 
-            // scheduleTemplatesDataGridViewTextBoxColumn
+            // programTypeIDDataGridViewTextBoxColumn
             // 
-            this.scheduleTemplatesDataGridViewTextBoxColumn.DataPropertyName = "ScheduleTemplates";
-            this.scheduleTemplatesDataGridViewTextBoxColumn.HeaderText = "ScheduleTemplates";
-            this.scheduleTemplatesDataGridViewTextBoxColumn.Name = "scheduleTemplatesDataGridViewTextBoxColumn";
-            this.scheduleTemplatesDataGridViewTextBoxColumn.Visible = false;
+            this.programTypeIDDataGridViewTextBoxColumn.DataPropertyName = "ProgramTypeID";
+            this.programTypeIDDataGridViewTextBoxColumn.HeaderText = "ProgramTypeID";
+            this.programTypeIDDataGridViewTextBoxColumn.Name = "programTypeIDDataGridViewTextBoxColumn";
+            this.programTypeIDDataGridViewTextBoxColumn.Visible = false;
             // 
-            // Edit
+            // performByDataGridViewTextBoxColumn
             // 
-            this.Edit.HeaderText = "Thay đổi";
-            this.Edit.Name = "Edit";
-            this.Edit.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Edit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Edit.Text = "Lưu";
-            this.Edit.UseColumnTextForButtonValue = true;
+            this.performByDataGridViewTextBoxColumn.DataPropertyName = "PerformBy";
+            this.performByDataGridViewTextBoxColumn.FillWeight = 85.69859F;
+            this.performByDataGridViewTextBoxColumn.HeaderText = "Thực hiện";
+            this.performByDataGridViewTextBoxColumn.Name = "performByDataGridViewTextBoxColumn";
+            this.performByDataGridViewTextBoxColumn.Width = 124;
             // 
-            // Remove
+            // durationDataGridViewTextBoxColumn
             // 
-            this.Remove.HeaderText = "Xóa";
-            this.Remove.Name = "Remove";
-            this.Remove.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Remove.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Remove.Text = "Xóa";
-            this.Remove.UseColumnTextForButtonValue = true;
+            this.durationDataGridViewTextBoxColumn.DataPropertyName = "Duration";
+            this.durationDataGridViewTextBoxColumn.FillWeight = 72.93449F;
+            this.durationDataGridViewTextBoxColumn.HeaderText = "Thời lượng";
+            this.durationDataGridViewTextBoxColumn.Name = "durationDataGridViewTextBoxColumn";
+            this.durationDataGridViewTextBoxColumn.Width = 105;
             // 
-            // programBindingSource
+            // nameDataGridViewTextBoxColumn
             // 
-            this.programBindingSource.DataSource = typeof(ATV.ProgramDept.Entity.Program);
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.FillWeight = 138.5042F;
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Tên CT";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.Width = 200;
+            // 
+            // iDDataGridViewTextBoxColumn
+            // 
+            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
+            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
+            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
+            this.iDDataGridViewTextBoxColumn.Visible = false;
             // 
             // ManageFlexProgramForm
             // 
@@ -187,6 +178,8 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.DataGridView dgvFlexProgram;
         private System.Windows.Forms.BindingSource programBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn schedulesDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn scheduleTemplatesDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn durationDataGridViewTextBoxColumn;
@@ -194,8 +187,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn programTypeIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn isActiveDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn programTypeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn schedulesDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn scheduleTemplatesDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewButtonColumn Edit;
         private System.Windows.Forms.DataGridViewButtonColumn Remove;
     }
