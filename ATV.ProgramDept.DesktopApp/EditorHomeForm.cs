@@ -255,7 +255,20 @@ namespace ATV.ProgramDept.DesktopApp
                         ProgramID = p.ID,
                         ScheduleID = currentSchedule.ID
                     }).FirstOrDefault();
-                                
+                var scheduleDuration = new TimeSpan(0,(int)scheduleDetail.Duration,0);
+                // check the last row if Dawn 
+                if(viewList.Count > 0)
+                {
+                    var lastItem = viewList[viewList.Count - 1];
+                    if (lastItem.StartTime >= TimeFrame.Dawn.StartTime
+                        && lastItem.StartTime <= TimeFrame.Dawn.EndTime
+                        && lastItem.StartTime.Add(scheduleDuration) >= TimeFrame.Morning.StartTime)
+                    {
+                        MessageBox.Show("Không");
+                        return;
+                    }
+                }
+                
                 viewList.Insert(currentRowIndex, scheduleDetail);
 
                 ReorderPositionScheduler();
