@@ -9,5 +9,6 @@ namespace ATV.ProgramDept.Service.Interface
     public interface IWeekRepository
     {
         int GetWeekId(DateTime from, DateTime to);
+        void GenerateNewWeekAndDates(DateTime from, DateTime to);
     }
 }

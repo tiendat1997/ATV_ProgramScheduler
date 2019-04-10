@@ -25,6 +25,8 @@ namespace ATV.ProgramDept.DesktopApp
         private bool IsInsertInDgv = false;
         private int currentRowIndex;
         private int weekId;
+        private int year;
+        private int weekNumber;
         private int currentTabPageIndex = 0;
         private double oldDurationValue = 0;
         private ScheduleViewModel currentSchedule;
@@ -54,6 +56,8 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 this.btnToAdmin.Hide();
             }
+            year = DateTime.Now.Year;
+            weekNumber = TimeUtils.GetIso8601WeekOfYear(DateTime.Now);
             InitDataGridView((int)DayOfWeekEnum.Mon);
         }
 
@@ -63,6 +67,7 @@ namespace ATV.ProgramDept.DesktopApp
             currentSchedule = weekSchedules.Where(x => x.DateID == dayId).FirstOrDefault();
             if (currentSchedule == null)
             {
+                currentSchedule = new ScheduleViewModel();
                 viewList = new List<ScheduleDetailViewModel>();
             }
             else
@@ -78,8 +83,18 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void InitDataGridView(int dayOfWeek)
         {
-            //_scheduleRepository = new ScheduleRepository();
-            weekId = weekRepository.GetWeekId(new DateTime(2019, 2, 7), new DateTime(2019, 2, 13));
+            //_scheduleRepository = new ScheduleRepository();                        
+            lblWeek.Text = "Tuần: " + weekNumber;
+            DateTime monday = TimeUtils.FirstDateOfWeekISO8601(year, weekNumber);
+            DateTime sunday = monday.AddDays(6);
+            weekId = weekRepository.GetWeekId(monday, sunday);
+            if (weekId == -1)
+            {
+                // GENERATE NEW WEEK SCHEDULE and Dates
+                weekRepository.GenerateNewWeekAndDates(monday, sunday);
+            }
+            //weekId = weekRepository.GetWeekId(new DateTime(2019, 2, 7), new DateTime(2019, 2, 13));
+            weekId = weekRepository.GetWeekId(monday, sunday);
             weekSchedules = _scheduleRepository.GetWeekSchedule(weekId).ToList();
             LoadDataToGridView(dayOfWeek);
         }
@@ -152,7 +167,7 @@ namespace ATV.ProgramDept.DesktopApp
             EditingHistory LatestEditingHistory;
             if (isEdit)
             {
-                LatestEditingHistory = _editingHistoryRepository.GetLastEditing(); 
+                LatestEditingHistory = _editingHistoryRepository.GetLastEditing();
                 isEdit = !isEdit;
                 //change button text
                 btnSaveSchedule.Text = "Chỉnh sửa";
@@ -255,9 +270,9 @@ namespace ATV.ProgramDept.DesktopApp
                         ProgramID = p.ID,
                         ScheduleID = currentSchedule.ID
                     }).FirstOrDefault();
-                var scheduleDuration = new TimeSpan(0,(int)scheduleDetail.Duration,0);
+                var scheduleDuration = new TimeSpan(0, (int)scheduleDetail.Duration, 0);
                 // check the last row if Dawn 
-                if(viewList.Count > 0)
+                if (viewList.Count > 0)
                 {
                     var lastItem = viewList[viewList.Count - 1];
                     if (lastItem.StartTime >= TimeFrame.Dawn.StartTime
@@ -268,7 +283,7 @@ namespace ATV.ProgramDept.DesktopApp
                         return;
                     }
                 }
-                
+
                 viewList.Insert(currentRowIndex, scheduleDetail);
 
                 ReorderPositionScheduler();
@@ -517,5 +532,24 @@ namespace ATV.ProgramDept.DesktopApp
         {
             oldDurationValue = viewList[e.RowIndex].Duration;
         }
+
+        private void btnNextweek_Click(object sender, EventArgs e)
+        {
+            // check next year
+            if (weekNumber < 52)
+            {                
+                weekNumber = weekNumber + 1;
+                InitDataGridView((int)DayOfWeekEnum.Mon);
+            }            
+        }
+
+        private void btnLastweek_Click(object sender, EventArgs e)
+        {
+            if (weekNumber > 1)
+            {
+                weekNumber = weekNumber - 1;
+                InitDataGridView((int)DayOfWeekEnum.Mon);
+            }
+        }        
     }
 }
