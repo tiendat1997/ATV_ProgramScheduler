@@ -27,6 +27,7 @@ namespace ATV.ProgramDept.Service.Implement
                 {
                     ID = s.ID,
                     DateID = s.DateID ?? 0,
+                    Date = s.Date,
                     CreatedBy = s.CreatedBy,
                     IsActive = s.IsActive ?? false,
                     Details = s.ScheduleDetail

@@ -55,13 +55,13 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 this.btnToAdmin.Hide();
             }
-            year = DateTime.Now.Year;            
+            year = DateTime.Now.Year;
             weekNumber = TimeUtils.GetIso8601WeekOfYear(DateTime.Now);
-            InitDataGridView((int)DayOfWeekEnum.Mon);
+            InitDataGridView(DayOfWeekEnum.Monday.ToString());
         }
-        private void LoadDataToGridView(int dayId)
+        private void LoadDataToGridView(string dayOfWeek)
         {
-            currentSchedule = weekSchedules.Where(x => x.DateID == dayId).FirstOrDefault();
+            currentSchedule = weekSchedules.Where(x => x.Date.DateOfWeek.Equals(dayOfWeek)).FirstOrDefault();
             if (currentSchedule == null)
             {
                 currentSchedule = new ScheduleViewModel();
@@ -71,18 +71,20 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 viewList = currentSchedule.Details.OrderBy(x => x.Position).ToList();
             }
-           
+
             ScheduleUlities.EstimateStartTime(viewList);
             var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
             dgvSchedule.DataSource = source;
+
+            txtDate.Text = currentSchedule.Date.DateOfYear.ToShortDateString();
         }
 
-        private void InitDataGridView(int dayOfWeek)
+        private void InitDataGridView(string dayOfWeek)
         {
             //_scheduleRepository = new ScheduleRepository();                        
             lblWeek.Text = "Tuần: " + weekNumber;
-            dtpYear.Value = new DateTime(year,1,1);
+            dtpYear.Value = new DateTime(year, 1, 1);
             DateTime monday = TimeUtils.FirstDateOfWeekISO8601(year, weekNumber);
             DateTime sunday = monday.AddDays(6);
             weekId = weekRepository.GetWeekId(monday, sunday);
@@ -200,7 +202,7 @@ namespace ATV.ProgramDept.DesktopApp
                     _editingHistoryRepository.Create(editingHistory);
                     _editingHistoryRepository.Save();
                     //update data from db
-                    InitDataGridView(tabDays.SelectedIndex + 1);
+                    InitDataGridView(((DayOfWeekEnum)(tabDays.SelectedIndex + 1)).ToString());
                 }
                 else
                 {
@@ -236,7 +238,7 @@ namespace ATV.ProgramDept.DesktopApp
 
             dayScheduleHomeContainer.Parent = tabDays.SelectedTab;
             currentTabPageIndex = tabDays.SelectedIndex;
-            LoadDataToGridView(tabDays.SelectedIndex + 1);
+            LoadDataToGridView(((DayOfWeekEnum)(tabDays.SelectedIndex + 1)).ToString());
         }
 
 
@@ -538,9 +540,9 @@ namespace ATV.ProgramDept.DesktopApp
             if (weekNumber < 52)
             {
                 year = Int32.Parse(yearPicker);
-                weekNumber = weekNumber + 1;                             
-                InitDataGridView((int)DayOfWeekEnum.Mon);
-            }            
+                weekNumber = weekNumber + 1;
+                InitDataGridView(DayOfWeekEnum.Monday.ToString());
+            }
         }
 
         private void btnLastweek_Click(object sender, EventArgs e)
@@ -548,7 +550,7 @@ namespace ATV.ProgramDept.DesktopApp
             if (weekNumber > 1)
             {
                 weekNumber = weekNumber - 1;
-                InitDataGridView((int)DayOfWeekEnum.Mon);
+                InitDataGridView(DayOfWeekEnum.Monday.ToString());
             }
         }
 
@@ -556,7 +558,7 @@ namespace ATV.ProgramDept.DesktopApp
         {
             string yearPicker = DateTime.Parse(dtpYear.Value.ToString()).Year.ToString();
             year = Int32.Parse(yearPicker);
-            InitDataGridView((int)DayOfWeekEnum.Mon);            
+            InitDataGridView(DayOfWeekEnum.Monday.ToString());
         }
     }
 }
