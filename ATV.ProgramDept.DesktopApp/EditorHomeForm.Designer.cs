@@ -68,6 +68,7 @@
             this.lblWeek = new System.Windows.Forms.Label();
             this.btnNextweek = new System.Windows.Forms.Button();
             this.btnLastweek = new System.Windows.Forms.Button();
+            this.txtDate = new System.Windows.Forms.TextBox();
             this.mnsEditor.SuspendLayout();
             this.tabDays.SuspendLayout();
             this.tpMon.SuspendLayout();
@@ -189,6 +190,7 @@
             // dayScheduleHomeContainer
             // 
             this.dayScheduleHomeContainer.BackColor = System.Drawing.Color.Transparent;
+            this.dayScheduleHomeContainer.Controls.Add(this.txtDate);
             this.dayScheduleHomeContainer.Controls.Add(this.btnSaveSchedule);
             this.dayScheduleHomeContainer.Controls.Add(this.dgvSchedule);
             this.dayScheduleHomeContainer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -440,6 +442,13 @@
             this.btnLastweek.UseVisualStyleBackColor = true;
             this.btnLastweek.Click += new System.EventHandler(this.btnLastweek_Click);
             // 
+            // txtDate
+            // 
+            this.txtDate.Location = new System.Drawing.Point(3, 0);
+            this.txtDate.Name = "txtDate";
+            this.txtDate.Size = new System.Drawing.Size(150, 20);
+            this.txtDate.TabIndex = 4;
+            // 
             // EditorHomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -463,6 +472,7 @@
             this.tabDays.ResumeLayout(false);
             this.tpMon.ResumeLayout(false);
             this.dayScheduleHomeContainer.ResumeLayout(false);
+            this.dayScheduleHomeContainer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSchedule)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.scheduleDetailViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -511,6 +521,7 @@
         private System.Windows.Forms.Button btnNextweek;
         private System.Windows.Forms.Button btnLastweek;
         private System.Windows.Forms.DateTimePicker dtpYear;
+        private System.Windows.Forms.TextBox txtDate;
     }
 }
 

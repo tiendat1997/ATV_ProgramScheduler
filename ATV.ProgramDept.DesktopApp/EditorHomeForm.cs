@@ -71,7 +71,7 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 viewList = currentSchedule.Details.OrderBy(x => x.Position).ToList();
             }
-
+           
             ScheduleUlities.EstimateStartTime(viewList);
             var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
