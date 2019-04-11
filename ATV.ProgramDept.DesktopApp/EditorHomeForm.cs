@@ -20,7 +20,6 @@ namespace ATV.ProgramDept.DesktopApp
 {
     public partial class EditorHomeForm : Form, IInsertProgram
     {
-
         private bool isEdit = false;
         private bool IsInsertInDgv = false;
         private int currentRowIndex;
@@ -56,14 +55,12 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 this.btnToAdmin.Hide();
             }
-            year = DateTime.Now.Year;
+            year = DateTime.Now.Year;            
             weekNumber = TimeUtils.GetIso8601WeekOfYear(DateTime.Now);
             InitDataGridView((int)DayOfWeekEnum.Mon);
         }
-
         private void LoadDataToGridView(int dayId)
         {
-
             currentSchedule = weekSchedules.Where(x => x.DateID == dayId).FirstOrDefault();
             if (currentSchedule == null)
             {
@@ -85,6 +82,7 @@ namespace ATV.ProgramDept.DesktopApp
         {
             //_scheduleRepository = new ScheduleRepository();                        
             lblWeek.Text = "Tuần: " + weekNumber;
+            dtpYear.Value = new DateTime(year,1,1);
             DateTime monday = TimeUtils.FirstDateOfWeekISO8601(year, weekNumber);
             DateTime sunday = monday.AddDays(6);
             weekId = weekRepository.GetWeekId(monday, sunday);
@@ -535,10 +533,12 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void btnNextweek_Click(object sender, EventArgs e)
         {
+            string yearPicker = DateTime.Parse(dtpYear.Value.ToString()).Year.ToString();
             // check next year
             if (weekNumber < 52)
-            {                
-                weekNumber = weekNumber + 1;
+            {
+                year = Int32.Parse(yearPicker);
+                weekNumber = weekNumber + 1;                             
                 InitDataGridView((int)DayOfWeekEnum.Mon);
             }            
         }
@@ -550,6 +550,13 @@ namespace ATV.ProgramDept.DesktopApp
                 weekNumber = weekNumber - 1;
                 InitDataGridView((int)DayOfWeekEnum.Mon);
             }
-        }        
+        }
+
+        private void dtpYear_ValueChanged(object sender, EventArgs e)
+        {
+            string yearPicker = DateTime.Parse(dtpYear.Value.ToString()).Year.ToString();
+            year = Int32.Parse(yearPicker);
+            InitDataGridView((int)DayOfWeekEnum.Mon);            
+        }
     }
 }

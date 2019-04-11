@@ -41,7 +41,6 @@
             this.btnToAdmin = new System.Windows.Forms.Button();
             this.tabDays = new System.Windows.Forms.TabControl();
             this.tpMon = new System.Windows.Forms.TabPage();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dayScheduleHomeContainer = new System.Windows.Forms.Panel();
             this.btnSaveSchedule = new System.Windows.Forms.Button();
             this.dgvSchedule = new System.Windows.Forms.DataGridView();
@@ -65,6 +64,7 @@
             this.tpFri = new System.Windows.Forms.TabPage();
             this.tpSat = new System.Windows.Forms.TabPage();
             this.tpSun = new System.Windows.Forms.TabPage();
+            this.dtpYear = new System.Windows.Forms.DateTimePicker();
             this.lblWeek = new System.Windows.Forms.Label();
             this.btnNextweek = new System.Windows.Forms.Button();
             this.btnLastweek = new System.Windows.Forms.Button();
@@ -185,16 +185,6 @@
             this.tpMon.Text = "Thứ 2";
             this.tpMon.UseVisualStyleBackColor = true;
             this.tpMon.Click += new System.EventHandler(this.tabPage1_Click);
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.CustomFormat = "yyyy";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(596, 4);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.ShowUpDown = true;
-            this.dateTimePicker1.Size = new System.Drawing.Size(50, 20);
-            this.dateTimePicker1.TabIndex = 3;
             // 
             // dayScheduleHomeContainer
             // 
@@ -410,6 +400,17 @@
             this.tpSun.Text = "Chủ nhật";
             this.tpSun.UseVisualStyleBackColor = true;
             // 
+            // dtpYear
+            // 
+            this.dtpYear.CustomFormat = "yyyy";
+            this.dtpYear.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpYear.Location = new System.Drawing.Point(596, 4);
+            this.dtpYear.Name = "dtpYear";
+            this.dtpYear.ShowUpDown = true;
+            this.dtpYear.Size = new System.Drawing.Size(50, 20);
+            this.dtpYear.TabIndex = 3;
+            this.dtpYear.ValueChanged += new System.EventHandler(this.dtpYear_ValueChanged);
+            // 
             // lblWeek
             // 
             this.lblWeek.AutoSize = true;
@@ -444,7 +445,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.dtpYear);
             this.Controls.Add(this.btnLastweek);
             this.Controls.Add(this.btnNextweek);
             this.Controls.Add(this.lblWeek);
@@ -509,7 +510,7 @@
         private System.Windows.Forms.Label lblWeek;
         private System.Windows.Forms.Button btnNextweek;
         private System.Windows.Forms.Button btnLastweek;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dtpYear;
     }
 }
 
