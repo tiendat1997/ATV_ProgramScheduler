@@ -29,7 +29,7 @@ namespace ATV.ProgramDept.DesktopApp
         private int currentTabPageIndex = 0;
         private double oldDurationValue = 0;
         private ScheduleViewModel currentSchedule;
-        //private List<ScheduleDetailViewModel> weekSchedules;
+        //private List<ScheduleDetailViewModel> weekSchedules;        
         private List<ScheduleViewModel> weekSchedules;
         private List<ScheduleDetailViewModel> viewList;
         private IScheduleRepository scheduleRepository = new ScheduleRepository();
@@ -38,6 +38,7 @@ namespace ATV.ProgramDept.DesktopApp
         private int programIDToInsert;
         private bool readyForInsert;
         private readonly IProgramRepository _programRepository;
+        private readonly IScheduleTemplateRepository _templateRepository;
         private IEditingHistoryRepository _editingHistoryRepository;
         private IScheduleRepository _scheduleRepository;
 
@@ -48,6 +49,7 @@ namespace ATV.ProgramDept.DesktopApp
             readyForInsert = false;
             _programRepository = new ProgramRepository();
             _editingHistoryRepository = new EditingHistoryRepository();
+            _templateRepository = new ScheduleTemplateRepository();
             _scheduleRepository = new ScheduleRepository();
 
             InitializeComponent();
@@ -57,11 +59,11 @@ namespace ATV.ProgramDept.DesktopApp
             }
             year = DateTime.Now.Year;
             weekNumber = TimeUtils.GetIso8601WeekOfYear(DateTime.Now);
-            InitDataGridView(DayOfWeekEnum.Monday.ToString());
+            InitDataGridView((int)DayOfWeekEnum.Monday);
         }
-        private void LoadDataToGridView(string dayOfWeek)
+        private void LoadDataToGridView(int dayOfWeek)
         {
-            currentSchedule = weekSchedules.Where(x => x.Date.DateOfWeek.Equals(dayOfWeek)).FirstOrDefault();
+            currentSchedule = weekSchedules.Where(x => x.Date.DayOfWeek == dayOfWeek).FirstOrDefault();
             if (currentSchedule == null)
             {
                 currentSchedule = new ScheduleViewModel();
@@ -80,8 +82,9 @@ namespace ATV.ProgramDept.DesktopApp
             txtDate.Text = currentSchedule.Date.DateOfYear.ToShortDateString();
         }
 
-        private void InitDataGridView(string dayOfWeek)
+        private void InitDataGridView(int dayOfWeek)
         {
+            bool isNew = false;
             //_scheduleRepository = new ScheduleRepository();                        
             lblWeek.Text = "Tuần: " + weekNumber;
             dtpYear.Value = new DateTime(year, 1, 1);
@@ -92,9 +95,15 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 // GENERATE NEW WEEK SCHEDULE and Dates
                 weekRepository.GenerateNewWeekAndDates(monday, sunday);
-            }
-            //weekId = weekRepository.GetWeekId(new DateTime(2019, 2, 7), new DateTime(2019, 2, 13));
+                isNew = true; 
+            }            
             weekId = weekRepository.GetWeekId(monday, sunday);
+            weekSchedules = _scheduleRepository.GetWeekSchedule(weekId).ToList();            
+            if (isNew)
+            {
+                // COPY SCHEDULE DETAIL OF TEMPLATE INTO CURRENT SCHEDULE                
+                _templateRepository.CopyScheduleTemplateToSchedule(weekSchedules);
+            }
             weekSchedules = _scheduleRepository.GetWeekSchedule(weekId).ToList();
             LoadDataToGridView(dayOfWeek);
         }
@@ -202,7 +211,7 @@ namespace ATV.ProgramDept.DesktopApp
                     _editingHistoryRepository.Create(editingHistory);
                     _editingHistoryRepository.Save();
                     //update data from db
-                    InitDataGridView(((DayOfWeekEnum)(tabDays.SelectedIndex + 1)).ToString());
+                    InitDataGridView(tabDays.SelectedIndex + 1);
                 }
                 else
                 {
@@ -238,7 +247,7 @@ namespace ATV.ProgramDept.DesktopApp
 
             dayScheduleHomeContainer.Parent = tabDays.SelectedTab;
             currentTabPageIndex = tabDays.SelectedIndex;
-            LoadDataToGridView(((DayOfWeekEnum)(tabDays.SelectedIndex + 1)).ToString());
+            LoadDataToGridView(tabDays.SelectedIndex + 1);
         }
 
 
@@ -541,7 +550,8 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 year = Int32.Parse(yearPicker);
                 weekNumber = weekNumber + 1;
-                InitDataGridView(DayOfWeekEnum.Monday.ToString());
+                InitDataGridView(tabDays.SelectedIndex + 1);
+                
             }
         }
 
@@ -550,7 +560,7 @@ namespace ATV.ProgramDept.DesktopApp
             if (weekNumber > 1)
             {
                 weekNumber = weekNumber - 1;
-                InitDataGridView(DayOfWeekEnum.Monday.ToString());
+                InitDataGridView(tabDays.SelectedIndex + 1);
             }
         }
 
@@ -558,7 +568,7 @@ namespace ATV.ProgramDept.DesktopApp
         {
             string yearPicker = DateTime.Parse(dtpYear.Value.ToString()).Year.ToString();
             year = Int32.Parse(yearPicker);
-            InitDataGridView(DayOfWeekEnum.Monday.ToString());
+            InitDataGridView(tabDays.SelectedIndex + 1);
         }
     }
 }

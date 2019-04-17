@@ -21,14 +21,16 @@ namespace ATV.ProgramDept.Service.Implement
             for (var i = 0; i < 7; i++)
             {
                 DateTime temp = from.AddDays(i);
+                int dow = (int)temp.DayOfWeek;
+                if (dow == 0) dow = 7;
                 Date date = new Date
                 {
                     WeekID = week.ID,
-                    DateOfWeek = temp.DayOfWeek.ToString(),
+                    DayOfWeek = dow,
                     DateOfYear = temp,
                     StartAt = 5
                 };
-                dateRepo.Create(date);                
+                dateRepo.Create(date);
                 dateRepo.Save();
 
                 Schedule schedule = new Schedule

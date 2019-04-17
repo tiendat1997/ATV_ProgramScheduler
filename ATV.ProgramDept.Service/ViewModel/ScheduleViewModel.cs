@@ -13,8 +13,8 @@ namespace ATV.ProgramDept.Service.ViewModel
         public string CreatedBy { get; set; }
         public int DateID { get; set; }
         public Date Date { get; set; }
-        public bool IsActive { get; set; }
-
+        public bool IsActive { get; set; }        
+        public int DayOfWeek { get; set; }
         public List<ScheduleDetailViewModel> Details { get; set; }
     }
 }

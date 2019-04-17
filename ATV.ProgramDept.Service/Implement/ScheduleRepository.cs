@@ -30,6 +30,7 @@ namespace ATV.ProgramDept.Service.Implement
                     Date = s.Date,
                     CreatedBy = s.CreatedBy,
                     IsActive = s.IsActive ?? false,
+                    DayOfWeek = s.Date.DayOfWeek,
                     Details = s.ScheduleDetail
                     .Where(x => x.IsActive.HasValue && x.IsActive.Value)                    
                     .Select(x => new ScheduleDetailViewModel
@@ -44,7 +45,7 @@ namespace ATV.ProgramDept.Service.Implement
                         DateID = x.Schedule.DateID.Value,
                         ProgramID = x.ProgramID,
                         ScheduleID = x.ScheduleID.Value,
-                        Position = x.Position
+                        Position = x.Position,                        
                     })                    
                     .OrderBy(q => q.Position)
                     .ToList()                   
