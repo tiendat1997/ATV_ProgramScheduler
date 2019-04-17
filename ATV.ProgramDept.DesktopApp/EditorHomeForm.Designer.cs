@@ -83,9 +83,11 @@
             this.tsmiEditorHistory});
             this.mnsEditor.Location = new System.Drawing.Point(0, 0);
             this.mnsEditor.Name = "mnsEditor";
-            this.mnsEditor.Size = new System.Drawing.Size(800, 24);
+            this.mnsEditor.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.mnsEditor.Size = new System.Drawing.Size(1067, 28);
             this.mnsEditor.TabIndex = 0;
             this.mnsEditor.Text = "menuStrip1";
+            this.mnsEditor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MnsEditor_MouseClick);
             // 
             // tsmiEditorProgram
             // 
@@ -94,60 +96,62 @@
             this.tsmiInsertFlexProgram,
             this.tsmiInsertFixProgram});
             this.tsmiEditorProgram.Name = "tsmiEditorProgram";
-            this.tsmiEditorProgram.Size = new System.Drawing.Size(65, 20);
+            this.tsmiEditorProgram.Size = new System.Drawing.Size(75, 24);
             this.tsmiEditorProgram.Text = "Chèn CT";
             // 
             // tsmiInsertNewProgram
             // 
             this.tsmiInsertNewProgram.Name = "tsmiInsertNewProgram";
-            this.tsmiInsertNewProgram.Size = new System.Drawing.Size(169, 22);
+            this.tsmiInsertNewProgram.Size = new System.Drawing.Size(199, 26);
             this.tsmiInsertNewProgram.Text = "Chèn CT mới";
             // 
             // tsmiInsertFlexProgram
             // 
             this.tsmiInsertFlexProgram.Name = "tsmiInsertFlexProgram";
-            this.tsmiInsertFlexProgram.Size = new System.Drawing.Size(169, 22);
+            this.tsmiInsertFlexProgram.Size = new System.Drawing.Size(199, 26);
             this.tsmiInsertFlexProgram.Text = "Chèn CT chen giờ";
             this.tsmiInsertFlexProgram.Click += new System.EventHandler(this.tsmiInsertFlexProgram_Click);
             // 
             // tsmiInsertFixProgram
             // 
             this.tsmiInsertFixProgram.Name = "tsmiInsertFixProgram";
-            this.tsmiInsertFixProgram.Size = new System.Drawing.Size(169, 22);
+            this.tsmiInsertFixProgram.Size = new System.Drawing.Size(199, 26);
             this.tsmiInsertFixProgram.Text = "Chèn CT cố định";
             this.tsmiInsertFixProgram.Click += new System.EventHandler(this.tsmiInsertFixProgram_Click);
             // 
             // tsmiEditorExport
             // 
             this.tsmiEditorExport.Name = "tsmiEditorExport";
-            this.tsmiEditorExport.Size = new System.Drawing.Size(68, 20);
+            this.tsmiEditorExport.Size = new System.Drawing.Size(81, 24);
             this.tsmiEditorExport.Text = "Xuất Lịch";
             this.tsmiEditorExport.Click += new System.EventHandler(this.tsmiEditorExport_Click);
             // 
             // tsmiEditorEmail
             // 
             this.tsmiEditorEmail.Name = "tsmiEditorEmail";
-            this.tsmiEditorEmail.Size = new System.Drawing.Size(69, 20);
+            this.tsmiEditorEmail.Size = new System.Drawing.Size(85, 24);
             this.tsmiEditorEmail.Text = "Gửi email";
+            this.tsmiEditorEmail.Click += new System.EventHandler(this.TsmiEditorEmail_Click);
             // 
             // tsmiEditorPrint
             // 
             this.tsmiEditorPrint.Name = "tsmiEditorPrint";
-            this.tsmiEditorPrint.Size = new System.Drawing.Size(29, 20);
+            this.tsmiEditorPrint.Size = new System.Drawing.Size(33, 24);
             this.tsmiEditorPrint.Text = "In";
             // 
             // tsmiEditorHistory
             // 
             this.tsmiEditorHistory.Name = "tsmiEditorHistory";
-            this.tsmiEditorHistory.Size = new System.Drawing.Size(56, 20);
+            this.tsmiEditorHistory.Size = new System.Drawing.Size(66, 24);
             this.tsmiEditorHistory.Text = "Lịch sử";
             // 
             // btnToAdmin
             // 
             this.btnToAdmin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnToAdmin.Location = new System.Drawing.Point(721, 1);
+            this.btnToAdmin.Location = new System.Drawing.Point(961, 1);
+            this.btnToAdmin.Margin = new System.Windows.Forms.Padding(4);
             this.btnToAdmin.Name = "btnToAdmin";
-            this.btnToAdmin.Size = new System.Drawing.Size(75, 23);
+            this.btnToAdmin.Size = new System.Drawing.Size(100, 28);
             this.btnToAdmin.TabIndex = 1;
             this.btnToAdmin.Text = "Quản trị";
             this.btnToAdmin.UseVisualStyleBackColor = true;
@@ -163,20 +167,22 @@
             this.tabDays.Controls.Add(this.tpSat);
             this.tabDays.Controls.Add(this.tpSun);
             this.tabDays.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabDays.Location = new System.Drawing.Point(0, 24);
+            this.tabDays.Location = new System.Drawing.Point(0, 28);
+            this.tabDays.Margin = new System.Windows.Forms.Padding(4);
             this.tabDays.Name = "tabDays";
             this.tabDays.SelectedIndex = 0;
-            this.tabDays.Size = new System.Drawing.Size(800, 426);
+            this.tabDays.Size = new System.Drawing.Size(1067, 526);
             this.tabDays.TabIndex = 2;
             this.tabDays.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tpMon
             // 
             this.tpMon.Controls.Add(this.dayScheduleHomeContainer);
-            this.tpMon.Location = new System.Drawing.Point(4, 22);
+            this.tpMon.Location = new System.Drawing.Point(4, 25);
+            this.tpMon.Margin = new System.Windows.Forms.Padding(4);
             this.tpMon.Name = "tpMon";
-            this.tpMon.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMon.Size = new System.Drawing.Size(792, 400);
+            this.tpMon.Padding = new System.Windows.Forms.Padding(4);
+            this.tpMon.Size = new System.Drawing.Size(1059, 497);
             this.tpMon.TabIndex = 0;
             this.tpMon.Text = "Thứ 2";
             this.tpMon.UseVisualStyleBackColor = true;
@@ -188,17 +194,19 @@
             this.dayScheduleHomeContainer.Controls.Add(this.btnSaveSchedule);
             this.dayScheduleHomeContainer.Controls.Add(this.dgvSchedule);
             this.dayScheduleHomeContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dayScheduleHomeContainer.Location = new System.Drawing.Point(3, 3);
+            this.dayScheduleHomeContainer.Location = new System.Drawing.Point(4, 4);
+            this.dayScheduleHomeContainer.Margin = new System.Windows.Forms.Padding(4);
             this.dayScheduleHomeContainer.Name = "dayScheduleHomeContainer";
-            this.dayScheduleHomeContainer.Size = new System.Drawing.Size(786, 394);
+            this.dayScheduleHomeContainer.Size = new System.Drawing.Size(1051, 489);
             this.dayScheduleHomeContainer.TabIndex = 2;
             // 
             // btnSaveSchedule
             // 
             this.btnSaveSchedule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveSchedule.Location = new System.Drawing.Point(711, 3);
+            this.btnSaveSchedule.Location = new System.Drawing.Point(951, 4);
+            this.btnSaveSchedule.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveSchedule.Name = "btnSaveSchedule";
-            this.btnSaveSchedule.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveSchedule.Size = new System.Drawing.Size(100, 28);
             this.btnSaveSchedule.TabIndex = 3;
             this.btnSaveSchedule.Text = "Chỉnh sửa";
             this.btnSaveSchedule.UseVisualStyleBackColor = true;
@@ -229,20 +237,23 @@
             this.isActiveDataGridViewCheckBoxColumn});
             this.dgvSchedule.DataSource = this.scheduleDetailViewModelBindingSource;
             this.dgvSchedule.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
-            this.dgvSchedule.Location = new System.Drawing.Point(3, 26);
+            this.dgvSchedule.Location = new System.Drawing.Point(4, 32);
+            this.dgvSchedule.Margin = new System.Windows.Forms.Padding(4);
             this.dgvSchedule.MultiSelect = false;
             this.dgvSchedule.Name = "dgvSchedule";
             this.dgvSchedule.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvSchedule.Size = new System.Drawing.Size(792, 375);
+            this.dgvSchedule.Size = new System.Drawing.Size(1056, 462);
             this.dgvSchedule.TabIndex = 3;
             this.dgvSchedule.TabStop = false;
             this.dgvSchedule.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvSchedule_CellBeginEdit);
             this.dgvSchedule.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSchedule_CellClick);
+            this.dgvSchedule.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvSchedule_CellContentClick);
             this.dgvSchedule.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSchedule_CellEnter);
             this.dgvSchedule.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvSchedule_CellFormatting);
             this.dgvSchedule.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSchedule_CellValueChanged);
             this.dgvSchedule.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvSchedule_UserDeletedRow);
             this.dgvSchedule.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvSchedule_UserDeletingRow);
+            this.dgvSchedule.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DgvSchedule_MouseClick);
             this.dgvSchedule.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dgvSchedule_MouseUp);
             // 
             // Section
@@ -343,68 +354,75 @@
             // 
             // tpTue
             // 
-            this.tpTue.Location = new System.Drawing.Point(4, 22);
+            this.tpTue.Location = new System.Drawing.Point(4, 25);
+            this.tpTue.Margin = new System.Windows.Forms.Padding(4);
             this.tpTue.Name = "tpTue";
-            this.tpTue.Padding = new System.Windows.Forms.Padding(3);
-            this.tpTue.Size = new System.Drawing.Size(792, 400);
+            this.tpTue.Padding = new System.Windows.Forms.Padding(4);
+            this.tpTue.Size = new System.Drawing.Size(1059, 497);
             this.tpTue.TabIndex = 1;
             this.tpTue.Text = "Thứ 3";
             this.tpTue.UseVisualStyleBackColor = true;
             // 
             // tpWed
             // 
-            this.tpWed.Location = new System.Drawing.Point(4, 22);
+            this.tpWed.Location = new System.Drawing.Point(4, 25);
+            this.tpWed.Margin = new System.Windows.Forms.Padding(4);
             this.tpWed.Name = "tpWed";
-            this.tpWed.Size = new System.Drawing.Size(792, 400);
+            this.tpWed.Size = new System.Drawing.Size(1059, 497);
             this.tpWed.TabIndex = 2;
             this.tpWed.Text = "Thứ 4";
             this.tpWed.UseVisualStyleBackColor = true;
             // 
             // tpThu
             // 
-            this.tpThu.Location = new System.Drawing.Point(4, 22);
+            this.tpThu.Location = new System.Drawing.Point(4, 25);
+            this.tpThu.Margin = new System.Windows.Forms.Padding(4);
             this.tpThu.Name = "tpThu";
-            this.tpThu.Size = new System.Drawing.Size(792, 400);
+            this.tpThu.Size = new System.Drawing.Size(1059, 497);
             this.tpThu.TabIndex = 3;
             this.tpThu.Text = "Thứ 5";
             this.tpThu.UseVisualStyleBackColor = true;
             // 
             // tpFri
             // 
-            this.tpFri.Location = new System.Drawing.Point(4, 22);
+            this.tpFri.Location = new System.Drawing.Point(4, 25);
+            this.tpFri.Margin = new System.Windows.Forms.Padding(4);
             this.tpFri.Name = "tpFri";
-            this.tpFri.Size = new System.Drawing.Size(792, 400);
+            this.tpFri.Size = new System.Drawing.Size(1059, 497);
             this.tpFri.TabIndex = 4;
             this.tpFri.Text = "Thứ 6";
             this.tpFri.UseVisualStyleBackColor = true;
             // 
             // tpSat
             // 
-            this.tpSat.Location = new System.Drawing.Point(4, 22);
+            this.tpSat.Location = new System.Drawing.Point(4, 25);
+            this.tpSat.Margin = new System.Windows.Forms.Padding(4);
             this.tpSat.Name = "tpSat";
-            this.tpSat.Size = new System.Drawing.Size(792, 400);
+            this.tpSat.Size = new System.Drawing.Size(1059, 497);
             this.tpSat.TabIndex = 5;
             this.tpSat.Text = "Thứ 7";
             this.tpSat.UseVisualStyleBackColor = true;
             // 
             // tpSun
             // 
-            this.tpSun.Location = new System.Drawing.Point(4, 22);
+            this.tpSun.Location = new System.Drawing.Point(4, 25);
+            this.tpSun.Margin = new System.Windows.Forms.Padding(4);
             this.tpSun.Name = "tpSun";
-            this.tpSun.Size = new System.Drawing.Size(792, 400);
+            this.tpSun.Size = new System.Drawing.Size(1059, 497);
             this.tpSun.TabIndex = 6;
             this.tpSun.Text = "Chủ nhật";
             this.tpSun.UseVisualStyleBackColor = true;
             // 
             // EditorHomeForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.tabDays);
             this.Controls.Add(this.btnToAdmin);
             this.Controls.Add(this.mnsEditor);
             this.MainMenuStrip = this.mnsEditor;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "EditorHomeForm";
             this.Text = "ATV Program Department - Home";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditorHomeForm_FormClosing);

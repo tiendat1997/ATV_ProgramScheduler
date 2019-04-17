@@ -88,6 +88,12 @@
     <Compile Include="ChangePasswordForm.Designer.cs">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfirmSendEmailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfirmSendEmailForm.Designer.cs">
+      <DependentUpon>ConfirmSendEmailForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditorHomeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,6 +187,12 @@
     <Compile Include="ScheduleTemplateForm.Designer.cs">
       <DependentUpon>ScheduleTemplateForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SendEmailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SendEmailForm.Designer.cs">
+      <DependentUpon>SendEmailForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="StaticProgramForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -192,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfirmSendEmailForm.resx">
+      <DependentUpon>ConfirmSendEmailForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditorHomeForm.resx">
       <DependentUpon>EditorHomeForm.cs</DependentUpon>
@@ -253,6 +268,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ScheduleTemplateForm.resx">
       <DependentUpon>ScheduleTemplateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SendEmailForm.resx">
+      <DependentUpon>SendEmailForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StaticProgramForm.resx">
       <DependentUpon>StaticProgramForm.cs</DependentUpon>

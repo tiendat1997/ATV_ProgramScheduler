@@ -120,30 +120,32 @@ namespace ATV.ProgramDept.DesktopApp
                 return;
             }
 
-            ScheduleDetailViewModel scheduleViewModel = _programRepository.Find(p => p.ID == programIDToInsert).
-                Select(p => new ScheduleDetailViewModel()
-                {
-                    Duration = p.Duration.Value,
-                    ProgramName = p.Name,
-                    PerformBy = p.PerformBy,
-                    ProgramID = p.ID,
-                    ScheduleID = currentSchedule.ID
-                }).FirstOrDefault();
-            viewList.Insert(e.RowIndex, scheduleViewModel);
-            ReorderPositionScheduler();
-            var result = ScheduleUlities.EstimateStartTime(viewList);
-            if (!result)
-            {
-                viewList.RemoveAt(e.RowIndex);
-                MessageBox.Show("Lịch ngày hiện tại đã đầy, không thể thêm chương trình");
-                ScheduleUlities.EstimateStartTime(viewList);
-            }
-            readyForInsert = false;
-            dgvSchedule.Cursor = System.Windows.Forms.Cursors.Default;
-            var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
-            var source = new BindingSource(bindingList, null);
-            dgvSchedule.DataSource = source;
-            dgvSchedule.Update();
+            InsertReadyProgram(e.RowIndex);
+
+            //ScheduleDetailViewModel scheduleViewModel = _programRepository.Find(p => p.ID == programIDToInsert).
+            //    Select(p => new ScheduleDetailViewModel()
+            //    {
+            //        Duration = p.Duration.Value,
+            //        ProgramName = p.Name,
+            //        PerformBy = p.PerformBy,
+            //        ProgramID = p.ID,
+            //        ScheduleID = currentSchedule.ID
+            //    }).FirstOrDefault();
+            //viewList.Insert(e.RowIndex, scheduleViewModel);
+            //ReorderPositionScheduler();
+            //var result = ScheduleUlities.EstimateStartTime(viewList);
+            //if (!result)
+            //{
+            //    viewList.RemoveAt(e.RowIndex);
+            //    MessageBox.Show("Lịch ngày hiện tại đã đầy, không thể thêm chương trình");
+            //    ScheduleUlities.EstimateStartTime(viewList);
+            //}
+            //readyForInsert = false;
+            //dgvSchedule.Cursor = System.Windows.Forms.Cursors.Default;
+            //var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
+            //var source = new BindingSource(bindingList, null);
+            //dgvSchedule.DataSource = source;
+            //dgvSchedule.Update();
         }
 
         private void btnSaveSchedule_Click(object sender, EventArgs e)
@@ -516,6 +518,72 @@ namespace ATV.ProgramDept.DesktopApp
         private void dgvSchedule_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             oldDurationValue = viewList[e.RowIndex].Duration;
+        }
+
+        private void DgvSchedule_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void MnsEditor_MouseClick(object sender, MouseEventArgs e)
+        {
+            
+        }
+
+        private void InsertReadyProgram(int RowIndex)
+        {
+            ScheduleDetailViewModel scheduleViewModel = _programRepository.Find(p => p.ID == programIDToInsert).
+                Select(p => new ScheduleDetailViewModel()
+                {
+                    Duration = p.Duration.Value,
+                    ProgramName = p.Name,
+                    PerformBy = p.PerformBy,
+                    ProgramID = p.ID,
+                    ScheduleID = currentSchedule.ID
+                }).FirstOrDefault();
+            viewList.Insert(RowIndex, scheduleViewModel);
+            ReorderPositionScheduler();
+            var result = ScheduleUlities.EstimateStartTime(viewList);
+            if (!result)
+            {
+                viewList.RemoveAt(RowIndex);
+                MessageBox.Show("Lịch ngày hiện tại đã đầy, không thể thêm chương trình");
+                ScheduleUlities.EstimateStartTime(viewList);
+            }
+            RemoveReadyForInsert();
+            var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
+            var source = new BindingSource(bindingList, null);
+            dgvSchedule.DataSource = source;
+            dgvSchedule.Update();
+        }
+
+        private void RemoveReadyForInsert()
+        {
+            dgvSchedule.Cursor = System.Windows.Forms.Cursors.Default;
+            readyForInsert = false;
+        }
+
+        private void DgvSchedule_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (!readyForInsert)
+            {
+                return;
+            }
+            if (e.Button == MouseButtons.Left)
+            {
+                int index = viewList.Count;
+                InsertReadyProgram(index);
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                RemoveReadyForInsert();
+            }
+        }
+
+        private void TsmiEditorEmail_Click(object sender, EventArgs e)
+        {
+            SendEmailForm sendEmailForm = new SendEmailForm();
+            sendEmailForm.ShowDialog();
         }
     }
 }
