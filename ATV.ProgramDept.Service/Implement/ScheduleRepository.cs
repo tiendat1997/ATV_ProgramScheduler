@@ -45,7 +45,8 @@ namespace ATV.ProgramDept.Service.Implement
                         DateID = x.Schedule.DateID.Value,
                         ProgramID = x.ProgramID,
                         ScheduleID = x.ScheduleID.Value,
-                        Position = x.Position,                        
+                        Position = x.Position, 
+                        IsNoted = x.IsNoted.Value
                     })                    
                     .OrderBy(q => q.Position)
                     .ToList()                   

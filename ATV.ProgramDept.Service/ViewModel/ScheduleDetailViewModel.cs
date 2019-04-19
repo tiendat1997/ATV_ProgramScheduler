@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ATV.ProgramDept.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace ATV.ProgramDept.Service.ViewModel
         public int ProgramID { get; set; }
 
         public int ScheduleID { get; set; }
+        public ScheduleViewModel Schedule { get; set; }
 
         public int Position { get; set; }               
 

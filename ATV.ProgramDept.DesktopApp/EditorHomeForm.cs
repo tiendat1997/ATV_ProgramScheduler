@@ -44,6 +44,9 @@ namespace ATV.ProgramDept.DesktopApp
 
         private ContextMenu contextMenuDgv = new ContextMenu();
 
+        private readonly int COL_SESSION = 0;
+        private readonly int COL_STARTTIME = 2;
+
         public EditorHomeForm()
         {
             readyForInsert = false;
@@ -151,7 +154,8 @@ namespace ATV.ProgramDept.DesktopApp
                     ProgramName = p.Name,
                     PerformBy = p.PerformBy,
                     ProgramID = p.ID,
-                    ScheduleID = currentSchedule.ID
+                    ScheduleID = currentSchedule.ID,
+                    Schedule = currentSchedule
                 }).FirstOrDefault();
             viewList.Insert(e.RowIndex, scheduleViewModel);
             ReorderPositionScheduler();
@@ -277,7 +281,8 @@ namespace ATV.ProgramDept.DesktopApp
                         ProgramName = p.Name,
                         PerformBy = p.PerformBy,
                         ProgramID = p.ID,
-                        ScheduleID = currentSchedule.ID
+                        ScheduleID = currentSchedule.ID,
+                        
                     }).FirstOrDefault();
                 var scheduleDuration = new TimeSpan(0, (int)scheduleDetail.Duration, 0);
                 // check the last row if Dawn 
@@ -449,28 +454,28 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void dgvSchedule_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == 1 && e.Value != null) // StartTime Columns 
+            if (e.ColumnIndex == COL_STARTTIME && e.Value != null) // StartTime Columns 
             {
                 var time = (TimeSpan)e.Value;
                 if (TimeFrame.Morning.StartTime <= time && time <= TimeFrame.Morning.EndTime)
                 {
-                    dgvSchedule[e.ColumnIndex - 1, e.RowIndex].Value = "Sáng";
+                    dgvSchedule[COL_SESSION, e.RowIndex].Value = "Sáng";
                 }
                 if (TimeFrame.Noon.StartTime <= time && time <= TimeFrame.Noon.EndTime)
                 {
-                    dgvSchedule[e.ColumnIndex - 1, e.RowIndex].Value = "Trưa";
+                    dgvSchedule[COL_SESSION, e.RowIndex].Value = "Trưa";
                 }
                 if (TimeFrame.AfternoonAndEvening.StartTime <= time && time <= TimeFrame.AfternoonAndEvening.EndTime)
                 {
-                    dgvSchedule[e.ColumnIndex - 1, e.RowIndex].Value = "Chiều tối";
+                    dgvSchedule[COL_SESSION, e.RowIndex].Value = "Chiều tối";
                 }
                 if (TimeFrame.Dawn.StartTime <= time && time <= TimeFrame.Dawn.EndTime)
                 {
-                    dgvSchedule[e.ColumnIndex - 1, e.RowIndex].Value = "Rạng";
+                    dgvSchedule[COL_SESSION, e.RowIndex].Value = "Rạng";
                 }
             }
 
-            if (e.ColumnIndex == 0)
+            if (e.ColumnIndex == COL_SESSION)
             {
                 if (e.RowIndex == 0)
                 {
