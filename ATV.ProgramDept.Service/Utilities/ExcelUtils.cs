@@ -28,12 +28,26 @@ namespace ATV.ProgramDept.Service.Utilities
             {
                 workbook = InitWorkbook(TYPE_XLSX);
             }
-            CreateListSheet(workbook, new string[] { "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "CN" });
-            int numberOfSheet = workbook.NumberOfSheets;
             for (int i = 0; i < schedules.Count; i++)
             {
                 int currentRow = 0;
-                ISheet currentSheet = workbook.GetSheetAt(schedules[i].DateID - 1);
+
+                //Create sheet
+                ISheet currentSheet = null;
+                string date = "";
+                if (schedules[i].DayOfWeek < 7)
+                {
+                    currentSheet = workbook.CreateSheet("Thứ " + (schedules[i].DayOfWeek + 1));
+                    date = "Thứ " + (schedules[i].DayOfWeek + 1) + ": " + schedules[i].Date.DateOfYear.ToString("dd/MM/yyyy");
+                }
+                else if (schedules[i].DayOfWeek == 7)
+                {
+                    currentSheet = workbook.CreateSheet("Chủ Nhật");
+                    date = "Chủ Nhật" + ": " + schedules[i].Date.DateOfYear.ToString("dd/MM/yyyy");
+
+                }
+
+                //add data
                 var scheduleDetail = schedules[i].Details;
 
                 var morningList = scheduleDetail.Where(x => x.StartTime >= TimeFrame.Morning.StartTime && x.StartTime <= TimeFrame.Morning.EndTime).OrderBy(x => x.StartTime);
@@ -41,7 +55,7 @@ namespace ATV.ProgramDept.Service.Utilities
                 var afternoonList = scheduleDetail.Where(x => x.StartTime >= TimeFrame.AfternoonAndEvening.StartTime && x.StartTime <= TimeFrame.AfternoonAndEvening.EndTime).OrderBy(x => x.StartTime);
                 var dawn = scheduleDetail.Where(x => x.StartTime >= TimeFrame.Dawn.StartTime && x.StartTime <= TimeFrame.Dawn.EndTime).OrderBy(x => x.StartTime);
 
-                GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH SÁNG", ref currentRow);
+                GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH SÁNG", date, ref currentRow);
                 foreach (var item in morningList)
                 {
                     GenerateScheduleRow(currentSheet, currentRow, item);
@@ -49,7 +63,7 @@ namespace ATV.ProgramDept.Service.Utilities
                 }
                 InsertEmptyRow(ref currentRow, 2);
 
-                GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH TRƯA", ref currentRow);
+                GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH TRƯA", date, ref currentRow);
                 foreach (var item in noonList)
                 {
                     GenerateScheduleRow(currentSheet, currentRow, item);
@@ -57,7 +71,7 @@ namespace ATV.ProgramDept.Service.Utilities
                 }
                 InsertEmptyRow(ref currentRow, 2);
 
-                GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH CHIỀU VÀ TỐI", ref currentRow);
+                GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH CHIỀU VÀ TỐI", date, ref currentRow);
                 foreach (var item in afternoonList)
                 {
                     GenerateScheduleRow(currentSheet, currentRow, item);
@@ -65,7 +79,7 @@ namespace ATV.ProgramDept.Service.Utilities
                 }
                 InsertEmptyRow(ref currentRow, 2);
 
-                GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH RẠNG SÁNG", ref currentRow);
+                GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH RẠNG SÁNG", date, ref currentRow);
                 foreach (var item in dawn)
                 {
                     GenerateScheduleRow(currentSheet, currentRow, item);
@@ -74,6 +88,7 @@ namespace ATV.ProgramDept.Service.Utilities
                 InsertEmptyRow(ref currentRow, 2);
 
                 AutoWidthColumn(currentSheet, 6);
+
             }
 
             return workbook;
@@ -101,12 +116,12 @@ namespace ATV.ProgramDept.Service.Utilities
             return font;
         }
 
-        private static void GenerateScheduleHeader(IWorkbook workbook, ISheet currentSheet, string label, ref int row)
+        private static void GenerateScheduleHeader(IWorkbook workbook, ISheet currentSheet, string label, string date, ref int row)
         {
             #region first row
             MergeCell(currentSheet, row, 0, row, 5);
             ICell labelCell = currentSheet.CreateRow(row).CreateCell(0);
-            labelCell.SetCellValue($"{label}                       {currentSheet.SheetName}: ");
+            labelCell.SetCellValue($"{label}                       {date} ");
             ICellStyle labelCellStyle = workbook.CreateCellStyle();
             labelCellStyle.SetFont(GetTitleFont(workbook));
             labelCell.CellStyle = labelCellStyle;
