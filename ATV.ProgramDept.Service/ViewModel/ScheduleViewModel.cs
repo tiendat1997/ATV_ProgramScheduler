@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ATV.ProgramDept.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,8 +12,9 @@ namespace ATV.ProgramDept.Service.ViewModel
         public int ID { get; set; }
         public string CreatedBy { get; set; }
         public int DateID { get; set; }
-        public bool IsActive { get; set; }
-
+        public Date Date { get; set; }
+        public bool IsActive { get; set; }        
+        public int DayOfWeek { get; set; }
         public List<ScheduleDetailViewModel> Details { get; set; }
     }
 }

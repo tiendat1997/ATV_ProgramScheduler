@@ -26,7 +26,8 @@ namespace ATV.ProgramDept.Service.Implement
                                 DateID = x.Schedule.DateID.Value,
                                 ProgramID = x.ProgramID,
                                 ScheduleID = x.ScheduleID.Value,
-                                Position = x.Position
+                                Position = x.Position,
+                                IsNoted = x.IsNoted.Value
                             });
             return list;
         }
@@ -40,6 +41,7 @@ namespace ATV.ProgramDept.Service.Implement
             {
                 if (idList.Contains(schedule.ID))
                 {
+                    //update aldready schedule
                     var item = currentListSchedule.Where(x => x.ID == schedule.ID).FirstOrDefault();
                     item.IsActive = true;
                     item.Note = schedule.Note;
@@ -48,10 +50,12 @@ namespace ATV.ProgramDept.Service.Implement
                     item.PerformBy = schedule.PerformBy;
                     item.Contents = schedule.Contents;
                     item.Position = schedule.Position;
+                    item.IsNoted = schedule.IsNoted;
                     this.Update(item);
                 }
                 else
                 {
+                    //new schedule
                     var item = new ScheduleDetail
                     {
                         IsActive = true,
@@ -62,7 +66,8 @@ namespace ATV.ProgramDept.Service.Implement
                         Contents = schedule.Contents,
                         Position = schedule.Position,
                         ProgramID = schedule.ProgramID,
-                        ScheduleID = schedule.ScheduleID
+                        ScheduleID = schedule.ScheduleID,
+                        IsNoted = schedule.IsNoted
                     };
                     this.Create(item);
                 }

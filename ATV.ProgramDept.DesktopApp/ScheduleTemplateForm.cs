@@ -23,8 +23,8 @@ namespace ATV.ProgramDept.DesktopApp
         private ContextMenu contextMenuDgv = new ContextMenu();
         private List<ScheduleTemplateDetailViewModel> listTemplateDetails;
         private ScheduleTemplateViewModel schedule;
-        public int DayOfWeek { get; set; }        
-        private int currentRowIndex; 
+        public int DayOfWeek { get; set; }
+        private int currentRowIndex;
         private readonly IScheduleTemplateRepository _scheduleTemplateRepository;
         private readonly IProgramRepository _programRepository;
         private IEditingHistoryRepository _editingHistoryRepository;
@@ -42,7 +42,7 @@ namespace ATV.ProgramDept.DesktopApp
         {
             schedule = _scheduleTemplateRepository.GetScheduleTemplate(DayOfWeek);
             listTemplateDetails = schedule.Details;
-            EstimateAndBindSource();     
+            EstimateAndBindSource();
         }
 
         private void ScheduleTemplateForm_Resize(object sender, EventArgs e)
@@ -57,25 +57,25 @@ namespace ATV.ProgramDept.DesktopApp
         {
             switch (DayOfWeek)
             {
-                case (byte)DayOfWeekEnum.Mon:
+                case (byte)DayOfWeekEnum.Monday:
                     lblTitle.Text = "Thứ 2";
                     break;
-                case (byte)DayOfWeekEnum.Tue:
+                case (byte)DayOfWeekEnum.Tuesday:
                     lblTitle.Text = "Thứ 3";
                     break;
-                case (byte)DayOfWeekEnum.Wed:
+                case (byte)DayOfWeekEnum.Wednesday:
                     lblTitle.Text = "Thứ 4";
                     break;
-                case (byte)DayOfWeekEnum.Thur:
+                case (byte)DayOfWeekEnum.Thursday:
                     lblTitle.Text = "Thứ 5";
                     break;
-                case (byte)DayOfWeekEnum.Fri:
+                case (byte)DayOfWeekEnum.Friday:
                     lblTitle.Text = "Thứ 6";
                     break;
-                case (byte)DayOfWeekEnum.Sat:
+                case (byte)DayOfWeekEnum.Saturday:
                     lblTitle.Text = "Thứ 7";
                     break;
-                case (byte)DayOfWeekEnum.Sun:
+                case (byte)DayOfWeekEnum.Sunday:
                     lblTitle.Text = "Chủ nhật ";
                     break;
                 default:
@@ -88,7 +88,7 @@ namespace ATV.ProgramDept.DesktopApp
             dgvScheduleTemplateDetail.AutoGenerateColumns = false;
             dgvScheduleTemplateDetail.ScrollBars = ScrollBars.Both;
             contextMenuDgv.MenuItems.Add("Chèn CT cố định", new EventHandler(InsertFixProgramEvent));
-            contextMenuDgv.MenuItems.Add("Chèn CT chen giờ", new EventHandler(InsertFlexProgramEvent));            
+            contextMenuDgv.MenuItems.Add("Chèn CT chen giờ", new EventHandler(InsertFlexProgramEvent));
         }
         // Insert CT Cố định
         private void InsertFixProgramEvent(object sender, EventArgs eventArgs)
@@ -101,7 +101,7 @@ namespace ATV.ProgramDept.DesktopApp
         {
             InsertedProgramForm insertedProgramForm = new InsertedProgramForm(this);
             insertedProgramForm.ShowDialog();
-        }        
+        }
         private void dgvScheduleTemplateDetail_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.ColumnIndex == 1 && e.Value != null) // StartTime Columns 
@@ -171,7 +171,7 @@ namespace ATV.ProgramDept.DesktopApp
                     contextMenuDgv.Show(dgvScheduleTemplateDetail, new Point(e.X, e.Y));
                     dgvScheduleTemplateDetail.ClearSelection();
                 }
-            }           
+            }
         }
 
         private void dgvScheduleTemplateDetail_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -191,21 +191,26 @@ namespace ATV.ProgramDept.DesktopApp
                     Duration = p.Duration.Value,
                     ProgramName = p.Name,
                     ProgramID = p.ID,
-                    PerformBy = p.PerformBy,                           
-                }).FirstOrDefault();            
+                    PerformBy = p.PerformBy,
+                }).FirstOrDefault();
             // check the last row if Dawn 
-            var lastItem = listTemplateDetails[listTemplateDetails.Count - 1];
-            var addDuration = new TimeSpan(0, (int)(scheduleDetail.Duration + lastItem.Duration), 0);
-            if (lastItem.StartTime >= TimeFrame.Dawn.StartTime
-                && lastItem.StartTime <= TimeFrame.Dawn.EndTime
-                && lastItem.StartTime.Add(addDuration) >= TimeFrame.Morning.StartTime)
+
+            if (listTemplateDetails.Count > 0)
             {
-                MessageBox.Show("Không thêm được vì lịch đã đầy!");
-                return;
+                var lastItem = listTemplateDetails[listTemplateDetails.Count - 1];
+                var addDuration = new TimeSpan(0, (int)(scheduleDetail.Duration + lastItem.Duration), 0);
+                if (lastItem.StartTime >= TimeFrame.Dawn.StartTime
+                    && lastItem.StartTime <= TimeFrame.Dawn.EndTime
+                    && lastItem.StartTime.Add(addDuration) >= TimeFrame.Morning.StartTime)
+                {
+                    MessageBox.Show("Không thêm được vì lịch đã đầy!");
+                    return;
+                }
             }
             listTemplateDetails.Insert(currentRowIndex, scheduleDetail);
             ReorderPositionScheduler();
             EstimateAndBindSource();
+
         }
         private void EstimateAndBindSource()
         {

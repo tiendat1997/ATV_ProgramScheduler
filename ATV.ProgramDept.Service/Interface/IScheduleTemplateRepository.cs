@@ -13,5 +13,6 @@ namespace ATV.ProgramDept.Service.Interface
         IEnumerable<ScheduleTemplateDetail> GetScheduleTemplateDetails(int dayOfWeek);
         ScheduleTemplateViewModel GetScheduleTemplate(int dayOfWeek);
         void UpdateScheduleTemplateDetails(int templateId, List<ScheduleTemplateDetailViewModel> list);
+        void CopyScheduleTemplateToSchedule(List<ScheduleViewModel> weekSchedules);
     }
 }

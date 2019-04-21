@@ -22,9 +22,8 @@ namespace ATV.ProgramDept.Entity
 
         public int WeekID { get; set; }
 
-        [Required]
-        [StringLength(200)]
-        public string DateOfWeek { get; set; }
+        [Required]        
+        public int DayOfWeek { get; set; }
 
         public DateTime DateOfYear { get; set; }
 

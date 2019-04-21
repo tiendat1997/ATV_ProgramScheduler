@@ -20,15 +20,16 @@ namespace ATV.ProgramDept.DesktopApp
 {
     public partial class EditorHomeForm : Form, IInsertProgram
     {
-
         private bool isEdit = false;
         private bool IsInsertInDgv = false;
         private int currentRowIndex;
         private int weekId;
+        private int year;
+        private int weekNumber;
         private int currentTabPageIndex = 0;
         private double oldDurationValue = 0;
         private ScheduleViewModel currentSchedule;
-        //private List<ScheduleDetailViewModel> weekSchedules;
+        //private List<ScheduleDetailViewModel> weekSchedules;        
         private List<ScheduleViewModel> weekSchedules;
         private List<ScheduleDetailViewModel> viewList;
         private IScheduleRepository scheduleRepository = new ScheduleRepository();
@@ -37,16 +38,21 @@ namespace ATV.ProgramDept.DesktopApp
         private int programIDToInsert;
         private bool readyForInsert;
         private readonly IProgramRepository _programRepository;
+        private readonly IScheduleTemplateRepository _templateRepository;
         private IEditingHistoryRepository _editingHistoryRepository;
         private IScheduleRepository _scheduleRepository;
 
         private ContextMenu contextMenuDgv = new ContextMenu();
+
+        private readonly int COL_SESSION = 0;
+        private readonly int COL_STARTTIME = 2;
 
         public EditorHomeForm()
         {
             readyForInsert = false;
             _programRepository = new ProgramRepository();
             _editingHistoryRepository = new EditingHistoryRepository();
+            _templateRepository = new ScheduleTemplateRepository();
             _scheduleRepository = new ScheduleRepository();
 
             InitializeComponent();
@@ -54,15 +60,16 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 this.btnToAdmin.Hide();
             }
-            InitDataGridView((int)DayOfWeekEnum.Mon);
+            year = DateTime.Now.Year;
+            weekNumber = TimeUtils.GetIso8601WeekOfYear(DateTime.Now);
+            InitDataGridView((int)DayOfWeekEnum.Monday);
         }
-
-        private void LoadDataToGridView(int dayId)
+        private void LoadDataToGridView(int dayOfWeek)
         {
-
-            currentSchedule = weekSchedules.Where(x => x.DateID == dayId).FirstOrDefault();
+            currentSchedule = weekSchedules.Where(x => x.Date.DayOfWeek == dayOfWeek).FirstOrDefault();
             if (currentSchedule == null)
             {
+                currentSchedule = new ScheduleViewModel();
                 viewList = new List<ScheduleDetailViewModel>();
             }
             else
@@ -74,12 +81,32 @@ namespace ATV.ProgramDept.DesktopApp
             var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
             dgvSchedule.DataSource = source;
+
+            txtDate.Text = currentSchedule.Date.DateOfYear.ToShortDateString();
         }
 
         private void InitDataGridView(int dayOfWeek)
         {
-            //_scheduleRepository = new ScheduleRepository();
-            weekId = weekRepository.GetWeekId(new DateTime(2019, 2, 7), new DateTime(2019, 2, 13));
+            bool isNew = false;
+            //_scheduleRepository = new ScheduleRepository();                        
+            lblWeek.Text = "Tuần: " + weekNumber;
+            dtpYear.Value = new DateTime(year, 1, 1);
+            DateTime monday = TimeUtils.FirstDateOfWeekISO8601(year, weekNumber);
+            DateTime sunday = monday.AddDays(6);
+            weekId = weekRepository.GetWeekId(monday, sunday);
+            if (weekId == -1)
+            {
+                // GENERATE NEW WEEK SCHEDULE and Dates
+                weekRepository.GenerateNewWeekAndDates(monday, sunday);
+                isNew = true; 
+            }            
+            weekId = weekRepository.GetWeekId(monday, sunday);
+            weekSchedules = _scheduleRepository.GetWeekSchedule(weekId).ToList();            
+            if (isNew)
+            {
+                // COPY SCHEDULE DETAIL OF TEMPLATE INTO CURRENT SCHEDULE                
+                _templateRepository.CopyScheduleTemplateToSchedule(weekSchedules);
+            }
             weekSchedules = _scheduleRepository.GetWeekSchedule(weekId).ToList();
             LoadDataToGridView(dayOfWeek);
         }
@@ -154,7 +181,7 @@ namespace ATV.ProgramDept.DesktopApp
             EditingHistory LatestEditingHistory;
             if (isEdit)
             {
-                LatestEditingHistory = _editingHistoryRepository.GetLastEditing(); 
+                LatestEditingHistory = _editingHistoryRepository.GetLastEditing();
                 isEdit = !isEdit;
                 //change button text
                 btnSaveSchedule.Text = "Chỉnh sửa";
@@ -255,11 +282,12 @@ namespace ATV.ProgramDept.DesktopApp
                         ProgramName = p.Name,
                         PerformBy = p.PerformBy,
                         ProgramID = p.ID,
-                        ScheduleID = currentSchedule.ID
+                        ScheduleID = currentSchedule.ID,
+                        
                     }).FirstOrDefault();
-                var scheduleDuration = new TimeSpan(0,(int)scheduleDetail.Duration,0);
+                var scheduleDuration = new TimeSpan(0, (int)scheduleDetail.Duration, 0);
                 // check the last row if Dawn 
-                if(viewList.Count > 0)
+                if (viewList.Count > 0)
                 {
                     var lastItem = viewList[viewList.Count - 1];
                     if (lastItem.StartTime >= TimeFrame.Dawn.StartTime
@@ -270,7 +298,7 @@ namespace ATV.ProgramDept.DesktopApp
                         return;
                     }
                 }
-                
+
                 viewList.Insert(currentRowIndex, scheduleDetail);
 
                 ReorderPositionScheduler();
@@ -427,28 +455,28 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void dgvSchedule_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == 1 && e.Value != null) // StartTime Columns 
+            if (e.ColumnIndex == COL_STARTTIME && e.Value != null) // StartTime Columns 
             {
                 var time = (TimeSpan)e.Value;
                 if (TimeFrame.Morning.StartTime <= time && time <= TimeFrame.Morning.EndTime)
                 {
-                    dgvSchedule[e.ColumnIndex - 1, e.RowIndex].Value = "Sáng";
+                    dgvSchedule[COL_SESSION, e.RowIndex].Value = "Sáng";
                 }
                 if (TimeFrame.Noon.StartTime <= time && time <= TimeFrame.Noon.EndTime)
                 {
-                    dgvSchedule[e.ColumnIndex - 1, e.RowIndex].Value = "Trưa";
+                    dgvSchedule[COL_SESSION, e.RowIndex].Value = "Trưa";
                 }
                 if (TimeFrame.AfternoonAndEvening.StartTime <= time && time <= TimeFrame.AfternoonAndEvening.EndTime)
                 {
-                    dgvSchedule[e.ColumnIndex - 1, e.RowIndex].Value = "Chiều tối";
+                    dgvSchedule[COL_SESSION, e.RowIndex].Value = "Chiều tối";
                 }
                 if (TimeFrame.Dawn.StartTime <= time && time <= TimeFrame.Dawn.EndTime)
                 {
-                    dgvSchedule[e.ColumnIndex - 1, e.RowIndex].Value = "Rạng";
+                    dgvSchedule[COL_SESSION, e.RowIndex].Value = "Rạng";
                 }
             }
 
-            if (e.ColumnIndex == 0)
+            if (e.ColumnIndex == COL_SESSION)
             {
                 if (e.RowIndex == 0)
                 {
