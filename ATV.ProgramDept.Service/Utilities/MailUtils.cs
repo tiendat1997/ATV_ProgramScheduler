@@ -1,5 +1,7 @@
-﻿using System;
+﻿using NPOI.SS.UserModel;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -10,11 +12,12 @@ namespace ATV.ProgramDept.Service.Utilities
 {
     public class MailUtils
     {
-        public static Task SendEmailAsync(string Destination, string Subject, string Body
+        public static Task SendEmailAsync(string Destination, string Subject, string Body, IWorkbook attachment, string FileName
             , string Host = "smtp.gmail.com", string Username = "trungtin719.tt2@gmail.com",
             string Password = "iyjahraggdectktg", int? Port = 587)
         {
             SmtpClient client = new SmtpClient();
+            client.EnableSsl = true;
             client.Port = Port.Value;
             client.Host = Host;
             client.EnableSsl = true;
@@ -32,9 +35,27 @@ namespace ATV.ProgramDept.Service.Utilities
 
             mail.Subject = Subject;
             mail.Body = Body;
-            //mail.Attachments.Add();
+            if (attachment != null)
+            {
+                System.IO.MemoryStream ms = new System.IO.MemoryStream();
+                attachment.Write(ms);
+                //System.IO.StreamWriter writer = new System.IO.StreamWriter(ms);
+                //writer.Write(attachment);
+                ms.Position = 0;
 
-            return client.SendMailAsync(mail);
+                System.Net.Mime.ContentType ct = new System.Net.Mime.ContentType("application/vnd.ms-excel");
+                System.Net.Mail.Attachment attach = new System.Net.Mail.Attachment(ms, ct);
+                attach.ContentDisposition.FileName = FileName;
+                mail.Attachments.Add(attach);
+                //mail.Attachments.Add(new Attachment("C:\\Sample.xls"));
+
+
+                //writer.Dispose();
+
+            }
+            //mail.Attachments.Add();
+            var result = client.SendMailAsync(mail);
+            return result;
         }
     }
 }

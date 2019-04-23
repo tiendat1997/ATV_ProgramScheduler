@@ -1,6 +1,7 @@
 ﻿using ATV.ProgramDept.Entity;
 using ATV.ProgramDept.Service.Implement;
 using ATV.ProgramDept.Service.Interface;
+using ATV.ProgramDept.Service.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,14 +16,16 @@ namespace ATV.ProgramDept.DesktopApp
 {
     public partial class SendEmailForm : Form
     {
+        private List<ScheduleViewModel> _scheduleViewModels;
         private IDepartmentRepository departmenRepository = new DepartmentRepository();
         public bool[] DateListChecked = { true, true, true, true, true, true, true };
         public Department Department;
         public int FileType; //1: sapo, 2:thường
-        public SendEmailForm()
+        public SendEmailForm(List<ScheduleViewModel> scheduleViewModels)
         {
             InitializeComponent();
             InitData();
+            _scheduleViewModels = scheduleViewModels;
         }
 
         void InitData()
@@ -64,10 +67,10 @@ namespace ATV.ProgramDept.DesktopApp
                 DateListChecked[4] = cbFriday.Checked;
                 DateListChecked[5] = cbSaturday.Checked;
                 DateListChecked[6] = cbSunday.Checked;
-                ConfirmSendEmailForm confirmSendEmailForm = new ConfirmSendEmailForm(this);
+                ConfirmSendEmailForm confirmSendEmailForm = new ConfirmSendEmailForm(this, _scheduleViewModels);
                 confirmSendEmailForm.ShowDialog();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại!");

@@ -610,7 +610,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void TsmiEditorEmail_Click(object sender, EventArgs e)
         {
-            SendEmailForm sendEmailForm = new SendEmailForm();
+            SendEmailForm sendEmailForm = new SendEmailForm(weekSchedules);
             sendEmailForm.ShowDialog();
         }
 

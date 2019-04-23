@@ -1,4 +1,5 @@
-﻿using ATV.ProgramDept.Service.Utilities;
+﻿using ATV.ProgramDept.Service.Enum;
+using ATV.ProgramDept.Service.Utilities;
 using ATV.ProgramDept.Service.ViewModel;
 using NPOI.SS.UserModel;
 using System;
@@ -58,31 +59,31 @@ namespace ATV.ProgramDept.DesktopApp
             List<ScheduleViewModel> exportSchedule = new List<ScheduleViewModel>();
             if (ckbMonday.Checked)
             {
-                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeek.Monday).FirstOrDefault());
+                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeekEnum.Monday).FirstOrDefault());
             }
             if (ckbTuesday.Checked)
             {
-                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeek.Tuesday).FirstOrDefault());
+                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeekEnum.Tuesday).FirstOrDefault());
             }
             if (ckbWednesday.Checked)
             {
-                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeek.Wednesday).FirstOrDefault());
+                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeekEnum.Wednesday).FirstOrDefault());
             }
             if (ckbThursday.Checked)
             {
-                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeek.Thursday).FirstOrDefault());
+                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeekEnum.Thursday).FirstOrDefault());
             }
             if (ckbFriday.Checked)
             {
-                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeek.Friday).FirstOrDefault());
+                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeekEnum.Friday).FirstOrDefault());
             }
             if (ckbSaturday.Checked)
             {
-                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeek.Saturday).FirstOrDefault());
+                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeekEnum.Saturday).FirstOrDefault());
             }
             if (ckbSunday.Checked)
             {
-                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeek.Sunday).FirstOrDefault());
+                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeekEnum.Sunday).FirstOrDefault());
             }
 
             return exportSchedule;
