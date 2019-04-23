@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ATVContext.cs" />
+    <Compile Include="BaseDbContext.cs" />
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Date.cs" />
     <Compile Include="Department.cs" />

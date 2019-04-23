@@ -5,11 +5,10 @@ namespace ATV.ProgramDept.Entity
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class ATVContext : DbContext
+    public partial class ATVContext : BaseDbContext
     {
-        public ATVContext()
-            : base("name=ATVContext")
-        {
+        public ATVContext() : base("ATVContext")
+        {            
         }
 
         public virtual DbSet<Date> Date { get; set; }
@@ -24,7 +23,7 @@ namespace ATV.ProgramDept.Entity
         public virtual DbSet<ScheduleTemplate> ScheduleTemplate { get; set; }
         public virtual DbSet<ScheduleTemplateDetail> ScheduleTemplateDetail { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<User> User { get; set; }
+        public DbSet<User> User { get; set; }
         public virtual DbSet<Week> Week { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

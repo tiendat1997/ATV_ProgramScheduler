@@ -18,10 +18,8 @@ namespace ATV.ProgramDept.Service.Implement
         }
         public bool ChangePassword(string Username, string NewPassword)
         {
-            string PasswordHash = MD5Utils.CreateMD5FromASCII(NewPassword);
-            User user = this._context.User
-                .Where(p => p.Username == Username)
-                .FirstOrDefault();
+            string PasswordHash = MD5Utils.CreateMD5FromASCII(NewPassword);            
+            User user = Find(p => p.Username == Username).FirstOrDefault();
             if (user == null)
             {
                 return false;
@@ -44,8 +42,7 @@ namespace ATV.ProgramDept.Service.Implement
         public LoggedInUserInfomation Login(string Username, string Password)
         {
             string PasswordHash = MD5Utils.CreateMD5FromASCII(Password);
-            User user = this._context.User
-                .Where(p => p.Username == Username && p.PasswordHash == PasswordHash)
+            User user = Find(p => p.Username == Username && p.PasswordHash == PasswordHash)
                 .FirstOrDefault();
             if (user == null)
             {
