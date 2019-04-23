@@ -33,25 +33,25 @@ namespace ATV.ProgramDept.DesktopApp
         {
             switch (DayOfWeek)
             {
-                case (byte)DayOfWeekEnum.Mon:
+                case (byte)DayOfWeekEnum.Monday:
                     lblDayOfWeek.Text = "Thứ 2";
                     break;
-                case (byte)DayOfWeekEnum.Tue:
+                case (byte)DayOfWeekEnum.Tuesday:
                     lblDayOfWeek.Text = "Thứ 3";
                     break;
-                case (byte)DayOfWeekEnum.Wed:
+                case (byte)DayOfWeekEnum.Wednesday:
                     lblDayOfWeek.Text = "Thứ 4";
                     break;
-                case (byte)DayOfWeekEnum.Thur:
+                case (byte)DayOfWeekEnum.Thursday:
                     lblDayOfWeek.Text = "Thứ 5";
                     break;
-                case (byte)DayOfWeekEnum.Fri:
+                case (byte)DayOfWeekEnum.Friday:
                     lblDayOfWeek.Text = "Thứ 6";
                     break;
-                case (byte)DayOfWeekEnum.Sat:
+                case (byte)DayOfWeekEnum.Saturday:
                     lblDayOfWeek.Text = "Thứ 7";
                     break;
-                case (byte)DayOfWeekEnum.Sun:
+                case (byte)DayOfWeekEnum.Sunday:
                     lblDayOfWeek.Text = "Chủ nhật ";
                     break;
                 default:

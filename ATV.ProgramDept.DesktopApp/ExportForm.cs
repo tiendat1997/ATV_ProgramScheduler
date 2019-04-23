@@ -4,6 +4,7 @@ using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ATV.ProgramDept.DesktopApp
@@ -35,11 +36,11 @@ namespace ATV.ProgramDept.DesktopApp
                 IWorkbook workbook = null;
                 if (saveFileDialog.FilterIndex == 2)
                 {
-                    workbook = ExcelUtils.ExportWeeklySchedule(_scheduleViewModels, ExcelUtils.TYPE_XLSX);
+                    workbook = ExcelUtils.ExportWeeklySchedule(GetExportSchedule(), ExcelUtils.TYPE_XLSX);
                 }
                 else if (saveFileDialog.FilterIndex == 1)
                 {
-                    workbook = ExcelUtils.ExportWeeklySchedule(_scheduleViewModels, ExcelUtils.TYPE_XLS);
+                    workbook = ExcelUtils.ExportWeeklySchedule(GetExportSchedule(), ExcelUtils.TYPE_XLS);
                 }
 
                 if (workbook != null)
@@ -50,6 +51,41 @@ namespace ATV.ProgramDept.DesktopApp
                 fileStream.Close();
                 this.Close();
             }
+        }
+
+        private List<ScheduleViewModel> GetExportSchedule()
+        {
+            List<ScheduleViewModel> exportSchedule = new List<ScheduleViewModel>();
+            if (ckbMonday.Checked)
+            {
+                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeek.Monday).FirstOrDefault());
+            }
+            if (ckbTuesday.Checked)
+            {
+                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeek.Tuesday).FirstOrDefault());
+            }
+            if (ckbWednesday.Checked)
+            {
+                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeek.Wednesday).FirstOrDefault());
+            }
+            if (ckbThursday.Checked)
+            {
+                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeek.Thursday).FirstOrDefault());
+            }
+            if (ckbFriday.Checked)
+            {
+                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeek.Friday).FirstOrDefault());
+            }
+            if (ckbSaturday.Checked)
+            {
+                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeek.Saturday).FirstOrDefault());
+            }
+            if (ckbSunday.Checked)
+            {
+                exportSchedule.Add(_scheduleViewModels.Where(s => s.DayOfWeek == (int)DayOfWeek.Sunday).FirstOrDefault());
+            }
+
+            return exportSchedule;
         }
     }
 }

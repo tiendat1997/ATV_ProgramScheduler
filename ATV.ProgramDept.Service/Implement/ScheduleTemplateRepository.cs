@@ -1,4 +1,5 @@
 ﻿using ATV.ProgramDept.Entity;
+using ATV.ProgramDept.Service.Enum;
 using ATV.ProgramDept.Service.Interface;
 using ATV.ProgramDept.Service.ViewModel;
 using System;
@@ -12,9 +13,36 @@ namespace ATV.ProgramDept.Service.Implement
     public class ScheduleTemplateRepository : Repository<ScheduleTemplate>, IScheduleTemplateRepository
     {
         private readonly IScheduleTemplateDetailRepository _scheduleTemplateDetailRepository;
+        private readonly IScheduleDetailRepository _scheduleDetailRepository;
         public ScheduleTemplateRepository()
         {
             _scheduleTemplateDetailRepository = new ScheduleTemplateDetailRepository();
+            _scheduleDetailRepository = new ScheduleDetailRepository();
+        }
+        public void CopyScheduleTemplateToSchedule(List<ScheduleViewModel> weekSchedules)
+        {
+            foreach (var schedule in weekSchedules)
+            {            
+                var templateDetails = Find(s => s.IsActive == true && s.DayOfWeek == schedule.DayOfWeek)
+                    .SelectMany(s => s.ScheduleTemplateDetail)
+                    .ToList();
+                foreach (var details in templateDetails)
+                {
+                    _scheduleDetailRepository.Create(new ScheduleDetail {
+                        ScheduleID = schedule.ID,                        
+                        ProgramID = details.ProgramID,
+                        ProgramName = details.ProgramName,
+                        IsActive = details.IsActive,
+                        Contents = details.Contents,
+                        Duration = details.Duration,
+                        IsNoted = details.IsNoted,
+                        Note = details.Note,
+                        PerformBy = details.PerformBy,
+                        Position = details.Position,                                                
+                    });
+                    _scheduleDetailRepository.Save();
+                }                    
+            }
         }
 
         public ScheduleTemplateViewModel GetScheduleTemplate(int dayOfWeek)
