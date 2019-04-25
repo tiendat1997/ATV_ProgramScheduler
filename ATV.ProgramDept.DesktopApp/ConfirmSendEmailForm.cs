@@ -47,7 +47,7 @@ namespace ATV.ProgramDept.DesktopApp
                 workbook.Write(fileStream);
 
             }
-            var result = MailUtils.SendEmailAsync(txtEmail.Text, txtSubject.Text, rtbContent.Text, workbook, "lich-phat-song" + _scheduleViewModels.FirstOrDefault().Date.DateOfYear.ToString("dd-MM-yyyy"));
+            var result = MailUtils.SendEmailAsync(txtEmail.Text, txtSubject.Text, rtbContent.Text, workbook, "lich-phat-song" + _scheduleViewModels.FirstOrDefault().Date.DateOfYear.ToString("dd-MM-yyyy")+".xls");
             fileStream.Close();
             MessageBox.Show("Đã gửi email tới " + parent.Department.Name);
             this.Close();
