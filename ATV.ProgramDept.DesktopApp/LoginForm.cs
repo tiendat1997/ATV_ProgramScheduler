@@ -57,19 +57,21 @@ namespace ATV.ProgramDept.DesktopApp
 
             //Thông báo người sửa gần nhất
             EditingHistory MostRecentEditingHistory = _editingHistoryRepository.GetAll()
-                .OrderByDescending(p => p.Time).First();
-            MessageBox.Show("Lần sửa gần nhất bởi " 
-                + MostRecentEditingHistory.User.Username 
-                + "(" 
-                + MostRecentEditingHistory.User.Name 
-                + ") lúc " 
+                .OrderByDescending(p => p.Time).FirstOrDefault();
+            if (MostRecentEditingHistory != null)
+            {
+                MessageBox.Show("Lần sửa gần nhất bởi "
+                + MostRecentEditingHistory.User.Username
+                + "("
+                + MostRecentEditingHistory.User.Name
+                + ") lúc "
                 + MostRecentEditingHistory.Time.ToLongTimeString());
-            
+            }
+
             this.Hide();
             EditorHomeForm editorHome = new EditorHomeForm();
             editorHome.ShowDialog();
             this.Close();
-
         }
 
         private void txtUsername_KeyDown(object sender, KeyEventArgs e)

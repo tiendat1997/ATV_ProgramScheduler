@@ -198,7 +198,8 @@ namespace ATV.ProgramDept.DesktopApp
             else
             {
                 LatestEditingHistory = _editingHistoryRepository.GetLastEditingAsNoTracking();
-                if (LatestEditingHistory.IsFinished)
+                
+                if (LatestEditingHistory == null || LatestEditingHistory.IsFinished)
                 {
                     isEdit = !isEdit;
 
@@ -209,7 +210,7 @@ namespace ATV.ProgramDept.DesktopApp
                     EditingHistory editingHistory = new EditingHistory()
                     {
                         UserID = Program.User.ID,
-                        WeekID = 1, //đang nhập mặc định là 1, giải quyết sau
+                        WeekID = 25, //đang nhập mặc định là 1, giải quyết sau
                         IsFinished = false,
                         Time = DateTime.Now
                     };
@@ -283,7 +284,6 @@ namespace ATV.ProgramDept.DesktopApp
                         PerformBy = p.PerformBy,
                         ProgramID = p.ID,
                         ScheduleID = currentSchedule.ID,
-                        
                     }).FirstOrDefault();
                 var scheduleDuration = new TimeSpan(0, (int)scheduleDetail.Duration, 0);
                 // check the last row if Dawn 
