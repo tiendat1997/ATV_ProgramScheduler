@@ -206,10 +206,12 @@ namespace ATV.ProgramDept.DesktopApp
                     btnSaveSchedule.Text = "Lưu";
 
                     //update start editing block
+                    
+                        
                     EditingHistory editingHistory = new EditingHistory()
                     {
                         UserID = Program.User.ID,
-                        WeekID = 1, //đang nhập mặc định là 1, giải quyết sau
+                        WeekID = weekSchedules.FirstOrDefault().Date.WeekID,
                         IsFinished = false,
                         Time = DateTime.Now
                     };

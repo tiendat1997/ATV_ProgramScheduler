@@ -63,7 +63,14 @@ namespace ATV.ProgramDept.DesktopApp
                 + "(" 
                 + MostRecentEditingHistory.User.Name 
                 + ") lúc " 
-                + MostRecentEditingHistory.Time.ToLongTimeString());
+                + MostRecentEditingHistory.Time.ToLongTimeString()
+                + " ngày " + MostRecentEditingHistory.Time.ToString("dd/MM/yyyy")
+                + "\nTuần được sửa: Tuần " 
+                + TimeUtils.GetIso8601WeekOfYear(MostRecentEditingHistory.Week.FromDate)
+                + " (Từ " + MostRecentEditingHistory.Week.FromDate.ToString("dd/MM/yyyy")
+                + " tới " + MostRecentEditingHistory.Week.ToDate.ToString("dd/MM/yyyy")
+                + ")"
+                );
             
             this.Hide();
             EditorHomeForm editorHome = new EditorHomeForm();
