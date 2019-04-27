@@ -33,7 +33,27 @@ namespace ATV.ProgramDept.DesktopApp
         {
             txtEmail.Text = parent.Department.Email;
             txtSubject.Text = "Gửi lịch phát sóng";
-            rtbContent.Text = "Kính gửi...";
+            //wbContent.ActiveXInstance
+            //wbContent.DocumentText = "<p>Kính gửi...<p>";
+
+            wbContent.Navigate("about:blank");
+            Application.DoEvents();
+            wbContent.Document.OpenNew(false).Write("<html><body><div id=\"editable\">Kính gửi "
+                + parent.Department.Name + ","
+                + "</div></body></html>");
+
+            foreach (HtmlElement el in wbContent.Document.All)
+            {
+                el.SetAttribute("unselectable", "on");
+                el.SetAttribute("contenteditable", "false");
+            }
+
+            wbContent.Document.Body.SetAttribute("width", this.Width.ToString() + "px");
+            wbContent.Document.Body.SetAttribute("height", "100%");
+            wbContent.Document.Body.SetAttribute("contenteditable", "true");
+            wbContent.Document.DomDocument.GetType().GetProperty("designMode").SetValue(wbContent.Document.DomDocument, "On", null);
+            wbContent.IsWebBrowserContextMenuEnabled = false;
+
             lblFileName.Text = "lich-phat-song" + _scheduleViewModels.FirstOrDefault().Date.DateOfYear.ToString("dd-MM-yyyy");
         }
 
@@ -47,7 +67,7 @@ namespace ATV.ProgramDept.DesktopApp
                 workbook.Write(fileStream);
 
             }
-            var result = MailUtils.SendEmailAsync(txtEmail.Text, txtSubject.Text, rtbContent.Text, workbook, "lich-phat-song" + _scheduleViewModels.FirstOrDefault().Date.DateOfYear.ToString("dd-MM-yyyy")+".xls");
+            var result = MailUtils.SendEmailAsync(txtEmail.Text, txtSubject.Text, wbContent.DocumentText, workbook, "lich-phat-song" + _scheduleViewModels.FirstOrDefault().Date.DateOfYear.ToString("dd-MM-yyyy")+".xls");
             fileStream.Close();
             MessageBox.Show("Đã gửi email tới " + parent.Department.Name);
             this.Close();
