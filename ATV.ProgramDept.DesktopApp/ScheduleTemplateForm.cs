@@ -40,7 +40,7 @@ namespace ATV.ProgramDept.DesktopApp
         }
         private void InitSampleDataForDataGridView()
         {
-            schedule = _scheduleTemplateRepository.GetScheduleTemplate(DayOfWeek);
+            schedule = _scheduleTemplateRepository.GetScheduleTemplate(DayOfWeek);            
             listTemplateDetails = schedule.Details;
             EstimateAndBindSource();
         }

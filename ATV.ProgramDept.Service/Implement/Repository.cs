@@ -35,6 +35,10 @@ namespace ATV.ProgramDept.Service.Implement
         {            
             dbSet.Remove(entity);
         }
+        public IEnumerable<T> FindAsNoTracking(Expression<Func<T, bool>> predicate)
+        {
+            return _context.Set<T>().AsNoTracking<T>().Where(predicate);
+        }
 
         public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
@@ -44,17 +48,16 @@ namespace ATV.ProgramDept.Service.Implement
         public T FindById(int id)
         {
             return _context.Set<T>().Find(id);
-        }        
+        }                
 
         public IEnumerable<T> GetAll()
-        {
+        {            
             return _context.Set<T>();
         }
 
         public void Update(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            //dbSet.Attach(entity);
         }
 
         public void Save()

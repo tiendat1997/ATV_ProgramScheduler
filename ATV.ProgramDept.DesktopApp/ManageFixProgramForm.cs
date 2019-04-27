@@ -117,7 +117,50 @@ namespace ATV.ProgramDept.DesktopApp
             // validate PerformBy
             return isValidate;
         }
+        private void ResetNewProgramFields()
+        {
+            txtName.Text = "";
+            txtDuration.Text = "";
+            txtPerformBy.Text = "";
+            txtName.Focus();
+        }
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string name = txtName.Text.Trim();
+                string duration = txtDuration.Text.Trim();
+                string performBy = txtPerformBy.Text.Trim();
+                // New Fix Program
+                if (CheckValidate(name, duration, performBy))
+                {
+                    var newFixProgram = new Entity.Program
+                    {
+                        Name = name,
+                        Duration = Double.Parse(duration),
+                        PerformBy = performBy,
+                        IsActive = true,
+                        ProgramTypeID = (int)ProgramTypeEnum.Static
+                    };
+                    _programRepository.Create(newFixProgram);
+                    _programRepository.Save();
+                    if (MessageBox.Show("Tạo CT thành công!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
+                    {
+                        ReloadFixProgram();
+                        ResetNewProgramFields();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("NEW_FIX_PROGRAM_FORM " + ex.Message);
+                if (MessageBox.Show("Xảy ra lỗi khi tạo CT", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
+                {                    
+                }
+            }
 
 
+        }
     }
 }

@@ -85,10 +85,11 @@ namespace ATV.ProgramDept.Service.Implement
         }
 
         public void UpdateScheduleTemplateDetails(int templateId, List<ScheduleTemplateDetailViewModel> updateList)
-        {
-            var currentList = Find(s => s.IsActive == true && s.ID == templateId)
+        {            
+            var currentList = FindAsNoTracking(s => s.IsActive == true && s.ID == templateId)                                                
                 .SelectMany(t => t.ScheduleTemplateDetail)
-                .ToList();
+                .ToList();            
+
             var idList = currentList.Select(t => t.ID).ToList();
 
             // disable all schedule list in template 
@@ -112,7 +113,6 @@ namespace ATV.ProgramDept.Service.Implement
                     scheduleDetail.ProgramName = item.ProgramName;
                     scheduleDetail.IsActive = true;
                     _scheduleTemplateDetailRepository.Update(scheduleDetail);
-                    _scheduleTemplateDetailRepository.Save();
                 }
                 else
                 {
@@ -130,11 +130,9 @@ namespace ATV.ProgramDept.Service.Implement
                         ScheduleTemplateID = templateId,
                     };
                     _scheduleTemplateDetailRepository.Create(newDetail);
-                    _scheduleTemplateDetailRepository.Save();
                 }
+                _scheduleTemplateDetailRepository.Save();
             }
-            // update new list
-
         }
     }
 }
