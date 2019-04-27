@@ -33,9 +33,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.txtSubject = new System.Windows.Forms.TextBox();
-            this.rtbContent = new System.Windows.Forms.RichTextBox();
             this.btnSend = new System.Windows.Forms.Button();
             this.lblFileName = new System.Windows.Forms.Label();
+            this.wbContent = new System.Windows.Forms.WebBrowser();
             this.SuspendLayout();
             // 
             // label1
@@ -79,14 +79,6 @@
             this.txtSubject.Size = new System.Drawing.Size(340, 27);
             this.txtSubject.TabIndex = 4;
             // 
-            // rtbContent
-            // 
-            this.rtbContent.Location = new System.Drawing.Point(149, 124);
-            this.rtbContent.Name = "rtbContent";
-            this.rtbContent.Size = new System.Drawing.Size(340, 248);
-            this.rtbContent.TabIndex = 5;
-            this.rtbContent.Text = "";
-            // 
             // btnSend
             // 
             this.btnSend.Location = new System.Drawing.Point(414, 426);
@@ -107,14 +99,22 @@
             this.lblFileName.TabIndex = 7;
             this.lblFileName.Text = "Tên file";
             // 
+            // wbContent
+            // 
+            this.wbContent.Location = new System.Drawing.Point(149, 124);
+            this.wbContent.MinimumSize = new System.Drawing.Size(20, 20);
+            this.wbContent.Name = "wbContent";
+            this.wbContent.Size = new System.Drawing.Size(340, 256);
+            this.wbContent.TabIndex = 8;
+            // 
             // ConfirmSendEmailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(541, 490);
+            this.Controls.Add(this.wbContent);
             this.Controls.Add(this.lblFileName);
             this.Controls.Add(this.btnSend);
-            this.Controls.Add(this.rtbContent);
             this.Controls.Add(this.txtSubject);
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.label3);
@@ -136,8 +136,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.TextBox txtSubject;
-        private System.Windows.Forms.RichTextBox rtbContent;
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.Label lblFileName;
+        private System.Windows.Forms.WebBrowser wbContent;
     }
 }

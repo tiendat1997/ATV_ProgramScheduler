@@ -57,17 +57,21 @@ namespace ATV.ProgramDept.DesktopApp
 
             //Thông báo người sửa gần nhất
             EditingHistory MostRecentEditingHistory = _editingHistoryRepository.GetAll()
-                .OrderByDescending(p => p.Time).FirstOrDefault();
-            if (MostRecentEditingHistory != null)
-            {
-                MessageBox.Show("Lần sửa gần nhất bởi "
-                + MostRecentEditingHistory.User.Username
-                + "("
-                + MostRecentEditingHistory.User.Name
-                + ") lúc "
-                + MostRecentEditingHistory.Time.ToLongTimeString());
-            }
-
+                .OrderByDescending(p => p.Time).First();
+            MessageBox.Show("Lần sửa gần nhất bởi " 
+                + MostRecentEditingHistory.User.Username 
+                + "(" 
+                + MostRecentEditingHistory.User.Name 
+                + ") lúc " 
+                + MostRecentEditingHistory.Time.ToLongTimeString()
+                + " ngày " + MostRecentEditingHistory.Time.ToString("dd/MM/yyyy")
+                + "\nTuần được sửa: Tuần " 
+                + TimeUtils.GetIso8601WeekOfYear(MostRecentEditingHistory.Week.FromDate)
+                + " (Từ " + MostRecentEditingHistory.Week.FromDate.ToString("dd/MM/yyyy")
+                + " tới " + MostRecentEditingHistory.Week.ToDate.ToString("dd/MM/yyyy")
+                + ")"
+                );
+            
             this.Hide();
             EditorHomeForm editorHome = new EditorHomeForm();
             editorHome.ShowDialog();
