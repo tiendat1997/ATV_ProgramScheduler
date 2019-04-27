@@ -228,7 +228,6 @@
             // 
             this.dgvSchedule.AllowDrop = true;
             this.dgvSchedule.AllowUserToAddRows = false;
-            this.dgvSchedule.AllowUserToResizeColumns = false;
             this.dgvSchedule.AllowUserToResizeRows = false;
             this.dgvSchedule.AutoGenerateColumns = false;
             this.dgvSchedule.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;

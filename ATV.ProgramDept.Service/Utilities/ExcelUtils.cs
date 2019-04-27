@@ -90,7 +90,7 @@ namespace ATV.ProgramDept.Service.Utilities
                 }
                 InsertEmptyRow(ref currentRow, 2);
 
-                AutoWidthColumn(currentSheet, 6);
+                //AutoWidthColumn(currentSheet, 6);
 
             }
 
