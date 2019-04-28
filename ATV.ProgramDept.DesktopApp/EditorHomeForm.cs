@@ -64,6 +64,8 @@ namespace ATV.ProgramDept.DesktopApp
             year = DateTime.Now.Year;
             weekNumber = TimeUtils.GetIso8601WeekOfYear(DateTime.Now);
             InitDataGridView((int)DayOfWeekEnum.Monday);
+            this.dgvSchedule.Columns[COL_DURATION].DefaultCellStyle.Format = "F2";//chỉnh định dạng hiện thập phân 2 chữ số ở gridview, 
+            // link tham khảo https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings
         }
         private void LoadDataToGridView(int dayOfWeek)
         {
