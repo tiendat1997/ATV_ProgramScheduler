@@ -50,6 +50,14 @@ namespace ATV.ProgramDept.Service.Utilities
 
                 }
 
+                //add page break and setup print
+                currentSheet.Autobreaks = false;
+                IPrintSetup ps = currentSheet.PrintSetup;
+                ps.Landscape = true;
+                ps.PaperSize = (short)PaperSize.A4;
+
+                //get cell style
+                ICellStyle cellStyle = GenerateCellContentStyle(workbook);
                 //add data
                 var scheduleDetail = schedules[i].Details;
 
@@ -61,36 +69,42 @@ namespace ATV.ProgramDept.Service.Utilities
                 GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH SÁNG", date, ref currentRow);
                 foreach (var item in morningList)
                 {
-                    GenerateScheduleRow(currentSheet, currentRow, item);
+                    GenerateScheduleRow(currentSheet, cellStyle, currentRow, item);
                     currentRow++;
                 }
                 InsertEmptyRow(ref currentRow, 2);
+                currentSheet.SetRowBreak(currentRow);
+
 
                 GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH TRƯA", date, ref currentRow);
                 foreach (var item in noonList)
                 {
-                    GenerateScheduleRow(currentSheet, currentRow, item);
+                    GenerateScheduleRow(currentSheet, cellStyle, currentRow, item);
                     currentRow++;
                 }
                 InsertEmptyRow(ref currentRow, 2);
+                currentSheet.SetRowBreak(currentRow);
 
                 GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH CHIỀU VÀ TỐI", date, ref currentRow);
                 foreach (var item in afternoonList)
                 {
-                    GenerateScheduleRow(currentSheet, currentRow, item);
+                    GenerateScheduleRow(currentSheet, cellStyle, currentRow, item);
                     currentRow++;
                 }
                 InsertEmptyRow(ref currentRow, 2);
+                currentSheet.SetRowBreak(currentRow);
 
                 GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH RẠNG SÁNG", date, ref currentRow);
                 foreach (var item in dawn)
                 {
-                    GenerateScheduleRow(currentSheet, currentRow, item);
+                    GenerateScheduleRow(currentSheet, cellStyle, currentRow, item);
                     currentRow++;
                 }
                 InsertEmptyRow(ref currentRow, 2);
+                currentSheet.SetRowBreak(currentRow);
 
                 //AutoWidthColumn(currentSheet, 6);
+                FixedWidthColumn(currentSheet);
 
             }
 
@@ -127,6 +141,8 @@ namespace ATV.ProgramDept.Service.Utilities
             labelCell.SetCellValue($"{label}                       {date} ");
             ICellStyle labelCellStyle = workbook.CreateCellStyle();
             labelCellStyle.SetFont(GetTitleFont(workbook));
+
+            
             labelCell.CellStyle = labelCellStyle;
             #endregion
 
@@ -137,6 +153,10 @@ namespace ATV.ProgramDept.Service.Utilities
             ICell cell = null;
             ICellStyle cellStyle = workbook.CreateCellStyle();
             cellStyle.SetFont(GetHeaderFont(workbook));
+            cellStyle.BorderLeft = BorderStyle.Medium;
+            cellStyle.BorderTop = BorderStyle.Medium;
+            cellStyle.BorderRight = BorderStyle.Medium;
+            cellStyle.BorderBottom = BorderStyle.Medium;
 
             int col = 0;
             cell = titleRow.CreateCell(col);
@@ -181,27 +201,72 @@ namespace ATV.ProgramDept.Service.Utilities
             }
         }
 
-        private static void GenerateScheduleRow(ISheet sheet, int rowIndex, ScheduleDetailViewModel schedule)
+        private static void FixedWidthColumn(ISheet sheet)
+        {
+            sheet.SetColumnWidth(0, 2500);
+            sheet.SetColumnWidth(1, 12000);
+            sheet.SetColumnWidth(2, 18000);
+            sheet.SetColumnWidth(3, 4000);
+            sheet.SetColumnWidth(4, 2500);
+            sheet.SetColumnWidth(5, 6000);
+        }
+
+        private static ICellStyle GenerateCellContentStyle(IWorkbook workbook)
+        {
+            ICellStyle cellstyle = workbook.CreateCellStyle();
+            cellstyle.WrapText = true;
+            cellstyle.VerticalAlignment = VerticalAlignment.Center;
+            cellstyle.Alignment = HorizontalAlignment.Center;
+            cellstyle.BorderLeft = BorderStyle.Medium;
+            cellstyle.BorderTop = BorderStyle.Medium;
+            cellstyle.BorderRight = BorderStyle.Medium;
+            cellstyle.BorderBottom = BorderStyle.Medium;
+            return cellstyle;
+        }
+
+        private static void GenerateScheduleRow(ISheet sheet, ICellStyle cellStyle, int rowIndex, ScheduleDetailViewModel schedule)
         {
             IRow currentRow = sheet.CreateRow(rowIndex);
+            ICell cell;
 
             int col = 0;
-            currentRow.CreateCell(col).SetCellValue(schedule.StartTime.ToString());
+            cell = currentRow.CreateCell(col);
+            cell.CellStyle = cellStyle;
+            cell.SetCellValue(schedule.StartTime.ToString());
 
             col++;
-            currentRow.CreateCell(col).SetCellValue(schedule.ProgramName);
+            if (schedule.IsNoted)
+            {
+                cell = currentRow.CreateCell(col);
+                cell.CellStyle = cellStyle;
+                cell.SetCellValue("* " + schedule.ProgramName);
+            }
+            else
+            {
+                cell = currentRow.CreateCell(col);
+                cell.CellStyle = cellStyle;
+                cell.SetCellValue(schedule.ProgramName);
+            }
 
             col++;
-            currentRow.CreateCell(col).SetCellValue(schedule.Contents);
+            cell = currentRow.CreateCell(col);
+            cell.CellStyle = cellStyle;
+            cell.SetCellValue(schedule.Contents);
 
             col++;
-            currentRow.CreateCell(col).SetCellValue(schedule.PerformBy);
+            cell = currentRow.CreateCell(col);
+            cell.CellStyle = cellStyle;
+            cell.SetCellValue(schedule.PerformBy);
 
             col++;
-            currentRow.CreateCell(col).SetCellValue(schedule.Duration + "");
+            cell = currentRow.CreateCell(col);
+            cell.CellStyle = cellStyle;
+            cell.SetCellValue(schedule.Duration + "");
 
             col++;
-            currentRow.CreateCell(col).SetCellValue(schedule.Note);
+            cell = currentRow.CreateCell(col);
+            cell.CellStyle = cellStyle;
+            cell.SetCellValue(schedule.Note);
 
         }
         private static void MergeCell(ISheet sheet, int startRow, int startCol, int endRow, int endCol)
