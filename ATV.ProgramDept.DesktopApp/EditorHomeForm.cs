@@ -46,6 +46,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private readonly int COL_SESSION = 0;
         private readonly int COL_STARTTIME = 2;
+        private readonly int COL_DURATION = 6;
 
         public EditorHomeForm()
         {
@@ -505,7 +506,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void dgvSchedule_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 5) // Duration Columns
+            if (e.ColumnIndex == COL_DURATION) // Duration Columns
             {
                 ScheduleUlities.EstimateStartTime(viewList);
                 var result = ScheduleUlities.EstimateStartTime(viewList);

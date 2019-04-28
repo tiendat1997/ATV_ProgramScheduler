@@ -13,7 +13,7 @@ namespace ATV.ProgramDept.Service.Utilities
     {
         private static readonly TimeSpan DEFAULT_START_TIME = new TimeSpan(5, 0, 0);
 
-        public static bool EstimateStartTime<T>(List<T> schedules) where T:ScheduleBase
+        public static bool EstimateStartTime<T>(List<T> schedules) where T : ScheduleBase
         {
             TimeSpan startTime = DEFAULT_START_TIME;
             if (schedules != null && schedules.Count > 0)
@@ -25,20 +25,24 @@ namespace ATV.ProgramDept.Service.Utilities
                 bool isDawn = false;
                 foreach (ScheduleBase schedule in schedules)
                 {
-                    schedule.StartTime = prev.Add(new TimeSpan(hours,minutes,(int)seconds));
+                    schedule.StartTime = prev.Add(new TimeSpan(hours, minutes, seconds));
                     if (schedule.StartTime.Days > 0)
                     {
                         isDawn = true;
                         schedule.StartTime = schedule.StartTime.Subtract(new TimeSpan(1, 0, 0, 0));
                     }
 
-                    seconds = (int)((schedule.Duration - (int)schedule.Duration) * 100);
+                    int integral = (int)Math.Round(schedule.Duration * 100);
+                    int fractional = (int)Math.Truncate(schedule.Duration) * 100;
+
+                    seconds = integral - fractional;
                     hours = (int)schedule.Duration / 60;
                     minutes = (int)schedule.Duration % 60;
 
                     prev = schedule.StartTime;
                 }
-                if (isDawn && prev.Add(new TimeSpan(hours, minutes, seconds)) > TimeFrame.Dawn.EndTime ){
+                if (isDawn && prev.Add(new TimeSpan(hours, minutes, seconds)) > TimeFrame.Dawn.EndTime)
+                {
                     return false;
                 }
             }
