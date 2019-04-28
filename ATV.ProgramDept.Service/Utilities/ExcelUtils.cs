@@ -55,6 +55,8 @@ namespace ATV.ProgramDept.Service.Utilities
                 IPrintSetup ps = currentSheet.PrintSetup;
                 ps.Landscape = true;
                 ps.PaperSize = (short)PaperSize.A4;
+                ps.FitWidth = 1;
+                ps.FitHeight = 0;
 
                 //get cell style
                 ICellStyle cellStyle = GenerateCellContentStyle(workbook);
@@ -72,8 +74,9 @@ namespace ATV.ProgramDept.Service.Utilities
                     GenerateScheduleRow(currentSheet, cellStyle, currentRow, item);
                     currentRow++;
                 }
-                InsertEmptyRow(ref currentRow, 2);
+                GenerateFooter(ref currentRow, currentSheet);
                 currentSheet.SetRowBreak(currentRow);
+                InsertEmptyRow(ref currentRow, 2);
 
 
                 GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH TRƯA", date, ref currentRow);
@@ -82,8 +85,9 @@ namespace ATV.ProgramDept.Service.Utilities
                     GenerateScheduleRow(currentSheet, cellStyle, currentRow, item);
                     currentRow++;
                 }
-                InsertEmptyRow(ref currentRow, 2);
+                GenerateFooter(ref currentRow, currentSheet);
                 currentSheet.SetRowBreak(currentRow);
+                InsertEmptyRow(ref currentRow, 2);
 
                 GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH CHIỀU VÀ TỐI", date, ref currentRow);
                 foreach (var item in afternoonList)
@@ -91,8 +95,9 @@ namespace ATV.ProgramDept.Service.Utilities
                     GenerateScheduleRow(currentSheet, cellStyle, currentRow, item);
                     currentRow++;
                 }
-                InsertEmptyRow(ref currentRow, 2);
+                GenerateFooter(ref currentRow, currentSheet);
                 currentSheet.SetRowBreak(currentRow);
+                InsertEmptyRow(ref currentRow, 2);
 
                 GenerateScheduleHeader(workbook, currentSheet, "CHƯƠNG TRÌNH TRUYỀN HÌNH RẠNG SÁNG", date, ref currentRow);
                 foreach (var item in dawn)
@@ -100,17 +105,27 @@ namespace ATV.ProgramDept.Service.Utilities
                     GenerateScheduleRow(currentSheet, cellStyle, currentRow, item);
                     currentRow++;
                 }
-                InsertEmptyRow(ref currentRow, 2);
+                GenerateFooter(ref currentRow, currentSheet);
                 currentSheet.SetRowBreak(currentRow);
+                InsertEmptyRow(ref currentRow, 2);
 
                 //AutoWidthColumn(currentSheet, 6);
                 FixedWidthColumn(currentSheet);
 
+              
+               
             }
 
             return workbook;
         }
 
+        private static void GenerateFooter(ref int currentRow, ISheet sheet)
+        {
+            MergeCell(sheet, currentRow, 0, currentRow, 5);
+            ICell footerCell = sheet.CreateRow(currentRow).CreateCell(0);
+            footerCell.SetCellValue("Ban Biên Tập                          Phòng Chương Trình                          Phòng KT-CN                               Kiểm tra lịch");
+            currentRow++;
+        }
         private static void InsertEmptyRow(ref int currentRow, int totalRow)
         {
             currentRow = currentRow + totalRow;
@@ -157,6 +172,8 @@ namespace ATV.ProgramDept.Service.Utilities
             cellStyle.BorderTop = BorderStyle.Medium;
             cellStyle.BorderRight = BorderStyle.Medium;
             cellStyle.BorderBottom = BorderStyle.Medium;
+            cellStyle.Alignment = HorizontalAlignment.Center;
+            cellStyle.VerticalAlignment = VerticalAlignment.Center;
 
             int col = 0;
             cell = titleRow.CreateCell(col);
