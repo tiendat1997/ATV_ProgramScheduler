@@ -24,6 +24,16 @@ namespace ATV.ProgramDept.DesktopApp
             this.programType = programType;
             parentProgramForm = parent;
             _programRepository = new ProgramRepository();
+
+            List<Object> fileTypeList = new List<Object>();
+            fileTypeList.Add(new { ID = 1, Name = "Chương trình chen giờ" });
+            fileTypeList.Add(new { ID = 2, Name = "Chương trình cố định" });
+            BindingList<Object> bindingList2 =
+                new BindingList<Object>(fileTypeList);
+            cboProgramType.DataSource = bindingList2;
+            cboProgramType.DisplayMember = "Name";
+            cboProgramType.ValueMember = "ID";
+            cboProgramType.Update();
             InitializeComponent();
         }
 
@@ -68,7 +78,7 @@ namespace ATV.ProgramDept.DesktopApp
                         IsActive = true,
                         Name = name,
                         PerformBy = performBy,
-                        ProgramTypeID = programType,
+                        ProgramTypeID = (int)cboProgramType.SelectedValue,
                     };
                     
                     var message = MessageBox.Show("Thêm chương trình thành công!", "Message", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);

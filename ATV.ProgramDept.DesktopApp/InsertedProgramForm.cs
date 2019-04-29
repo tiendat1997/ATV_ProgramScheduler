@@ -79,6 +79,7 @@ namespace ATV.ProgramDept.DesktopApp
             dgvProgram.Update();
         }
 
+
         private void btnInsert_Click(object sender, EventArgs e)
         {
             if(dgvProgram.SelectedRows.Count > 0)
