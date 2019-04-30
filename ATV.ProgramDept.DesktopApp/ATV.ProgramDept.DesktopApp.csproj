@@ -39,9 +39,32 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.0.0.999, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.0.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.5.11\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +74,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Xceed.Words.NET, Version=1.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocX.1.3.0\lib\net40\Xceed.Words.NET.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminHomeForm.cs">
@@ -59,11 +85,48 @@
     <Compile Include="AdminHomeForm.Designer.cs">
       <DependentUpon>AdminHomeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AllProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllProgramForm.Designer.cs">
+      <DependentUpon>AllProgramForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChangePasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangePasswordForm.Designer.cs">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfirmSendEmailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfirmSendEmailForm.Designer.cs">
+      <DependentUpon>ConfirmSendEmailForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditorHomeForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EditorHomeForm.Designer.cs">
       <DependentUpon>EditorHomeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportForm.Designer.cs">
+      <DependentUpon>ExportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InsertedProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InsertedProgramForm.Designer.cs">
+      <DependentUpon>InsertedProgramForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Interface\IInsertProgram.cs" />
+    <Compile Include="NewProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewProgramForm.Designer.cs">
+      <DependentUpon>NewProgramForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -71,16 +134,130 @@
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManageAccountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageAccountForm.Designer.cs">
+      <DependentUpon>ManageAccountForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageEmailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageEmailForm.Designer.cs">
+      <DependentUpon>ManageEmailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageFlexProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageFlexProgramForm.Designer.cs">
+      <DependentUpon>ManageFlexProgramForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageFixProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageFixProgramForm.Designer.cs">
+      <DependentUpon>ManageFixProgramForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewAccountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewAccountForm.Designer.cs">
+      <DependentUpon>NewAccountForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewEmailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewEmailForm.Designer.cs">
+      <DependentUpon>NewEmailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewFlexProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewFlexProgramForm.Designer.cs">
+      <DependentUpon>NewFlexProgramForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewFixProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewFixProgramForm.Designer.cs">
+      <DependentUpon>NewFixProgramForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScheduleDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScheduleDetailForm.Designer.cs">
+      <DependentUpon>ScheduleDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScheduleTemplateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScheduleTemplateForm.Designer.cs">
+      <DependentUpon>ScheduleTemplateForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SendEmailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SendEmailForm.Designer.cs">
+      <DependentUpon>SendEmailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StaticProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StaticProgramForm.Designer.cs">
+      <DependentUpon>StaticProgramForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AdminHomeForm.resx">
       <DependentUpon>AdminHomeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllProgramForm.resx">
+      <DependentUpon>AllProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangePasswordForm.resx">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfirmSendEmailForm.resx">
+      <DependentUpon>ConfirmSendEmailForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditorHomeForm.resx">
       <DependentUpon>EditorHomeForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ExportForm.resx">
+      <DependentUpon>ExportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InsertedProgramForm.resx">
+      <DependentUpon>InsertedProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewProgramForm.resx">
+      <DependentUpon>NewProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageAccountForm.resx">
+      <DependentUpon>ManageAccountForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageEmailForm.resx">
+      <DependentUpon>ManageEmailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageFlexProgramForm.resx">
+      <DependentUpon>ManageFlexProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageFixProgramForm.resx">
+      <DependentUpon>ManageFixProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewAccountForm.resx">
+      <DependentUpon>NewAccountForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewEmailForm.resx">
+      <DependentUpon>NewEmailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewFlexProgramForm.resx">
+      <DependentUpon>NewFlexProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewFixProgramForm.resx">
+      <DependentUpon>NewFixProgramForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -91,7 +268,36 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <EmbeddedResource Include="ScheduleDetailForm.resx">
+      <DependentUpon>ScheduleDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScheduleTemplateForm.resx">
+      <DependentUpon>ScheduleTemplateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SendEmailForm.resx">
+      <DependentUpon>SendEmailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StaticProgramForm.resx">
+      <DependentUpon>StaticProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Entity.Department.datasource" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Entity.Program.datasource" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Entity.ScheduleDetail.datasource" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Entity.ScheduleTemplate.datasource" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Entity.ScheduleTemplateDetail.datasource" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Service.ViewModel.ProgramModel.datasource" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Service.ViewModel.ScheduleDetailViewModel.datasource" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Service.ViewModel.ScheduleTemplateDetailViewModel.datasource" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Service.ViewModel.ScheduleTemplateViewModel.datasource" />
+    <None Include="Properties\DataSources\ATV.ProgramDept.Service.ViewModel.ScheduleViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -109,7 +315,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ATV.ProgramDept.Entity\ATV.ProgramDept.Entity.csproj">
-      <Project>{E419669D-4467-4B31-A8D8-6ACA28118C60}</Project>
+      <Project>{e419669d-4467-4b31-a8d8-6aca28118c60}</Project>
       <Name>ATV.ProgramDept.Entity</Name>
     </ProjectReference>
     <ProjectReference Include="..\ATV.ProgramDept.Service\ATV.ProgramDept.Service.csproj">
@@ -117,5 +323,6 @@
       <Name>ATV.ProgramDept.Service</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

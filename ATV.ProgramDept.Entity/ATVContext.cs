@@ -5,44 +5,36 @@ namespace ATV.ProgramDept.Entity
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class ATVContext : DbContext
+    public partial class ATVContext : BaseDbContext
     {
-        public ATVContext()
-            : base("name=ATVContext")
-        {                        
+        public ATVContext() : base("ATVContext")
+        {            
         }
 
-        public virtual DbSet<Date> Dates { get; set; }
-        public virtual DbSet<Department> Departments { get; set; }
-        public virtual DbSet<EditingHistory> EditingHistories { get; set; }
-        public virtual DbSet<MailingHistory> MailingHistories { get; set; }
-        public virtual DbSet<Program> Programs { get; set; }
-        public virtual DbSet<ProgramType> ProgramTypes { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<Schedule> Schedules { get; set; }
-        public virtual DbSet<ScheduleTemplate> ScheduleTemplates { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Week> Weeks { get; set; }
+        public virtual DbSet<Date> Date { get; set; }
+        public virtual DbSet<Department> Department { get; set; }
+        public virtual DbSet<EditingHistory> EditingHistory { get; set; }
+        public virtual DbSet<MailingHistory> MailingHistory { get; set; }
+        public virtual DbSet<Program> Program { get; set; }
+        public virtual DbSet<ProgramType> ProgramType { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<Schedule> Schedule { get; set; }
+        public virtual DbSet<ScheduleDetail> ScheduleDetail { get; set; }
+        public virtual DbSet<ScheduleTemplate> ScheduleTemplate { get; set; }
+        public virtual DbSet<ScheduleTemplateDetail> ScheduleTemplateDetail { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public DbSet<User> User { get; set; }
+        public virtual DbSet<Week> Week { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Date>()
-                .HasMany(e => e.EditingHistories)
-                .WithRequired(e => e.Date)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Date>()
+            //    .HasMany(e => e.EditingHistory)
+            //    .WithRequired(e => e.Date)
+            //    .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Date>()
-                .HasMany(e => e.MailingHistories)
-                .WithRequired(e => e.Date)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Date>()
-                .HasMany(e => e.Schedules)
-                .WithRequired(e => e.Date)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Date>()
-                .HasMany(e => e.ScheduleTemplates)
+                .HasMany(e => e.MailingHistory)
                 .WithRequired(e => e.Date)
                 .WillCascadeOnDelete(false);
 
@@ -51,26 +43,22 @@ namespace ATV.ProgramDept.Entity
                 .IsUnicode(false);
 
             modelBuilder.Entity<Department>()
-                .HasMany(e => e.MailingHistories)
+                .HasMany(e => e.MailingHistory)
                 .WithRequired(e => e.Department)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Program>()
-                .HasMany(e => e.Schedules)
+                .HasMany(e => e.ScheduleDetail)
                 .WithRequired(e => e.Program)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Program>()
-                .HasMany(e => e.ScheduleTemplates)
+                .HasMany(e => e.ScheduleTemplateDetail)
                 .WithRequired(e => e.Program)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ProgramType>()
-                .Property(e => e.Name)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ProgramType>()
-                .HasMany(e => e.Programs)
+                .HasMany(e => e.Program)
                 .WithRequired(e => e.ProgramType)
                 .WillCascadeOnDelete(false);
 
@@ -79,8 +67,13 @@ namespace ATV.ProgramDept.Entity
                 .IsUnicode(false);
 
             modelBuilder.Entity<Role>()
-                .HasMany(e => e.Users)
+                .HasMany(e => e.User)
                 .WithRequired(e => e.Role)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ScheduleTemplate>()
+                .HasMany(e => e.ScheduleTemplateDetail)
+                .WithRequired(e => e.ScheduleTemplate)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
@@ -105,24 +98,28 @@ namespace ATV.ProgramDept.Entity
 
             modelBuilder.Entity<User>()
                 .Property(e => e.PasswordHash)
-                .IsFixedLength();
+                .IsUnicode(false);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.DefaultPassword)
                 .IsUnicode(false);
 
             modelBuilder.Entity<User>()
-                .HasMany(e => e.EditingHistories)
+                .HasMany(e => e.EditingHistory)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
-                .HasMany(e => e.MailingHistories)
+                .HasMany(e => e.MailingHistory)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Week>()
-                .HasMany(e => e.Dates)
+                .HasMany(e => e.Date)
+                .WithRequired(e => e.Week)
+                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Week>()
+                .HasMany(e => e.EditingHistory)
                 .WithRequired(e => e.Week)
                 .WillCascadeOnDelete(false);
         }

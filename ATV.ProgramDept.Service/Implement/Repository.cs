@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,14 +12,15 @@ namespace ATV.ProgramDept.Service.Implement
 {
     public class Repository<T> : IRepository<T> where T: class
     {
-        protected readonly ATVContext _context;
+        protected readonly BaseDbContext _context;
         protected readonly DbSet<T> dbSet;
         public Repository()
         {
             _context = new ATVContext();
-            dbSet = _context.Set<T>(); 
+            dbSet = _context.Set<T>();                      
         }
-
+        
+       
         public int Count(Func<T, bool> predicate)
         {
             return _context.Set<T>().Where(predicate).Count();
@@ -33,8 +35,12 @@ namespace ATV.ProgramDept.Service.Implement
         {            
             dbSet.Remove(entity);
         }
+        public IEnumerable<T> FindAsNoTracking(Expression<Func<T, bool>> predicate)
+        {
+            return _context.Set<T>().AsNoTracking<T>().Where(predicate);
+        }
 
-        public IEnumerable<T> Find(Func<T, bool> predicate)
+        public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
             return _context.Set<T>().Where(predicate);
         }
@@ -42,10 +48,10 @@ namespace ATV.ProgramDept.Service.Implement
         public T FindById(int id)
         {
             return _context.Set<T>().Find(id);
-        }
+        }                
 
         public IEnumerable<T> GetAll()
-        {
+        {            
             return _context.Set<T>();
         }
 

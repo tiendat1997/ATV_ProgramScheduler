@@ -12,15 +12,14 @@ namespace ATV.ProgramDept.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProgramType()
         {
-            Programs = new HashSet<Program>();
+            Program = new HashSet<Program>();
         }
 
         public int ID { get; set; }
 
-        [StringLength(100)]
         public string Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Program> Programs { get; set; }
+        public virtual ICollection<Program> Program { get; set; }
     }
 }

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ATV.ProgramDept.Service.ViewModel;
 
 namespace ATV.ProgramDept.DesktopApp
 {
     static class Program
     {
+        public static LoggedInUserInfomation User;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -16,7 +18,8 @@ namespace ATV.ProgramDept.DesktopApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());           
+            //Application.Run(new InsertedProgramForm());
+            Application.Run(new LoginForm());
         }
     }
 }

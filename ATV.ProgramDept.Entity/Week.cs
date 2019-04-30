@@ -12,7 +12,8 @@ namespace ATV.ProgramDept.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Week()
         {
-            Dates = new HashSet<Date>();
+            EditingHistory = new HashSet<EditingHistory>();
+            Date = new HashSet<Date>();
         }
 
         public int ID { get; set; }
@@ -22,6 +23,8 @@ namespace ATV.ProgramDept.Entity
         public DateTime ToDate { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Date> Dates { get; set; }
+        public virtual ICollection<Date> Date { get; set; }
+
+        public virtual ICollection<EditingHistory> EditingHistory { get; set; }
     }
 }

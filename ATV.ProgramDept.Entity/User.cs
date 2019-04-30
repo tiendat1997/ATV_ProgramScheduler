@@ -12,8 +12,8 @@ namespace ATV.ProgramDept.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            EditingHistories = new HashSet<EditingHistory>();
-            MailingHistories = new HashSet<MailingHistory>();
+            EditingHistory = new HashSet<EditingHistory>();
+            MailingHistory = new HashSet<MailingHistory>();
         }
 
         public int ID { get; set; }
@@ -37,7 +37,7 @@ namespace ATV.ProgramDept.Entity
         public string Username { get; set; }
 
         [Required]
-        [StringLength(10)]
+        [StringLength(200)]
         public string PasswordHash { get; set; }
 
         public bool IsPasswordChanged { get; set; }
@@ -51,10 +51,10 @@ namespace ATV.ProgramDept.Entity
         public bool IsActive { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EditingHistory> EditingHistories { get; set; }
+        public virtual ICollection<EditingHistory> EditingHistory { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MailingHistory> MailingHistories { get; set; }
+        public virtual ICollection<MailingHistory> MailingHistory { get; set; }
 
         public virtual Role Role { get; set; }
     }

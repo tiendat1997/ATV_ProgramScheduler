@@ -9,20 +9,25 @@ namespace ATV.ProgramDept.Entity
     [Table("ScheduleTemplate")]
     public partial class ScheduleTemplate
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ScheduleTemplate()
+        {
+            ScheduleTemplateDetail = new HashSet<ScheduleTemplateDetail>();
+        }
+
         public int ID { get; set; }
 
-        public int ProgramID { get; set; }
+        public string CreatedBy { get; set; }
 
-        public int DateID { get; set; }
+        public int? DateID { get; set; }
 
-        public int Position { get; set; }
+        public bool? IsActive { get; set; }
 
-        public bool IsOnCapo { get; set; }
-
-        public bool IsActive { get; set; }
+        public short? DayOfWeek { get; set; }
 
         public virtual Date Date { get; set; }
 
-        public virtual Program Program { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ScheduleTemplateDetail> ScheduleTemplateDetail { get; set; }
     }
 }

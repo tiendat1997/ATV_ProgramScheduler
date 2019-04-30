@@ -40,15 +40,17 @@
             this.tsmiAdminAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdminEmail = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdminProgram = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiAdminFlexProgram = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdminFixProgram = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAdminFlexProgram = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdminHistory = new System.Windows.Forms.ToolStripMenuItem();
             this.btnToEditor = new System.Windows.Forms.Button();
+            this.pnlContent = new System.Windows.Forms.Panel();
             this.mnsAdmin.SuspendLayout();
             this.SuspendLayout();
             // 
             // mnsAdmin
             // 
+            this.mnsAdmin.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.mnsAdmin.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiAdminTemplate,
             this.tsmiAdminAccount,
@@ -80,75 +82,86 @@
             this.tsmiTemplateMon.Name = "tsmiTemplateMon";
             this.tsmiTemplateMon.Size = new System.Drawing.Size(104, 22);
             this.tsmiTemplateMon.Text = "Thứ 2";
+            this.tsmiTemplateMon.Click += new System.EventHandler(this.tsmiTemplateMon_Click);
             // 
             // tsmiTemplateTue
             // 
             this.tsmiTemplateTue.Name = "tsmiTemplateTue";
             this.tsmiTemplateTue.Size = new System.Drawing.Size(104, 22);
             this.tsmiTemplateTue.Text = "Thứ 3";
+            this.tsmiTemplateTue.Click += new System.EventHandler(this.tsmiTemplateTue_Click);
             // 
             // tsmiTemplateWed
             // 
             this.tsmiTemplateWed.Name = "tsmiTemplateWed";
             this.tsmiTemplateWed.Size = new System.Drawing.Size(104, 22);
             this.tsmiTemplateWed.Text = "Thứ 4";
+            this.tsmiTemplateWed.Click += new System.EventHandler(this.tsmiTemplateWed_Click);
             // 
             // tsmiTemplateThur
             // 
             this.tsmiTemplateThur.Name = "tsmiTemplateThur";
             this.tsmiTemplateThur.Size = new System.Drawing.Size(104, 22);
             this.tsmiTemplateThur.Text = "Thứ 5";
+            this.tsmiTemplateThur.Click += new System.EventHandler(this.tsmiTemplateThur_Click);
             // 
             // tsmiTemplateFri
             // 
             this.tsmiTemplateFri.Name = "tsmiTemplateFri";
             this.tsmiTemplateFri.Size = new System.Drawing.Size(104, 22);
             this.tsmiTemplateFri.Text = "Thứ 6";
+            this.tsmiTemplateFri.Click += new System.EventHandler(this.tsmiTemplateFri_Click);
             // 
             // tsmiTemplateSat
             // 
             this.tsmiTemplateSat.Name = "tsmiTemplateSat";
             this.tsmiTemplateSat.Size = new System.Drawing.Size(104, 22);
             this.tsmiTemplateSat.Text = "Thứ 7";
+            this.tsmiTemplateSat.Click += new System.EventHandler(this.tsmiTemplateSat_Click);
             // 
             // tsmiTemplateSun
             // 
             this.tsmiTemplateSun.Name = "tsmiTemplateSun";
             this.tsmiTemplateSun.Size = new System.Drawing.Size(104, 22);
             this.tsmiTemplateSun.Text = "CN";
+            this.tsmiTemplateSun.Click += new System.EventHandler(this.tsmiTemplateSun_Click);
             // 
             // tsmiAdminAccount
             // 
             this.tsmiAdminAccount.Name = "tsmiAdminAccount";
             this.tsmiAdminAccount.Size = new System.Drawing.Size(73, 20);
             this.tsmiAdminAccount.Text = "Tài khoản ";
+            this.tsmiAdminAccount.Click += new System.EventHandler(this.tsmiAdminAccount_Click);
             // 
             // tsmiAdminEmail
             // 
             this.tsmiAdminEmail.Name = "tsmiAdminEmail";
             this.tsmiAdminEmail.Size = new System.Drawing.Size(48, 20);
             this.tsmiAdminEmail.Text = "Email";
+            this.tsmiAdminEmail.Click += new System.EventHandler(this.tsmiAdminEmail_Click);
             // 
             // tsmiAdminProgram
             // 
             this.tsmiAdminProgram.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiAdminFlexProgram,
-            this.tsmiAdminFixProgram});
+            this.tsmiAdminFixProgram,
+            this.tsmiAdminFlexProgram});
             this.tsmiAdminProgram.Name = "tsmiAdminProgram";
             this.tsmiAdminProgram.Size = new System.Drawing.Size(90, 20);
             this.tsmiAdminProgram.Text = "Chương trình";
-            // 
-            // tsmiAdminFlexProgram
-            // 
-            this.tsmiAdminFlexProgram.Name = "tsmiAdminFlexProgram";
-            this.tsmiAdminFlexProgram.Size = new System.Drawing.Size(197, 22);
-            this.tsmiAdminFlexProgram.Text = "Chương trình cố định";
             // 
             // tsmiAdminFixProgram
             // 
             this.tsmiAdminFixProgram.Name = "tsmiAdminFixProgram";
             this.tsmiAdminFixProgram.Size = new System.Drawing.Size(197, 22);
-            this.tsmiAdminFixProgram.Text = "Chương trình chen giờ ";
+            this.tsmiAdminFixProgram.Text = "Chương trình cố định";
+            this.tsmiAdminFixProgram.Click += new System.EventHandler(this.tsmiAdminFixProgram_Click);
+            // 
+            // tsmiAdminFlexProgram
+            // 
+            this.tsmiAdminFlexProgram.Name = "tsmiAdminFlexProgram";
+            this.tsmiAdminFlexProgram.Size = new System.Drawing.Size(197, 22);
+            this.tsmiAdminFlexProgram.Text = "Chương trình chen giờ ";
+            this.tsmiAdminFlexProgram.Click += new System.EventHandler(this.tsmiAdminFlexProgram_Click);
             // 
             // tsmiAdminHistory
             // 
@@ -167,16 +180,27 @@
             this.btnToEditor.UseVisualStyleBackColor = true;
             this.btnToEditor.Click += new System.EventHandler(this.btnToEditor_Click);
             // 
+            // pnlContent
+            // 
+            this.pnlContent.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlContent.Location = new System.Drawing.Point(0, 24);
+            this.pnlContent.Name = "pnlContent";
+            this.pnlContent.Size = new System.Drawing.Size(800, 426);
+            this.pnlContent.TabIndex = 2;
+            // 
             // AdminHomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.pnlContent);
             this.Controls.Add(this.btnToEditor);
             this.Controls.Add(this.mnsAdmin);
             this.MainMenuStrip = this.mnsAdmin;
             this.Name = "AdminHomeForm";
             this.Text = "ATV Program Department - Home";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdminHomeForm_FormClosing);
             this.mnsAdmin.ResumeLayout(false);
             this.mnsAdmin.PerformLayout();
             this.ResumeLayout(false);
@@ -198,9 +222,10 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiAdminAccount;
         private System.Windows.Forms.ToolStripMenuItem tsmiAdminEmail;
         private System.Windows.Forms.ToolStripMenuItem tsmiAdminProgram;
-        private System.Windows.Forms.ToolStripMenuItem tsmiAdminFlexProgram;
         private System.Windows.Forms.ToolStripMenuItem tsmiAdminFixProgram;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAdminFlexProgram;
         private System.Windows.Forms.ToolStripMenuItem tsmiAdminHistory;
         private System.Windows.Forms.Button btnToEditor;
+        private System.Windows.Forms.Panel pnlContent;
     }
 }
