@@ -347,9 +347,17 @@ namespace ATV.ProgramDept.DesktopApp
         {
             dgvSchedule.AutoGenerateColumns = false;
             dgvSchedule.ScrollBars = ScrollBars.Both;
-            contextMenuDgv.MenuItems.Add("Chèn CT cố định", new EventHandler(InsertFixProgramEvent));
-            contextMenuDgv.MenuItems.Add("Chèn CT chen giờ", new EventHandler(InsertFlexProgramEvent));
+            contextMenuDgv.MenuItems.Add("Chèn CT", new EventHandler(InsertProgramEvent));
+            //contextMenuDgv.MenuItems.Add("Chèn CT cố định", new EventHandler(InsertFixProgramEvent));
+            //contextMenuDgv.MenuItems.Add("Chèn CT chen giờ", new EventHandler(InsertFlexProgramEvent));
             contextMenuDgv.MenuItems.Add("Xóa CT", new EventHandler(DeleteProgramEvent));
+        }
+        // Insert CT Cố định
+        private void InsertProgramEvent(object sender, EventArgs eventArgs)
+        {
+            IsInsertInDgv = true;
+            AllProgramForm allProgramForm = new AllProgramForm(this);
+            allProgramForm.Show();
         }
         // Insert CT Cố định
         private void InsertFixProgramEvent(object sender, EventArgs eventArgs)
@@ -646,6 +654,17 @@ namespace ATV.ProgramDept.DesktopApp
             string yearPicker = DateTime.Parse(dtpYear.Value.ToString()).Year.ToString();
             year = Int32.Parse(yearPicker);
             InitDataGridView(tabDays.SelectedIndex + 1);
+        }
+
+        private void TsmiInsertNewProgram_Click(object sender, EventArgs e)
+        {
+            if (!isEdit)
+            {
+                MessageBox.Show("Vui lòng nhấn vào nút 'Chỉnh sửa' để có thể chèn chương trình!");
+                return;
+            }
+            AllProgramForm allProgramForm = new AllProgramForm(this);
+            allProgramForm.Show();
         }
     }
 }

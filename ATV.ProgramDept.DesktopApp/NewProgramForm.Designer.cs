@@ -39,6 +39,8 @@
             this.errName = new System.Windows.Forms.ErrorProvider(this.components);
             this.errDuration = new System.Windows.Forms.ErrorProvider(this.components);
             this.errPerformBy = new System.Windows.Forms.ErrorProvider(this.components);
+            this.lblProgramType = new System.Windows.Forms.Label();
+            this.cboProgramType = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.errName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errDuration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errPerformBy)).BeginInit();
@@ -94,7 +96,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(355, 202);
+            this.btnAdd.Location = new System.Drawing.Point(355, 250);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(135, 41);
             this.btnAdd.TabIndex = 6;
@@ -114,11 +116,30 @@
             // 
             this.errPerformBy.ContainerControl = this;
             // 
+            // lblProgramType
+            // 
+            this.lblProgramType.AutoSize = true;
+            this.lblProgramType.Location = new System.Drawing.Point(50, 195);
+            this.lblProgramType.Name = "lblProgramType";
+            this.lblProgramType.Size = new System.Drawing.Size(150, 22);
+            this.lblProgramType.TabIndex = 7;
+            this.lblProgramType.Text = "Loại chương trình";
+            // 
+            // cboProgramType
+            // 
+            this.cboProgramType.FormattingEnabled = true;
+            this.cboProgramType.Location = new System.Drawing.Point(227, 192);
+            this.cboProgramType.Name = "cboProgramType";
+            this.cboProgramType.Size = new System.Drawing.Size(263, 30);
+            this.cboProgramType.TabIndex = 8;
+            // 
             // NewProgramForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(536, 269);
+            this.ClientSize = new System.Drawing.Size(536, 321);
+            this.Controls.Add(this.cboProgramType);
+            this.Controls.Add(this.lblProgramType);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtPerformBy);
             this.Controls.Add(this.txtDuration);
@@ -150,5 +171,7 @@
         private System.Windows.Forms.ErrorProvider errName;
         private System.Windows.Forms.ErrorProvider errDuration;
         private System.Windows.Forms.ErrorProvider errPerformBy;
+        private System.Windows.Forms.ComboBox cboProgramType;
+        private System.Windows.Forms.Label lblProgramType;
     }
 }

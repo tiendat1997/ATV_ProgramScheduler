@@ -12,5 +12,6 @@ namespace ATV.ProgramDept.Service.ViewModel
         public string Name { get; set; }
         public string Duration { get; set; }
         public string PerformBy { get; set; }
+        public string ProgramType { get; set; }
     }
 }

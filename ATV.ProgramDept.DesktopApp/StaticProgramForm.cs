@@ -27,13 +27,14 @@ namespace ATV.ProgramDept.DesktopApp
             _programRepository = new ProgramRepository();
             this.editorHomeForm = editorHomeForm;
             bindingList = new BindingList<ProgramModel>(_programRepository.
-                Find(p => p.IsActive.Value && p.ProgramTypeID == (int)ProgramTypeEnum.Static)
+                Find(p => p.IsActive.Value)
                 .Select(p => new ProgramModel()
                 {
                     Duration = Converting.ConvertDurationToString(p.Duration.Value),
                     ID = p.ID,
                     PerformBy = p.PerformBy,
-                    Name = p.Name
+                    Name = p.Name,
+                    ProgramType = p.ProgramTypeID == (int)ProgramTypeEnum.Insert? "Chương trình chèn giờ" : "Chương trình cố định"
                 }).ToList());
             currentList = bindingList;
             InitializeComponent();
@@ -64,7 +65,8 @@ namespace ATV.ProgramDept.DesktopApp
                      Duration = Converting.ConvertDurationToString(p.Duration.Value),
                      ID = p.ID,
                      PerformBy = p.PerformBy,
-                     Name = p.Name
+                     Name = p.Name,
+                     ProgramType = p.ProgramTypeID == (int)ProgramTypeEnum.Insert ? "Chương trình chèn giờ" : "Chương trình cố định"
                  }).ToList());
             currentList = bindingList;
             dgvProgram.DataSource = currentList;

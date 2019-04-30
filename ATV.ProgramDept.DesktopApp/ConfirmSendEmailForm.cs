@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Xceed.Words.NET;
 
 namespace ATV.ProgramDept.DesktopApp
 {
@@ -54,23 +55,76 @@ namespace ATV.ProgramDept.DesktopApp
             wbContent.Document.DomDocument.GetType().GetProperty("designMode").SetValue(wbContent.Document.DomDocument, "On", null);
             wbContent.IsWebBrowserContextMenuEnabled = false;
 
-            lblFileName.Text = "lich-phat-song" + _scheduleViewModels.FirstOrDefault().Date.DateOfYear.ToString("dd-MM-yyyy");
+            if (parent.FileType == 1)
+            {
+                lblFileName.Text = "Sapo-" + _scheduleViewModels.FirstOrDefault().Date.DateOfYear.ToString("dd-MM-yyyy") + ".doc";
+
+            }
+            else
+            {
+                lblFileName.Text = "lich-phat-song-" + _scheduleViewModels.FirstOrDefault().Date.DateOfYear.ToString("dd-MM-yyyy") + ".xls";
+
+            }
         }
 
         private void BtnSend_Click(object sender, EventArgs e)
         {
-            FileStream fileStream = new FileStream("lich-phat-song" + _scheduleViewModels.FirstOrDefault().Date.DateOfYear.ToString("dd-MM-yyyy"), FileMode.Create);
-            IWorkbook workbook = null;
-            workbook = ExcelUtils.ExportWeeklySchedule(GetExportSchedule(), ExcelUtils.TYPE_XLS);
-            if (workbook != null)
-            {
-                workbook.Write(fileStream);
 
+            if (parent.FileType == 1) //Sapo
+            {
+                string FileName = "Sapo-" + _scheduleViewModels.FirstOrDefault().Date.DateOfYear.ToString("dd-MM-yyyy") + ".doc";
+                DocX doc = SapoUtils.ExportSapo(_scheduleViewModels);
+                System.IO.Directory.CreateDirectory("./SavedFiles");
+                try
+                {
+                    doc.SaveAs("./SavedFiles/" + FileName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Xảy ra lỗi. Vui lòng thử tắt các file word đang được mở rồi thử lại!");
+                }
+                //System.IO.MemoryStream ms = new System.IO.MemoryStream();
+                //System.IO.StreamWriter writer = new System.IO.StreamWriter(ms);
+                //writer.Write(doc);
+                //ms.Position = 0;
+                System.Net.Mime.ContentType ct = new System.Net.Mime.ContentType("application/msword");
+                System.Net.Mail.Attachment attach = new System.Net.Mail.Attachment("./SavedFiles/" + FileName);
+                attach.ContentDisposition.FileName = FileName;
+
+                var result = MailUtils.SendEmailAsync(txtEmail.Text, txtSubject.Text, wbContent.DocumentText, attach, FileName);
+                MessageBox.Show("Đã gửi email tới " + parent.Department.Name);
+                this.Close();
             }
-            var result = MailUtils.SendEmailAsync(txtEmail.Text, txtSubject.Text, wbContent.DocumentText, workbook, "lich-phat-song" + _scheduleViewModels.FirstOrDefault().Date.DateOfYear.ToString("dd-MM-yyyy")+".xls");
-            fileStream.Close();
-            MessageBox.Show("Đã gửi email tới " + parent.Department.Name);
-            this.Close();
+            else if(parent.FileType == 2) //Lịch phát sóng
+            {
+                string FileName = "lich-phat-song-" + _scheduleViewModels.FirstOrDefault().Date.DateOfYear.ToString("dd-MM-yyyy") + ".xls";
+                FileStream fileStream = new FileStream(FileName, FileMode.Create);
+                IWorkbook workbook = null;
+                workbook = ExcelUtils.ExportWeeklySchedule(GetExportSchedule(), ExcelUtils.TYPE_XLS);
+                if (workbook != null)
+                {
+                    workbook.Write(fileStream);
+
+                }
+                System.IO.MemoryStream ms = new System.IO.MemoryStream();
+                workbook.Write(ms);
+                //System.IO.StreamWriter writer = new System.IO.StreamWriter(ms);
+                //writer.Write(attachment);
+                ms.Position = 0;
+                System.Net.Mime.ContentType ct = new System.Net.Mime.ContentType("application/vnd.ms-excel");
+                System.Net.Mail.Attachment attach = new System.Net.Mail.Attachment(ms, ct);
+                attach.ContentDisposition.FileName = FileName;
+
+                var result = MailUtils.SendEmailAsync(txtEmail.Text, txtSubject.Text, wbContent.DocumentText, attach, FileName);
+                fileStream.Close();
+                MessageBox.Show("Đã gửi email tới " + parent.Department.Name);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn loại file!");
+                return;
+            }
         }
 
         private List<ScheduleViewModel> GetExportSchedule()

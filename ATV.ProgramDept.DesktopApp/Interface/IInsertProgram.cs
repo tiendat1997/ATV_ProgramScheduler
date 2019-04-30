@@ -8,6 +8,8 @@ namespace ATV.ProgramDept.DesktopApp.Interface
 {
     public interface IInsertProgram
     {
-        void ReadyForInsertProgram(int ProgramID);        
+        void ReadyForInsertProgram(int ProgramID);
+
+        void BringToFront();
     }
 }

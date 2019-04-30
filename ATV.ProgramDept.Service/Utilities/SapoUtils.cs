@@ -78,6 +78,7 @@ namespace ATV.ProgramDept.Service.Utilities
                 foreach (var item in morningList)
                 {
                     textParagraph += GetTimeStringInVietnamese(item.StartTime) + ": " + item.ProgramName 
+                        + (item.Contents == null || item.Contents.Equals("") ? "" : ": " + item.Contents) 
                         + Environment.NewLine;
                 }
 
@@ -88,6 +89,7 @@ namespace ATV.ProgramDept.Service.Utilities
                 foreach (var item in noonList)
                 {
                     textParagraph += GetTimeStringInVietnamese(item.StartTime) + ": " + item.ProgramName
+                        + (item.Contents == null || item.Contents.Equals("") ? "" : ": " + item.Contents)
                         + Environment.NewLine;
                 }
 
@@ -99,6 +101,7 @@ namespace ATV.ProgramDept.Service.Utilities
                 foreach (var item in afternoonList)
                 {
                     textParagraph += GetTimeStringInVietnamese(item.StartTime) + ": " + item.ProgramName
+                        + (item.Contents == null || item.Contents.Equals("") ? "" : ": " + item.Contents)
                         + Environment.NewLine;
                 }
 
@@ -113,6 +116,7 @@ namespace ATV.ProgramDept.Service.Utilities
                 foreach (var item in dawn)
                 {
                     textParagraph += GetTimeStringInVietnamese(item.StartTime) + ": " + item.ProgramName
+                        + (item.Contents == null || item.Contents.Equals("") ? "" : ": " + item.Contents)
                         + Environment.NewLine;
                 }
 
