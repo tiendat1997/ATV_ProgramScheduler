@@ -26,6 +26,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void btnExport_Click(object sender, EventArgs e)
         {
+
             if (cbbExportType.SelectedIndex == 0)
             {
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
