@@ -432,9 +432,14 @@ namespace ATV.ProgramDept.DesktopApp
                             var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
                             var source = new BindingSource(bindingList, null);                            
                             dgvSchedule.DataSource = source;
-                            //dgvSchedule.CurrentCell = dgvSchedule.Rows[tgtRow].Cells[0];
+                            if (dropRow > dragRow)
+                            {
+                                dgvSchedule.FirstDisplayedScrollingRowIndex = currentIndex;
+                            }
+                            
+                            dgvSchedule.CurrentCell = dgvSchedule.Rows[tgtRow].Cells[0];
                             dgvSchedule.Rows[tgtRow].Selected = true;
-                            dgvSchedule.FirstDisplayedScrollingRowIndex = currentIndex;
+                            
                         }
                     }
                 }
