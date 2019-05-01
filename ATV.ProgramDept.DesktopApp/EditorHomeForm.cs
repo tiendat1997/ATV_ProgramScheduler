@@ -48,6 +48,10 @@ namespace ATV.ProgramDept.DesktopApp
         private readonly int COL_STARTTIME = 2;
         private readonly int COL_DURATION = 6;
 
+        private int dragRow = -1;
+        Label dragLabel = null; 
+        
+        
         public EditorHomeForm()
         {
             readyForInsert = false;
@@ -188,6 +192,9 @@ namespace ATV.ProgramDept.DesktopApp
                 isEdit = !isEdit;
                 //change button text
                 btnSaveSchedule.Text = "Chỉnh sửa";
+
+                // Reordering 
+                ReorderPositionScheduler();
 
                 //update finish editing block
                 LatestEditingHistory.IsFinished = true;
@@ -401,6 +408,49 @@ namespace ATV.ProgramDept.DesktopApp
         }
         private void dgvSchedule_MouseUp(object sender, MouseEventArgs e)
         {
+            if (isEdit)
+            {
+                var hitTest = dgvSchedule.HitTest(e.X, e.Y);
+                int dropRow = -1;
+                if (hitTest.Type != DataGridViewHitTestType.None)
+                {
+                    dropRow = hitTest.RowIndex;
+                    dgvSchedule.CurrentCell = dgvSchedule.Rows[dropRow].Cells[0];
+                    if (dragRow >= 0)
+                    {
+                        int tgtRow = dropRow;
+                        if (tgtRow >= 0 && tgtRow < viewList.Count && tgtRow != dragRow)
+                        {
+                            var selectedProgram = viewList[dragRow];
+                            viewList.RemoveAt(dragRow);
+                            viewList.Insert(tgtRow, selectedProgram);
+                            int currentIndex = dgvSchedule.CurrentRow.Index;
+
+
+                            ScheduleUlities.EstimateStartTime(viewList);
+
+                            var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
+                            var source = new BindingSource(bindingList, null);                            
+                            dgvSchedule.DataSource = source;
+                            //dgvSchedule.CurrentCell = dgvSchedule.Rows[tgtRow].Cells[0];
+                            dgvSchedule.Rows[tgtRow].Selected = true;
+                            dgvSchedule.FirstDisplayedScrollingRowIndex = currentIndex;
+                        }
+                    }
+                }
+                else
+                {
+                    dgvSchedule.Rows[dragRow].Selected = true;
+                }
+
+                if (dragLabel != null)
+                {
+                    dragLabel.Dispose();
+                    dragLabel = null;
+                }
+            }
+
+            //
             DataGridView.HitTestInfo hit = dgvSchedule.HitTest(e.X, e.Y);
             if (e.Button == MouseButtons.Right && isEdit)
             {
@@ -665,6 +715,37 @@ namespace ATV.ProgramDept.DesktopApp
             }
             AllProgramForm allProgramForm = new AllProgramForm(this);
             allProgramForm.Show();
+        }
+
+        private void dgvSchedule_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (isEdit)
+            {
+                if (e.ColumnIndex < 0 || e.RowIndex < 0) return;
+                dragRow = e.RowIndex;
+                if (dragLabel == null) dragLabel = new Label();
+                dragLabel.Text = dgvSchedule[e.ColumnIndex, e.RowIndex].Value.ToString();
+                dragLabel.Parent = dgvSchedule;
+                dragLabel.Location = e.Location;
+            }            
+        }
+
+        private void dgvSchedule_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isEdit)
+            {
+                if (e.Button == MouseButtons.Left && dragLabel != null)
+                {
+                    var hitTest = dgvSchedule.HitTest(e.X, e.Y);
+                    int dragRow = hitTest.RowIndex;                    
+                    dragLabel.Location = e.Location;
+                    dgvSchedule.ClearSelection();         
+                    if (dragRow > -1 && dragRow < viewList.Count)
+                    {
+                        dgvSchedule.CurrentCell = dgvSchedule.Rows[dragRow].Cells[0];
+                    }
+                }
+            }            
         }
     }
 }
