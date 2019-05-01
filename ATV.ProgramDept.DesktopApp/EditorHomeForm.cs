@@ -435,7 +435,8 @@ namespace ATV.ProgramDept.DesktopApp
                             if (dropRow > dragRow)
                             {
                                 dgvSchedule.FirstDisplayedScrollingRowIndex = currentIndex;
-                            }  else
+                            }
+                            else
                             {
                                 dgvSchedule.CurrentCell = dgvSchedule.Rows[tgtRow].Cells[0];
                             }
@@ -719,23 +720,21 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void dgvSchedule_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (isEdit)
+            if (isEdit && e.Clicks == 1)
             {
                 if (e.ColumnIndex < 0 || e.RowIndex < 0) return;
                 dragRow = e.RowIndex;
-                if (e.Clicks == 1)
+                if (dragLabel == null) dragLabel = new Label();
+                string cellValue = "";
+                if (dgvSchedule[3, e.RowIndex].Value != null)
                 {
-                    if (dragLabel == null) dragLabel = new Label();
-                    string cellValue = "";
-                    if (dgvSchedule[e.ColumnIndex, e.RowIndex].Value != null)
-                    {
-                        cellValue = dgvSchedule[e.ColumnIndex, e.RowIndex].Value.ToString();
-                    }
-
-                    dragLabel.Text = cellValue;
-                    dragLabel.Parent = dgvSchedule;
-                    dragLabel.Location = e.Location;
+                    cellValue = dgvSchedule[3, e.RowIndex].Value.ToString();
                 }
+
+                dragLabel.AutoSize = true;
+                dragLabel.Text = cellValue;
+                dragLabel.Parent = dgvSchedule;
+                dragLabel.Location = e.Location;
             }
         }
 
