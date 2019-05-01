@@ -49,9 +49,9 @@ namespace ATV.ProgramDept.DesktopApp
         private readonly int COL_DURATION = 6;
 
         private int dragRow = -1;
-        Label dragLabel = null; 
-        
-        
+        Label dragLabel = null;
+
+
         public EditorHomeForm()
         {
             readyForInsert = false;
@@ -105,10 +105,10 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 // GENERATE NEW WEEK SCHEDULE and Dates
                 weekRepository.GenerateNewWeekAndDates(monday, sunday);
-                isNew = true; 
-            }            
+                isNew = true;
+            }
             weekId = weekRepository.GetWeekId(monday, sunday);
-            weekSchedules = _scheduleRepository.GetWeekSchedule(weekId).ToList();            
+            weekSchedules = _scheduleRepository.GetWeekSchedule(weekId).ToList();
             if (isNew)
             {
                 // COPY SCHEDULE DETAIL OF TEMPLATE INTO CURRENT SCHEDULE                
@@ -208,7 +208,7 @@ namespace ATV.ProgramDept.DesktopApp
             else
             {
                 LatestEditingHistory = _editingHistoryRepository.GetLastEditingAsNoTracking();
-                
+
                 if (LatestEditingHistory == null || LatestEditingHistory.IsFinished)
                 {
                     isEdit = !isEdit;
@@ -217,8 +217,8 @@ namespace ATV.ProgramDept.DesktopApp
                     btnSaveSchedule.Text = "Lưu";
 
                     //update start editing block
-                    
-                        
+
+
                     EditingHistory editingHistory = new EditingHistory()
                     {
                         UserID = Program.User.ID,
@@ -412,10 +412,10 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 var hitTest = dgvSchedule.HitTest(e.X, e.Y);
                 int dropRow = -1;
-                if (hitTest.Type != DataGridViewHitTestType.None)
+                if (hitTest.Type != DataGridViewHitTestType.None && hitTest.RowIndex > -1 && hitTest.ColumnIndex > -1)
                 {
                     dropRow = hitTest.RowIndex;
-                    dgvSchedule.CurrentCell = dgvSchedule.Rows[dropRow].Cells[0];
+                    dgvSchedule.CurrentCell = dgvSchedule.Rows[dropRow].Cells[hitTest.ColumnIndex];
                     if (dragRow >= 0)
                     {
                         int tgtRow = dropRow;
@@ -426,26 +426,21 @@ namespace ATV.ProgramDept.DesktopApp
                             viewList.Insert(tgtRow, selectedProgram);
                             int currentIndex = dgvSchedule.CurrentRow.Index;
 
-
                             ScheduleUlities.EstimateStartTime(viewList);
 
                             var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
-                            var source = new BindingSource(bindingList, null);                            
+                            var source = new BindingSource(bindingList, null);
                             dgvSchedule.DataSource = source;
+                            dgvSchedule.Rows[tgtRow].Selected = true;
                             if (dropRow > dragRow)
                             {
                                 dgvSchedule.FirstDisplayedScrollingRowIndex = currentIndex;
+                            }  else
+                            {
+                                dgvSchedule.CurrentCell = dgvSchedule.Rows[tgtRow].Cells[0];
                             }
-                            
-                            dgvSchedule.CurrentCell = dgvSchedule.Rows[tgtRow].Cells[0];
-                            dgvSchedule.Rows[tgtRow].Selected = true;
-                            
                         }
                     }
-                }
-                else
-                {
-                    dgvSchedule.Rows[dragRow].Selected = true;
                 }
 
                 if (dragLabel != null)
@@ -623,7 +618,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void MnsEditor_MouseClick(object sender, MouseEventArgs e)
         {
-            
+
         }
 
         private void InsertReadyProgram(int RowIndex)
@@ -691,7 +686,7 @@ namespace ATV.ProgramDept.DesktopApp
                 year = Int32.Parse(yearPicker);
                 weekNumber = weekNumber + 1;
                 InitDataGridView(tabDays.SelectedIndex + 1);
-                
+
             }
         }
 
@@ -728,11 +723,20 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 if (e.ColumnIndex < 0 || e.RowIndex < 0) return;
                 dragRow = e.RowIndex;
-                if (dragLabel == null) dragLabel = new Label();
-                dragLabel.Text = dgvSchedule[e.ColumnIndex, e.RowIndex].Value.ToString();
-                dragLabel.Parent = dgvSchedule;
-                dragLabel.Location = e.Location;
-            }            
+                if (e.Clicks == 1)
+                {
+                    if (dragLabel == null) dragLabel = new Label();
+                    string cellValue = "";
+                    if (dgvSchedule[e.ColumnIndex, e.RowIndex].Value != null)
+                    {
+                        cellValue = dgvSchedule[e.ColumnIndex, e.RowIndex].Value.ToString();
+                    }
+
+                    dragLabel.Text = cellValue;
+                    dragLabel.Parent = dgvSchedule;
+                    dragLabel.Location = e.Location;
+                }
+            }
         }
 
         private void dgvSchedule_MouseMove(object sender, MouseEventArgs e)
@@ -742,15 +746,22 @@ namespace ATV.ProgramDept.DesktopApp
                 if (e.Button == MouseButtons.Left && dragLabel != null)
                 {
                     var hitTest = dgvSchedule.HitTest(e.X, e.Y);
-                    int dragRow = hitTest.RowIndex;                    
+                    int dragRow = hitTest.RowIndex;
                     dragLabel.Location = e.Location;
-                    dgvSchedule.ClearSelection();         
+                    dgvSchedule.ClearSelection();
                     if (dragRow > -1 && dragRow < viewList.Count)
                     {
                         dgvSchedule.CurrentCell = dgvSchedule.Rows[dragRow].Cells[0];
                     }
                 }
-            }            
+            }
+        }
+
+        private void dgvSchedule_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridViewCell cell = dgvSchedule.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            dgvSchedule.CurrentCell = cell;
+            dgvSchedule.BeginEdit(true);
         }
     }
 }

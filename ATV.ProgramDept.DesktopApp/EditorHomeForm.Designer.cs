@@ -187,7 +187,7 @@
             this.tpMon.Controls.Add(this.dayScheduleHomeContainer);
             this.tpMon.Location = new System.Drawing.Point(4, 22);
             this.tpMon.Name = "tpMon";
-            this.tpMon.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tpMon.Padding = new System.Windows.Forms.Padding(3);
             this.tpMon.Size = new System.Drawing.Size(799, 402);
             this.tpMon.TabIndex = 0;
             this.tpMon.Text = "Thứ 2";
@@ -209,7 +209,7 @@
             // txtDate
             // 
             this.txtDate.Location = new System.Drawing.Point(2, 0);
-            this.txtDate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDate.Margin = new System.Windows.Forms.Padding(2);
             this.txtDate.Name = "txtDate";
             this.txtDate.Size = new System.Drawing.Size(114, 20);
             this.txtDate.TabIndex = 4;
@@ -261,6 +261,7 @@
             this.dgvSchedule.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvSchedule_CellContentClick);
             this.dgvSchedule.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSchedule_CellEnter);
             this.dgvSchedule.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvSchedule_CellFormatting);
+            this.dgvSchedule.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvSchedule_CellMouseDoubleClick);
             this.dgvSchedule.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvSchedule_CellMouseDown);
             this.dgvSchedule.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSchedule_CellValueChanged);
             this.dgvSchedule.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvSchedule_UserDeletedRow);
@@ -369,8 +370,8 @@
             // 
             this.tpTue.Location = new System.Drawing.Point(4, 22);
             this.tpTue.Name = "tpTue";
-            this.tpTue.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tpTue.Size = new System.Drawing.Size(799, 403);
+            this.tpTue.Padding = new System.Windows.Forms.Padding(3);
+            this.tpTue.Size = new System.Drawing.Size(799, 402);
             this.tpTue.TabIndex = 1;
             this.tpTue.Text = "Thứ 3";
             this.tpTue.UseVisualStyleBackColor = true;
@@ -379,7 +380,7 @@
             // 
             this.tpWed.Location = new System.Drawing.Point(4, 22);
             this.tpWed.Name = "tpWed";
-            this.tpWed.Size = new System.Drawing.Size(799, 403);
+            this.tpWed.Size = new System.Drawing.Size(799, 402);
             this.tpWed.TabIndex = 2;
             this.tpWed.Text = "Thứ 4";
             this.tpWed.UseVisualStyleBackColor = true;
@@ -388,7 +389,7 @@
             // 
             this.tpThu.Location = new System.Drawing.Point(4, 22);
             this.tpThu.Name = "tpThu";
-            this.tpThu.Size = new System.Drawing.Size(799, 403);
+            this.tpThu.Size = new System.Drawing.Size(799, 402);
             this.tpThu.TabIndex = 3;
             this.tpThu.Text = "Thứ 5";
             this.tpThu.UseVisualStyleBackColor = true;
@@ -397,7 +398,7 @@
             // 
             this.tpFri.Location = new System.Drawing.Point(4, 22);
             this.tpFri.Name = "tpFri";
-            this.tpFri.Size = new System.Drawing.Size(799, 403);
+            this.tpFri.Size = new System.Drawing.Size(799, 402);
             this.tpFri.TabIndex = 4;
             this.tpFri.Text = "Thứ 6";
             this.tpFri.UseVisualStyleBackColor = true;
@@ -406,7 +407,7 @@
             // 
             this.tpSat.Location = new System.Drawing.Point(4, 22);
             this.tpSat.Name = "tpSat";
-            this.tpSat.Size = new System.Drawing.Size(799, 403);
+            this.tpSat.Size = new System.Drawing.Size(799, 402);
             this.tpSat.TabIndex = 5;
             this.tpSat.Text = "Thứ 7";
             this.tpSat.UseVisualStyleBackColor = true;
@@ -415,7 +416,7 @@
             // 
             this.tpSun.Location = new System.Drawing.Point(4, 22);
             this.tpSun.Name = "tpSun";
-            this.tpSun.Size = new System.Drawing.Size(799, 403);
+            this.tpSun.Size = new System.Drawing.Size(799, 402);
             this.tpSun.TabIndex = 6;
             this.tpSun.Text = "Chủ nhật";
             this.tpSun.UseVisualStyleBackColor = true;
@@ -425,7 +426,7 @@
             this.dtpYear.CustomFormat = "yyyy";
             this.dtpYear.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpYear.Location = new System.Drawing.Point(74, 2);
-            this.dtpYear.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtpYear.Margin = new System.Windows.Forms.Padding(2);
             this.dtpYear.Name = "dtpYear";
             this.dtpYear.ShowUpDown = true;
             this.dtpYear.Size = new System.Drawing.Size(62, 20);
@@ -445,7 +446,7 @@
             // btnNextweek
             // 
             this.btnNextweek.Location = new System.Drawing.Point(56, 2);
-            this.btnNextweek.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnNextweek.Margin = new System.Windows.Forms.Padding(2);
             this.btnNextweek.Name = "btnNextweek";
             this.btnNextweek.Size = new System.Drawing.Size(14, 20);
             this.btnNextweek.TabIndex = 4;
@@ -456,7 +457,7 @@
             // btnLastweek
             // 
             this.btnLastweek.Location = new System.Drawing.Point(2, 2);
-            this.btnLastweek.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnLastweek.Margin = new System.Windows.Forms.Padding(2);
             this.btnLastweek.Name = "btnLastweek";
             this.btnLastweek.Size = new System.Drawing.Size(14, 20);
             this.btnLastweek.TabIndex = 5;
