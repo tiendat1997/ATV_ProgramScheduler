@@ -53,7 +53,7 @@ namespace ATV.ProgramDept.Service.Utilities
                 //writer.Dispose();
 
             }
-            //mail.Attachments.Add();
+            //mail.Attachments.Add();z
             var result = client.SendMailAsync(mail);
             return result;
         }
