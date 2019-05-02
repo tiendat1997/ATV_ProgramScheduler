@@ -49,7 +49,9 @@ namespace ATV.ProgramDept.DesktopApp
         private readonly int COL_DURATION = 6;
 
         private int dragRow = -1;
-        Label dragLabel = null; 
+        Label dragLabel = null;
+
+        public int CurrentlySelectedRow = -1;
         
         
         public EditorHomeForm()
@@ -116,6 +118,7 @@ namespace ATV.ProgramDept.DesktopApp
             }
             weekSchedules = _scheduleRepository.GetWeekSchedule(weekId).ToList();
             LoadDataToGridView(dayOfWeek);
+            CurrentlySelectedRow = dgvSchedule.SelectedRows.Count > 0 ? dgvSchedule.SelectedRows[0].Index : -1;
         }
 
         private void btnToAdmin_Click(object sender, EventArgs e)
@@ -285,9 +288,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         public void ReadyForInsertProgram(int ProgramID)
         {
-            if (IsInsertInDgv)
-            {
-                ScheduleDetailViewModel scheduleDetail =
+            ScheduleDetailViewModel scheduleDetail =
                     _programRepository.Find(p => p.ID == ProgramID)
                     .Select(p => new ScheduleDetailViewModel()
                     {
@@ -297,44 +298,100 @@ namespace ATV.ProgramDept.DesktopApp
                         ProgramID = p.ID,
                         ScheduleID = currentSchedule.ID,
                     }).FirstOrDefault();
-                var scheduleDuration = new TimeSpan(0, (int)scheduleDetail.Duration, 0);
-                // check the last row if Dawn 
-                if (viewList.Count > 0)
+            var scheduleDuration = new TimeSpan(0, (int)scheduleDetail.Duration, 0);
+            // check the last row if Dawn 
+            if (viewList.Count > 0)
+            {
+                var lastItem = viewList[viewList.Count - 1];
+                if (lastItem.StartTime >= TimeFrame.Dawn.StartTime
+                    && lastItem.StartTime <= TimeFrame.Dawn.EndTime
+                    && lastItem.StartTime.Add(scheduleDuration) >= TimeFrame.Morning.StartTime)
                 {
-                    var lastItem = viewList[viewList.Count - 1];
-                    if (lastItem.StartTime >= TimeFrame.Dawn.StartTime
-                        && lastItem.StartTime <= TimeFrame.Dawn.EndTime
-                        && lastItem.StartTime.Add(scheduleDuration) >= TimeFrame.Morning.StartTime)
-                    {
-                        MessageBox.Show("Không");
-                        return;
-                    }
+                    MessageBox.Show("Không");
+                    return;
                 }
+            }
 
-                viewList.Insert(currentRowIndex, scheduleDetail);
+            int selectedIndex = dgvSchedule.SelectedRows.Count > 0 ? dgvSchedule.SelectedRows[0].Index : 0;
+            CurrentlySelectedRow = selectedIndex;
+            viewList.Insert(selectedIndex, scheduleDetail);
 
-                ReorderPositionScheduler();
+            ReorderPositionScheduler();
 
-                var result = ScheduleUlities.EstimateStartTime(viewList);
-                if (!result)
-                {
-                    viewList.RemoveAt(currentRowIndex);
-                    MessageBox.Show("Lịch ngày hiện tại đã đầy, không thể thêm chương trình");
-                    ScheduleUlities.EstimateStartTime(viewList);
-                }
-                var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
-                var source = new BindingSource(bindingList, null);
-                dgvSchedule.DataSource = source;
-                dgvSchedule.Update();
+            var result = ScheduleUlities.EstimateStartTime(viewList);
+            if (!result)
+            {
+                viewList.RemoveAt(currentRowIndex);
+                MessageBox.Show("Lịch ngày hiện tại đã đầy, không thể thêm chương trình");
+                ScheduleUlities.EstimateStartTime(viewList);
+            }
+            var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
+            var source = new BindingSource(bindingList, null);
+            dgvSchedule.DataSource = source;
+            dgvSchedule.Update();
 
-                IsInsertInDgv = false;
+            IsInsertInDgv = false;
+            dgvSchedule.ClearSelection();
+            if (viewList.Count > CurrentlySelectedRow + 1)
+            {
+                dgvSchedule.Rows[CurrentlySelectedRow + 1].Selected = true;
+
             }
             else
             {
-                dgvSchedule.Cursor = System.Windows.Forms.Cursors.Cross;
-                programIDToInsert = ProgramID;
-                readyForInsert = true;
+                dgvSchedule.Rows[CurrentlySelectedRow].Selected = true;
             }
+
+            //if (IsInsertInDgv)
+            //{
+            //    ScheduleDetailViewModel scheduleDetail =
+            //        _programRepository.Find(p => p.ID == ProgramID)
+            //        .Select(p => new ScheduleDetailViewModel()
+            //        {
+            //            Duration = p.Duration.Value,
+            //            ProgramName = p.Name,
+            //            PerformBy = p.PerformBy,
+            //            ProgramID = p.ID,
+            //            ScheduleID = currentSchedule.ID,
+            //        }).FirstOrDefault();
+            //    var scheduleDuration = new TimeSpan(0, (int)scheduleDetail.Duration, 0);
+            //    // check the last row if Dawn 
+            //    if (viewList.Count > 0)
+            //    {
+            //        var lastItem = viewList[viewList.Count - 1];
+            //        if (lastItem.StartTime >= TimeFrame.Dawn.StartTime
+            //            && lastItem.StartTime <= TimeFrame.Dawn.EndTime
+            //            && lastItem.StartTime.Add(scheduleDuration) >= TimeFrame.Morning.StartTime)
+            //        {
+            //            MessageBox.Show("Không");
+            //            return;
+            //        }
+            //    }
+
+            //    viewList.Insert(currentRowIndex, scheduleDetail);
+
+            //    ReorderPositionScheduler();
+
+            //    var result = ScheduleUlities.EstimateStartTime(viewList);
+            //    if (!result)
+            //    {
+            //        viewList.RemoveAt(currentRowIndex);
+            //        MessageBox.Show("Lịch ngày hiện tại đã đầy, không thể thêm chương trình");
+            //        ScheduleUlities.EstimateStartTime(viewList);
+            //    }
+            //    var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
+            //    var source = new BindingSource(bindingList, null);
+            //    dgvSchedule.DataSource = source;
+            //    dgvSchedule.Update();
+
+            //    IsInsertInDgv = false;
+            //}
+            //else
+            //{
+            //    dgvSchedule.Cursor = System.Windows.Forms.Cursors.Cross;
+            //    programIDToInsert = ProgramID;
+            //    readyForInsert = true;
+            //}
         }
 
         private void tsmiInsertFixProgram_Click(object sender, EventArgs e)
@@ -359,7 +416,7 @@ namespace ATV.ProgramDept.DesktopApp
             //contextMenuDgv.MenuItems.Add("Chèn CT chen giờ", new EventHandler(InsertFlexProgramEvent));
             contextMenuDgv.MenuItems.Add("Xóa CT", new EventHandler(DeleteProgramEvent));
         }
-        // Insert CT Cố định
+        // Insert CT 
         private void InsertProgramEvent(object sender, EventArgs eventArgs)
         {
             IsInsertInDgv = true;
@@ -751,6 +808,11 @@ namespace ATV.ProgramDept.DesktopApp
                     }
                 }
             }            
+        }
+
+        private void DgvSchedule_SelectionChanged(object sender, EventArgs e)
+        {
+            //CurrentlySelectedRow = dgvSchedule.SelectedRows.Count > 0 ? dgvSchedule.SelectedRows[0].Index : -1;
         }
     }
 }

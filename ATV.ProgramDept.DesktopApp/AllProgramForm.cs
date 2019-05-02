@@ -22,9 +22,10 @@ namespace ATV.ProgramDept.DesktopApp
         private readonly IProgramRepository _programRepository;
         BindingList<ProgramModel> bindingList;
         BindingList<ProgramModel> currentList;
-        IInsertProgram editorHomeForm;
+        //IInsertProgram editorHomeForm;
+        EditorHomeForm editorHomeForm;
 
-        public AllProgramForm(IInsertProgram editorHomeForm)
+        public AllProgramForm(EditorHomeForm editorHomeForm)
         {
             _programRepository = new ProgramRepository();
             this.editorHomeForm = editorHomeForm;
@@ -90,7 +91,7 @@ namespace ATV.ProgramDept.DesktopApp
                 //EditorHomeForm.ProgramIDToInsert = currentList[dgvProgram.SelectedRows[0].Index].ID;
                 //this.Close();
                 editorHomeForm.ReadyForInsertProgram(currentList[dgvProgram.SelectedRows[0].Index].ID);
-                editorHomeForm.BringToFront();
+                //editorHomeForm.BringToFront();
                 //this.Close();
             }
             else
