@@ -31,6 +31,10 @@ namespace ATV.ProgramDept.Entity
 
         public string ProgramName { get; set; }
 
+        public TimeSpan? StartTime { get; set; }
+
+        public bool? IsFixed { get; set; }
+
         public virtual Program Program { get; set; }
 
         public virtual Schedule Schedule { get; set; }

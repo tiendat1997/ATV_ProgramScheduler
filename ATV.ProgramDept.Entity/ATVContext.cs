@@ -7,15 +7,20 @@ namespace ATV.ProgramDept.Entity
 
     public partial class ATVContext : BaseDbContext
     {
-        public ATVContext() : base("ATVContext")
-        {            
+        public ATVContext()
+            : base("ATVProgrammeContext")
+        {
         }
 
         public virtual DbSet<Date> Date { get; set; }
         public virtual DbSet<Department> Department { get; set; }
         public virtual DbSet<EditingHistory> EditingHistory { get; set; }
+        public virtual DbSet<FramePlan> FramePlan { get; set; }
+        public virtual DbSet<FramePlanDetail> FramePlanDetail { get; set; }
         public virtual DbSet<MailingHistory> MailingHistory { get; set; }
         public virtual DbSet<Program> Program { get; set; }
+        public virtual DbSet<ProgramSchedule> ProgramSchedule { get; set; }
+        public virtual DbSet<ProgramScheduleDetail> ProgramScheduleDetail { get; set; }
         public virtual DbSet<ProgramType> ProgramType { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Schedule> Schedule { get; set; }
@@ -23,16 +28,11 @@ namespace ATV.ProgramDept.Entity
         public virtual DbSet<ScheduleTemplate> ScheduleTemplate { get; set; }
         public virtual DbSet<ScheduleTemplateDetail> ScheduleTemplateDetail { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public DbSet<User> User { get; set; }
+        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Week> Week { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Date>()
-            //    .HasMany(e => e.EditingHistory)
-            //    .WithRequired(e => e.Date)
-            //    .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Date>()
                 .HasMany(e => e.MailingHistory)
                 .WithRequired(e => e.Date)
@@ -48,6 +48,16 @@ namespace ATV.ProgramDept.Entity
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Program>()
+                .HasMany(e => e.FramePlanDetail)
+                .WithRequired(e => e.Program)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Program>()
+                .HasMany(e => e.ProgramSchedule)
+                .WithRequired(e => e.Program)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Program>()
                 .HasMany(e => e.ScheduleDetail)
                 .WithRequired(e => e.Program)
                 .WillCascadeOnDelete(false);
@@ -55,6 +65,11 @@ namespace ATV.ProgramDept.Entity
             modelBuilder.Entity<Program>()
                 .HasMany(e => e.ScheduleTemplateDetail)
                 .WithRequired(e => e.Program)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ProgramSchedule>()
+                .HasMany(e => e.ProgramScheduleDetail)
+                .WithRequired(e => e.ProgramSchedule)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ProgramType>()
@@ -105,6 +120,11 @@ namespace ATV.ProgramDept.Entity
                 .IsUnicode(false);
 
             modelBuilder.Entity<User>()
+                .HasMany(e => e.Date)
+                .WithOptional(e => e.User)
+                .HasForeignKey(e => e.InChargeUserID);
+
+            modelBuilder.Entity<User>()
                 .HasMany(e => e.EditingHistory)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
@@ -114,10 +134,16 @@ namespace ATV.ProgramDept.Entity
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Week)
+                .WithOptional(e => e.User)
+                .HasForeignKey(e => e.InChargeUserID);
+
             modelBuilder.Entity<Week>()
                 .HasMany(e => e.Date)
                 .WithRequired(e => e.Week)
                 .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Week>()
                 .HasMany(e => e.EditingHistory)
                 .WithRequired(e => e.Week)
