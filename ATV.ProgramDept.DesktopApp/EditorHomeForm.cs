@@ -48,6 +48,10 @@ namespace ATV.ProgramDept.DesktopApp
         private readonly int COL_STARTTIME = 2;
         private readonly int COL_DURATION = 6;
 
+        private int dragRow = -1;
+        Label dragLabel = null;
+
+
         public EditorHomeForm()
         {
             readyForInsert = false;
@@ -101,10 +105,10 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 // GENERATE NEW WEEK SCHEDULE and Dates
                 weekRepository.GenerateNewWeekAndDates(monday, sunday);
-                isNew = true; 
-            }            
+                isNew = true;
+            }
             weekId = weekRepository.GetWeekId(monday, sunday);
-            weekSchedules = _scheduleRepository.GetWeekSchedule(weekId).ToList();            
+            weekSchedules = _scheduleRepository.GetWeekSchedule(weekId).ToList();
             if (isNew)
             {
                 // COPY SCHEDULE DETAIL OF TEMPLATE INTO CURRENT SCHEDULE                
@@ -189,6 +193,9 @@ namespace ATV.ProgramDept.DesktopApp
                 //change button text
                 btnSaveSchedule.Text = "Chỉnh sửa";
 
+                // Reordering 
+                ReorderPositionScheduler();
+
                 //update finish editing block
                 LatestEditingHistory.IsFinished = true;
                 _editingHistoryRepository.Update(LatestEditingHistory);
@@ -201,7 +208,7 @@ namespace ATV.ProgramDept.DesktopApp
             else
             {
                 LatestEditingHistory = _editingHistoryRepository.GetLastEditingAsNoTracking();
-                
+
                 if (LatestEditingHistory == null || LatestEditingHistory.IsFinished)
                 {
                     isEdit = !isEdit;
@@ -210,8 +217,8 @@ namespace ATV.ProgramDept.DesktopApp
                     btnSaveSchedule.Text = "Lưu";
 
                     //update start editing block
-                    
-                        
+
+
                     EditingHistory editingHistory = new EditingHistory()
                     {
                         UserID = Program.User.ID,
@@ -401,6 +408,50 @@ namespace ATV.ProgramDept.DesktopApp
         }
         private void dgvSchedule_MouseUp(object sender, MouseEventArgs e)
         {
+            if (isEdit)
+            {
+                var hitTest = dgvSchedule.HitTest(e.X, e.Y);
+                int dropRow = -1;
+                if (hitTest.Type != DataGridViewHitTestType.None && hitTest.RowIndex > -1 && hitTest.ColumnIndex > -1)
+                {
+                    dropRow = hitTest.RowIndex;
+                    dgvSchedule.CurrentCell = dgvSchedule.Rows[dropRow].Cells[hitTest.ColumnIndex];
+                    if (dragRow >= 0)
+                    {
+                        int tgtRow = dropRow;
+                        if (tgtRow >= 0 && tgtRow < viewList.Count && tgtRow != dragRow)
+                        {
+                            var selectedProgram = viewList[dragRow];
+                            viewList.RemoveAt(dragRow);
+                            viewList.Insert(tgtRow, selectedProgram);
+                            int currentIndex = dgvSchedule.CurrentRow.Index;
+
+                            ScheduleUlities.EstimateStartTime(viewList);
+
+                            var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
+                            var source = new BindingSource(bindingList, null);
+                            dgvSchedule.DataSource = source;
+                            dgvSchedule.Rows[tgtRow].Selected = true;
+                            if (dropRow > dragRow)
+                            {
+                                dgvSchedule.FirstDisplayedScrollingRowIndex = currentIndex;
+                            }
+                            else
+                            {
+                                dgvSchedule.CurrentCell = dgvSchedule.Rows[tgtRow].Cells[0];
+                            }
+                        }
+                    }
+                }
+
+                if (dragLabel != null)
+                {
+                    dragLabel.Dispose();
+                    dragLabel = null;
+                }
+            }
+
+            //
             DataGridView.HitTestInfo hit = dgvSchedule.HitTest(e.X, e.Y);
             if (e.Button == MouseButtons.Right && isEdit)
             {
@@ -568,7 +619,7 @@ namespace ATV.ProgramDept.DesktopApp
 
         private void MnsEditor_MouseClick(object sender, MouseEventArgs e)
         {
-            
+
         }
 
         private void InsertReadyProgram(int RowIndex)
@@ -636,7 +687,7 @@ namespace ATV.ProgramDept.DesktopApp
                 year = Int32.Parse(yearPicker);
                 weekNumber = weekNumber + 1;
                 InitDataGridView(tabDays.SelectedIndex + 1);
-                
+
             }
         }
 
@@ -665,6 +716,51 @@ namespace ATV.ProgramDept.DesktopApp
             }
             AllProgramForm allProgramForm = new AllProgramForm(this);
             allProgramForm.Show();
+        }
+
+        private void dgvSchedule_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (isEdit && e.Clicks == 1)
+            {
+                if (e.ColumnIndex < 0 || e.RowIndex < 0) return;
+                dragRow = e.RowIndex;
+                if (dragLabel == null) dragLabel = new Label();
+                string cellValue = "";
+                if (dgvSchedule[3, e.RowIndex].Value != null)
+                {
+                    cellValue = dgvSchedule[3, e.RowIndex].Value.ToString();
+                }
+
+                dragLabel.AutoSize = true;
+                dragLabel.Text = cellValue;
+                dragLabel.Parent = dgvSchedule;
+                dragLabel.Location = e.Location;
+            }
+        }
+
+        private void dgvSchedule_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isEdit)
+            {
+                if (e.Button == MouseButtons.Left && dragLabel != null)
+                {
+                    var hitTest = dgvSchedule.HitTest(e.X, e.Y);
+                    int dragRow = hitTest.RowIndex;
+                    dragLabel.Location = e.Location;
+                    dgvSchedule.ClearSelection();
+                    if (dragRow > -1 && dragRow < viewList.Count)
+                    {
+                        dgvSchedule.CurrentCell = dgvSchedule.Rows[dragRow].Cells[0];
+                    }
+                }
+            }
+        }
+
+        private void dgvSchedule_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridViewCell cell = dgvSchedule.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            dgvSchedule.CurrentCell = cell;
+            dgvSchedule.BeginEdit(true);
         }
     }
 }

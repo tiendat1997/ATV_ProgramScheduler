@@ -12,7 +12,7 @@ namespace ATV.ProgramDept.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Date()
         {
-            
+            FramePlan = new HashSet<FramePlan>();
             MailingHistory = new HashSet<MailingHistory>();
             Schedule = new HashSet<Schedule>();
             ScheduleTemplate = new HashSet<ScheduleTemplate>();
@@ -22,17 +22,28 @@ namespace ATV.ProgramDept.Entity
 
         public int WeekID { get; set; }
 
-        [Required]        
         public int DayOfWeek { get; set; }
 
         public DateTime DateOfYear { get; set; }
 
         public double StartAt { get; set; }
 
+        public int? InChargeUserID { get; set; }
+
+        public int? MorningInChargeUserID { get; set; }
+
+        public int? NoonInChargeUserID { get; set; }
+
+        public int? AfternoonInChargeUserID { get; set; }
+
+        public int? DawnInChargeUserID { get; set; }
+
+        public virtual User User { get; set; }
+
         public virtual Week Week { get; set; }
 
-        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        //public virtual ICollection<EditingHistory> EditingHistory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FramePlan> FramePlan { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MailingHistory> MailingHistory { get; set; }

@@ -6,22 +6,14 @@ namespace ATV.ProgramDept.Entity
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("ScheduleTemplateDetail")]
-    public partial class ScheduleTemplateDetail
+    [Table("FramePlanDetail")]
+    public partial class FramePlanDetail
     {
         public int ID { get; set; }
 
         public int ProgramID { get; set; }
 
-        public int ScheduleTemplateID { get; set; }
-
-        public int Position { get; set; }
-
-        public bool IsNoted { get; set; }
-
-        public bool IsActive { get; set; }
-
-        public string ProgramName { get; set; }
+        public TimeSpan? StartTime { get; set; }
 
         public string Contents { get; set; }
 
@@ -31,10 +23,14 @@ namespace ATV.ProgramDept.Entity
 
         public string Note { get; set; }
 
-        public TimeSpan? StartTime { get; set; }
+        public bool? IsActive { get; set; }
+
+        public int? FramePlanID { get; set; }
+
+        public string ProgramName { get; set; }
+
+        public virtual FramePlan FramePlan { get; set; }
 
         public virtual Program Program { get; set; }
-
-        public virtual ScheduleTemplate ScheduleTemplate { get; set; }
     }
 }

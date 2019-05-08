@@ -13,15 +13,14 @@ namespace ATV.ProgramDept.Entity
 
         public int UserID { get; set; }
 
-        //public int DateID { get; set; }
         public int WeekID { get; set; }
 
         public DateTime Time { get; set; }
 
         public bool IsFinished { get; set; }
 
-        public virtual Week Week { get; set; }
-
         public virtual User User { get; set; }
+
+        public virtual Week Week { get; set; }
     }
 }
