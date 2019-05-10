@@ -99,6 +99,8 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 for (int i = 0; i < viewList.Count; i++)
                 {
+                    
+
                     if (viewList[i].OverlapType == ScheduleUlities.OVERLAP)
                     {
                         dgvSchedule.Rows[i].DefaultCellStyle.BackColor = Color.LightPink;
@@ -114,6 +116,11 @@ namespace ATV.ProgramDept.DesktopApp
                         dgvSchedule.Rows[i].DefaultCellStyle.BackColor = Color.White;
                         dgvSchedule.Rows[i].Cells[COL_DURATION].ErrorText = "";
 
+                    }
+
+                    if (viewList[i].IsFixed)
+                    {
+                        dgvSchedule.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
                     }
                 }
             }
