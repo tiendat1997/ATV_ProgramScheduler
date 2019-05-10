@@ -17,7 +17,7 @@ namespace ATV.ProgramDept.Service.Implement
                             .Select(x => new ScheduleDetailViewModel
                             {
                                 ID = x.ID,
-                                StartTime = new TimeSpan(5, 0, 0), //change StartAt to time in db
+                                StartTime = x.StartTime.HasValue ? x.StartTime.Value : new TimeSpan(5, 0, 0), //change StartAt to time in db
                                 ProgramName = String.IsNullOrEmpty(x.ProgramName) ? x.Program.Name : x.ProgramName,
                                 Contents = x.Contents,
                                 PerformBy = x.PerformBy,
@@ -27,7 +27,8 @@ namespace ATV.ProgramDept.Service.Implement
                                 ProgramID = x.ProgramID,
                                 ScheduleID = x.ScheduleID.Value,
                                 Position = x.Position,
-                                IsNoted = x.IsNoted.Value
+                                IsNoted = x.IsNoted.Value,
+                                IsFixed = x.IsFixed.Value
                             });
             return list;
         }
@@ -51,6 +52,7 @@ namespace ATV.ProgramDept.Service.Implement
                     item.Contents = schedule.Contents;
                     item.Position = schedule.Position;
                     item.IsNoted = schedule.IsNoted;
+                    item.StartTime = schedule.StartTime;
                     this.Update(item);
                 }
                 else
@@ -67,7 +69,8 @@ namespace ATV.ProgramDept.Service.Implement
                         Position = schedule.Position,
                         ProgramID = schedule.ProgramID,
                         ScheduleID = schedule.ScheduleID,
-                        IsNoted = schedule.IsNoted
+                        IsNoted = schedule.IsNoted,
+                        StartTime = schedule.StartTime
                     };
                     this.Create(item);
                 }

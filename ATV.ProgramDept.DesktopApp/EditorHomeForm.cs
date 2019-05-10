@@ -84,12 +84,40 @@ namespace ATV.ProgramDept.DesktopApp
                 viewList = currentSchedule.Details.OrderBy(x => x.Position).ToList();
             }
 
-            ScheduleUlities.EstimateStartTime(viewList);
+            //ScheduleUlities.EstimateStartTime(viewList);
+            ScheduleUlities.CheckOverlapSchedule(viewList);
             var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
             dgvSchedule.DataSource = source;
-
+            NotifyOverlapSchedule();
             txtDate.Text = currentSchedule.Date.DateOfYear.ToShortDateString();
+        }
+
+        private void NotifyOverlapSchedule()
+        {
+            if (viewList != null && viewList.Count > 0)
+            {
+                for (int i = 0; i < viewList.Count; i++)
+                {
+                    if (viewList[i].OverlapType == ScheduleUlities.OVERLAP)
+                    {
+                        dgvSchedule.Rows[i].DefaultCellStyle.BackColor = Color.LightPink;
+                        dgvSchedule.Rows[i].Cells[COL_DURATION].ErrorText = viewList[i].OverlapMessage;
+                    }
+                    else if (viewList[i].OverlapType == ScheduleUlities.MISS)
+                    {
+                        dgvSchedule.Rows[i].DefaultCellStyle.BackColor = Color.LightGoldenrodYellow;
+                        dgvSchedule.Rows[i].Cells[COL_DURATION].ErrorText = viewList[i].OverlapMessage;
+                    }
+                    else if (viewList[i].OverlapType == ScheduleUlities.NICE)
+                    {
+                        dgvSchedule.Rows[i].DefaultCellStyle.BackColor = Color.White;
+                        dgvSchedule.Rows[i].Cells[COL_DURATION].ErrorText = "";
+
+                    }
+                }
+            }
+
         }
 
         private void InitDataGridView(int dayOfWeek)
@@ -188,6 +216,12 @@ namespace ATV.ProgramDept.DesktopApp
             EditingHistory LatestEditingHistory;
             if (isEdit)
             {
+                if (IsOverlapError())
+                {
+                    MessageBox.Show("Giờ bắt đầu của các chương trình còn lỗi, hãy điều chỉnh lại trước khi lưu");
+                    return;
+                }
+
                 LatestEditingHistory = _editingHistoryRepository.GetLastEditing();
                 isEdit = !isEdit;
                 //change button text
@@ -207,6 +241,7 @@ namespace ATV.ProgramDept.DesktopApp
             }
             else
             {
+               
                 LatestEditingHistory = _editingHistoryRepository.GetLastEditingAsNoTracking();
 
                 if (LatestEditingHistory == null || LatestEditingHistory.IsFinished)
@@ -231,11 +266,18 @@ namespace ATV.ProgramDept.DesktopApp
                     //update data from db
                     InitDataGridView(tabDays.SelectedIndex + 1);
                 }
+
+
                 else
                 {
                     MessageBox.Show("Hiện tại " + LatestEditingHistory.User.Username + " đang thực hiện công việc chỉnh sửa, vui lòng quay lại sau!");
                 }
             }
+        }
+
+        private bool IsOverlapError()
+        {
+            return viewList.Where(s => s.OverlapType == ScheduleUlities.OVERLAP || s.OverlapType == ScheduleUlities.MISS).Any();
         }
 
         private List<ScheduleDetailViewModel> TransformToDetailList(List<ScheduleViewModel> weekSchedule)
@@ -251,7 +293,18 @@ namespace ATV.ProgramDept.DesktopApp
         {
             if (isEdit)
             {
-                this.dgvSchedule.CurrentCell.ReadOnly = false;
+                if (dgvSchedule.CurrentCell.ColumnIndex == COL_DURATION && viewList[dgvSchedule.CurrentCell.RowIndex].IsFixed)
+                {
+                    this.dgvSchedule.CurrentCell.ReadOnly = true;
+                }
+                else if (dgvSchedule.CurrentCell.ColumnIndex == COL_STARTTIME || dgvSchedule.CurrentCell.ColumnIndex == COL_SESSION)
+                {
+                    this.dgvSchedule.CurrentCell.ReadOnly = true;
+                }
+                else
+                {
+                    this.dgvSchedule.CurrentCell.ReadOnly = false;
+                }
             }
             else
             {
@@ -322,9 +375,12 @@ namespace ATV.ProgramDept.DesktopApp
                     MessageBox.Show("Lịch ngày hiện tại đã đầy, không thể thêm chương trình");
                     ScheduleUlities.EstimateStartTime(viewList);
                 }
+                ScheduleUlities.CheckOverlapSchedule(viewList);
+
                 var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
                 var source = new BindingSource(bindingList, null);
                 dgvSchedule.DataSource = source;
+                NotifyOverlapSchedule();
                 dgvSchedule.Update();
 
                 IsInsertInDgv = false;
@@ -386,11 +442,14 @@ namespace ATV.ProgramDept.DesktopApp
             dgvSchedule.Rows.RemoveAt(currentRowIndex);
             ReorderPositionScheduler();
             ScheduleUlities.EstimateStartTime(viewList);
+            ScheduleUlities.CheckOverlapSchedule(viewList);
+
             var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
             dgvSchedule.DataSource = source;
             dgvSchedule.Update();
             dgvSchedule.ClearSelection();
+            NotifyOverlapSchedule();
             if (dgvSchedule.Rows.Count > currentRowIndex)
             {
                 dgvSchedule.Rows[currentRowIndex].Selected = true;
@@ -427,6 +486,7 @@ namespace ATV.ProgramDept.DesktopApp
                             int currentIndex = dgvSchedule.CurrentRow.Index;
 
                             ScheduleUlities.EstimateStartTime(viewList);
+                            ScheduleUlities.CheckOverlapSchedule(viewList);
 
                             var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
                             var source = new BindingSource(bindingList, null);
@@ -471,6 +531,8 @@ namespace ATV.ProgramDept.DesktopApp
                     dgvSchedule.ClearSelection();
                 }
             }
+
+            NotifyOverlapSchedule();
         }
 
         private void EditorHomeForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -506,6 +568,8 @@ namespace ATV.ProgramDept.DesktopApp
         {
             ReorderPositionScheduler();
             ScheduleUlities.EstimateStartTime(viewList);
+            ScheduleUlities.CheckOverlapSchedule(viewList);
+
             var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
             dgvSchedule.DataSource = source;
@@ -515,6 +579,7 @@ namespace ATV.ProgramDept.DesktopApp
             {
                 dgvSchedule.Rows[currentRowIndex].Selected = true;
             }
+            NotifyOverlapSchedule();
         }
 
         private void dgvSchedule_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -570,6 +635,7 @@ namespace ATV.ProgramDept.DesktopApp
             if (e.ColumnIndex == COL_DURATION) // Duration Columns
             {
                 ScheduleUlities.EstimateStartTime(viewList);
+                ScheduleUlities.CheckOverlapSchedule(viewList);
                 var result = ScheduleUlities.EstimateStartTime(viewList);
                 if (!result)
                 {
@@ -578,6 +644,7 @@ namespace ATV.ProgramDept.DesktopApp
                     ScheduleUlities.EstimateStartTime(viewList);
                 }
                 dgvSchedule.Refresh();
+                NotifyOverlapSchedule();
             }
         }
 
@@ -642,11 +709,14 @@ namespace ATV.ProgramDept.DesktopApp
                 MessageBox.Show("Lịch ngày hiện tại đã đầy, không thể thêm chương trình");
                 ScheduleUlities.EstimateStartTime(viewList);
             }
+            ScheduleUlities.CheckOverlapSchedule(viewList);
             RemoveReadyForInsert();
+
             var bindingList = new BindingList<ScheduleDetailViewModel>(viewList);
             var source = new BindingSource(bindingList, null);
             dgvSchedule.DataSource = source;
             dgvSchedule.Update();
+            NotifyOverlapSchedule();
         }
 
         private void RemoveReadyForInsert()

@@ -36,7 +36,7 @@ namespace ATV.ProgramDept.Service.Implement
                     .Select(x => new ScheduleDetailViewModel
                     {
                         ID = x.ID,
-                        StartTime = new TimeSpan(5, 0, 0), //change StartAt to time in db
+                        StartTime = x.StartTime.HasValue ? x.StartTime.Value :  new TimeSpan(5, 0, 0), //change StartAt to time in db
                         ProgramName = String.IsNullOrEmpty(x.ProgramName) ? x.Program.Name : x.ProgramName,
                         Contents = x.Contents,
                         PerformBy = x.PerformBy,
@@ -46,7 +46,8 @@ namespace ATV.ProgramDept.Service.Implement
                         ProgramID = x.ProgramID,
                         ScheduleID = x.ScheduleID.Value,
                         Position = x.Position, 
-                        IsNoted = x.IsNoted.Value
+                        IsNoted = x.IsNoted.Value,
+                        IsFixed = x.IsFixed.HasValue ? x.IsFixed.Value : false
                     })                    
                     .OrderBy(q => q.Position)
                     .ToList()                   

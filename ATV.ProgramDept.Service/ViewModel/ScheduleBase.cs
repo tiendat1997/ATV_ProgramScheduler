@@ -10,5 +10,8 @@ namespace ATV.ProgramDept.Service.ViewModel
     {
         public TimeSpan StartTime { get; set; }
         public double Duration { get; set; }
+        public bool IsFixed { get; set; }
+        public byte OverlapType { get; set; }
+        public string OverlapMessage { get; set; }
     }
 }
