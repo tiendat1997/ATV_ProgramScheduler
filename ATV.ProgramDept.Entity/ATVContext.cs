@@ -8,7 +8,7 @@ namespace ATV.ProgramDept.Entity
     public partial class ATVContext : BaseDbContext
     {
         public ATVContext()
-            : base("ATVProgrammeContext")
+            : base("ATVContext")
         {
         }
 
