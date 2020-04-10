@@ -895,12 +895,12 @@ namespace ATV.ProgramDept.DesktopApp
             DataGridViewCell cell = dgvSchedule.Rows[e.RowIndex].Cells[e.ColumnIndex];
             dgvSchedule.CurrentCell = cell;
             dgvSchedule.BeginEdit(true);
-            }            
-        }
+            }
 
         private void DgvSchedule_SelectionChanged(object sender, EventArgs e)
         {
             //CurrentlySelectedRow = dgvSchedule.SelectedRows.Count > 0 ? dgvSchedule.SelectedRows[0].Index : -1;
         }
     }
+    
 }
